@@ -1,10 +1,10 @@
 /* Pure game-state transitions for Play mode (no DOM). Works in browsers (window.Cat.game) and node (module.exports).
-   Marks: 0 empty, 1 X, 2 cat.  A cat is judged against the unique solution the moment it is placed:
+   Marks: 0 empty, 1 X, 2 cat. A single tap toggles X, a double tap places a cat. A cat is judged against the unique solution the moment it is placed:
      correct -> locked[i]=1 ("gold": can never change again)
      wrong   -> the cat is removed at once, the cell is left empty with wrong[i]=1 ("red" frame), mistakes+1.
-                The red frame stays as a reminder until the cell is changed again (X, cat, drag).
+                The red frame stays as a reminder until the cell is changed again (tap, cat, drag).
    Every function returns a NEW state; functions that change cells also return `hist`, the changes ({i,from,to}) that
-   belong on the undo stack. Gold placements, red removals and hints are never on it, so Undo cannot touch them.
+   belong on the undo stack. Gold placements and hints are never on it, so Undo cannot touch them.
    sol[r] = column of the cat in row r. */
 (function (root) {
   var D = (typeof module !== 'undefined' && module.exports) ? require('./drag.js') : root.Cat.drag;
@@ -37,17 +37,16 @@
   function frozen(s, i) { return s.done || s.locked[i]; }
   function same(s) { return { s: s, hist: [], changed: false }; }
 
-  // Left click / tap / Enter: empty -> X -> cat (judged at once). Any change clears a red frame.
-  function click(s, sol, i) {
+  // Double tap / Enter: put a cat on cell i (from empty or X) and judge it at once. Clears a red frame.
+  function placeCat(s, sol, i) {
     if (frozen(s, i)) return same(s);
     var t = copy(s), from = s.marks[i];
     t.wrong[i] = 0;
-    if (from === 0) { t.marks[i] = 1; return { s: t, hist: [{ i: i, from: 0, to: 1 }], changed: true }; }
     putCat(t, sol, i);
     return { s: t, hist: entry(t, i, from), changed: true };
   }
 
-  // Right click: toggle X on empty/X (clears a red frame); gold never changes.
+  // Single tap / right click / Space: toggle X on empty/X (clears a red frame); gold never changes.
   function toggleX(s, i) {
     if (frozen(s, i)) return same(s);
     var t = copy(s), from = s.marks[i];
@@ -91,7 +90,7 @@
     return { s: s, i: -1 };
   }
 
-  var api = { create: create, isCorrect: isCorrect, lockedCount: lockedCount, click: click, toggleX: toggleX, dragStep: dragStep, undo: undo, hint: hint };
+  var api = { create: create, isCorrect: isCorrect, lockedCount: lockedCount, placeCat: placeCat, toggleX: toggleX, dragStep: dragStep, undo: undo, hint: hint };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else { root.Cat = root.Cat || {}; root.Cat.game = api; }
 })(typeof window !== 'undefined' ? window : this);

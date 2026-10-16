@@ -1,10 +1,12 @@
-/* Play tab: choose a puzzle, place cats / X marks (each cat is judged at once: gold = correct and locked, red = wrong: the cat vanishes, the empty cell stays red), hint, timer. */
+/* Play tab: choose a puzzle, tap to toggle X, double-tap to place a cat (each cat is judged at once: gold = correct and locked, red = wrong: the cat vanishes, the empty cell stays red), hint, timer. */
 (function () {
   var C = window.Cat, t = C.t;
   var $ = function (id) { return document.getElementById(id); };
   var pool = [], big = [], cur = null, board = null, t0 = 0, timerId = 0, solved = false;
   var G = C.game, st = null, hist = new C.drag.History(), drag = null, hl = -1;
   var LEVELS = ['T3', 'T3b', 'T4', 'T5a', 'T5b'];
+  var DOUBLE_TAP_MS = 350;
+  var lastTap = null;   // { i, t, entry } of the previous single tap (entry = its undo-stack item), for double-tap detection
 
   function levelName(p) { return t('lv' + p.level); }
   function fmtTime(ms) { var s = Math.floor(ms / 1000); return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); }
@@ -35,7 +37,7 @@
   }
 
   function load(p) {
-    cur = p; hist.clear(); drag = null; hl = -1; st = G.create(p.n); solved = false; cur._sol = p.solution || null;
+    cur = p; hist.clear(); drag = null; hl = -1; lastTap = null; st = G.create(p.n); solved = false; cur._sol = p.solution || null;
     board = C.board.create($('playBoard'), p.regions, p.n, { interactive: true });
     $('playTitle').textContent = t('playTitle', { n: p.n, level: levelName(p), id: p.id });
     clearInterval(timerId); t0 = Date.now(); $('playTimer').textContent = '0:00';
@@ -90,6 +92,7 @@
 
   function undo() {
     if (solved || !cur) return;
+    lastTap = null;
     var ch = hist.pop(); if (!ch) return;
     var prev = st; st = G.undo(st, ch); render(prev);
   }
@@ -97,6 +100,7 @@
   function onHint() {
     if (solved || !cur || !cur._sol) return;
     var h = G.hint(st, cur._sol); if (h.i < 0) return;
+    lastTap = null;
     var prev = st; st = h.s; render(prev); finishIfDone();
     if (!solved) say([['msgHint', { r: ((h.i / cur.n) | 0) + 1, c: h.i % cur.n + 1 }]], 'good');
   }
@@ -113,7 +117,7 @@
       hl = i; if (i >= 0) board.cells[i].classList.add('hl');
     }
     // Pointer Events: one code path for mouse, touch and pen. Nothing changes until the pointer leaves the start
-    // cell (drag) or is released on it (click = cycle empty -> X -> cat -> empty).
+    // cell (drag) or is released on it (tap = toggle X; a second tap on the same cell within DOUBLE_TAP_MS = cat).
     el.addEventListener('pointerdown', function (e) {
       if (!cur || solved || e.button !== 0 || !e.isPrimary) return;
       var i = cellFromEvent(e); if (i === null) return;
@@ -140,8 +144,21 @@
       var d = drag; drag = null;
       try { el.releasePointerCapture(e.pointerId); } catch (x) {}
       if (d.moved) {
+        lastTap = null;
         if (d.list.length) { hist.push(d.list); render(st); }
-      } else if (!cancel) apply(G.click(st, cur._sol, d.start));
+      } else if (!cancel) tap(d.start);
+    }
+    // Double tap: take back the first tap's X toggle, then place the cat, so Undo of the cat restores the cell as it was.
+    function tap(i) {
+      var now = Date.now(), lt = lastTap;
+      if (lt && lt.i === i && now - lt.t <= DOUBLE_TAP_MS) {
+        lastTap = null;
+        if (lt.entry && hist.stack[hist.stack.length - 1] === lt.entry) st = G.undo(st, hist.pop());
+        if (!apply(G.placeCat(st, cur._sol, i))) render(st);
+        return;
+      }
+      var r = G.toggleX(st, i);
+      lastTap = { i: i, t: now, entry: apply(r) ? r.hist : null };
     }
     el.addEventListener('pointerup', function (e) { finish(e, false); });
     el.addEventListener('pointercancel', function (e) { finish(e, true); });
@@ -149,12 +166,13 @@
     el.addEventListener('contextmenu', function (e) {
       e.preventDefault();
       var c = e.target.closest('.cell'); if (!c || !cur || e.pointerType === 'touch' || drag) return;
-      apply(G.toggleX(st, +c.dataset.i));
+      lastTap = null; apply(G.toggleX(st, +c.dataset.i));
     });
     el.addEventListener('keydown', function (e) {
-      if (e.key !== 'Enter' && e.key !== ' ') return;
-      var c = e.target.closest('.cell'); if (!c) return;
-      e.preventDefault(); apply(G.click(st, cur._sol, +c.dataset.i));
+      if ((e.key !== 'Enter' && e.key !== ' ') || e.repeat) return;
+      var c = e.target.closest('.cell'); if (!c || !cur || solved) return;
+      e.preventDefault(); lastTap = null;
+      apply(e.key === 'Enter' ? G.placeCat(st, cur._sol, +c.dataset.i) : G.toggleX(st, +c.dataset.i));   // Enter = cat, Space = X
     });
     document.addEventListener('keydown', function (e) {
       if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && (e.key === 'z' || e.key === 'Z') && !$('tab-play').hidden) {
