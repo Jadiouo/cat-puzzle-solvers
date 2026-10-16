@@ -80,11 +80,11 @@ select{background:var(--surface);border:1px solid var(--line);border-radius:10px
 .cell.gold{box-shadow:inset 0 0 0 5px var(--gold),inset 0 0 0 6px rgba(0,0,0,.4),inset 0 0 0 999px color-mix(in srgb,var(--gold) 30%,transparent)}
 .cell.wrong{box-shadow:inset 0 0 0 5px var(--warn),inset 0 0 0 6px rgba(0,0,0,.4),inset 0 0 0 999px color-mix(in srgb,var(--warn) 22%,transparent)}
 .cell.gold.fresh{animation:goldglow .5s ease-out}
-.cell.wrong.shake .ic{animation:shake .2s ease-in-out}
+.cell.wrong.shake{animation:wrongflash .45s ease-out}
 .stats-play{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;justify-content:flex-end}
 .board.won{box-shadow:0 0 0 3px var(--good)}
 @keyframes goldglow{0%{box-shadow:inset 0 0 0 5px var(--gold),inset 0 0 0 6px rgba(0,0,0,.4),inset 0 0 22px 8px var(--gold-glow)}100%{}}
-@keyframes shake{0%,100%{transform:translate(-50%,-50%) scale(1)}25%{transform:translate(calc(-50% - 3px),-50%) scale(1)}75%{transform:translate(calc(-50% + 3px),-50%) scale(1)}}
+@keyframes wrongflash{0%{box-shadow:inset 0 0 0 5px var(--warn),inset 0 0 0 6px rgba(0,0,0,.4),inset 0 0 0 999px color-mix(in srgb,var(--warn) 65%,transparent)}100%{}}
 
 /* race */
 .race-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}

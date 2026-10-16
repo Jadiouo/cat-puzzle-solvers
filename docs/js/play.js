@@ -1,4 +1,4 @@
-/* Play tab: choose a puzzle, place cats / X marks (each cat is judged at once: gold = correct and locked, red = wrong), hint, timer. */
+/* Play tab: choose a puzzle, place cats / X marks (each cat is judged at once: gold = correct and locked, red = wrong: the cat vanishes, the empty cell stays red), hint, timer. */
 (function () {
   var C = window.Cat, t = C.t;
   var $ = function (id) { return document.getElementById(id); };

@@ -1,6 +1,8 @@
 /* Pure game-state transitions for Play mode (no DOM). Works in browsers (window.Cat.game) and node (module.exports).
    Marks: 0 empty, 1 X, 2 cat.  A cat is judged against the unique solution the moment it is placed:
-     correct -> locked[i]=1 ("gold": can never change again)   wrong -> wrong[i]=1 ("red": click removes it, mistakes+1)
+     correct -> locked[i]=1 ("gold": can never change again)
+     wrong   -> the cat is removed at once, the cell is left empty with wrong[i]=1 ("red" frame), mistakes+1.
+                The red frame stays as a reminder until the cell is changed again (X, cat, drag).
    Every function returns a NEW state; functions that change cells also return `hist`, the changes ({i,from,to}) that
    belong on the undo stack. Gold placements, red removals and hints are never on it, so Undo cannot touch them.
    sol[r] = column of the cat in row r. */
@@ -21,39 +23,35 @@
   function finish(s) {
     if (lockedCount(s) !== s.n) return;
     s.done = true;
-    for (var i = 0; i < s.marks.length; i++) if (s.wrong[i]) { s.wrong[i] = 0; s.marks[i] = 0; }
+    for (var i = 0; i < s.marks.length; i++) s.wrong[i] = 0;
   }
 
   // Put a cat on cell i of the (already copied) state s and judge it.
   function putCat(s, sol, i) {
-    s.marks[i] = 2;
-    if (isCorrect(sol, s.n, i)) { s.locked[i] = 1; s.wrong[i] = 0; finish(s); }
-    else { s.wrong[i] = 1; s.mistakes++; }
+    if (isCorrect(sol, s.n, i)) { s.marks[i] = 2; s.locked[i] = 1; s.wrong[i] = 0; finish(s); }
+    else { s.marks[i] = 0; s.wrong[i] = 1; s.mistakes++; }
   }
-  // Undo-stack entry for a cell that went from `from` to a *wrong* cat (gold is never recorded).
+  // Undo-stack entry for a wrong placement (X -> removed cat = empty); gold is never recorded.
   function entry(s, i, from) { return s.locked[i] ? [] : [{ i: i, from: from, to: s.marks[i] }]; }
 
   function frozen(s, i) { return s.done || s.locked[i]; }
   function same(s) { return { s: s, hist: [], changed: false }; }
 
-  // Left click / tap / Enter: empty -> X -> cat (judged at once). A red cat is removed (back to empty).
+  // Left click / tap / Enter: empty -> X -> cat (judged at once). Any change clears a red frame.
   function click(s, sol, i) {
     if (frozen(s, i)) return same(s);
     var t = copy(s), from = s.marks[i];
-    if (from === 2) {                         // red cat (a non-red, non-gold cat cannot exist)
-      t.marks[i] = 0; t.wrong[i] = 0;
-      return { s: t, hist: [], changed: true };
-    }
+    t.wrong[i] = 0;
     if (from === 0) { t.marks[i] = 1; return { s: t, hist: [{ i: i, from: 0, to: 1 }], changed: true }; }
     putCat(t, sol, i);
     return { s: t, hist: entry(t, i, from), changed: true };
   }
 
-  // Right click: toggle X on empty/X; a red cat is removed; gold never changes.
+  // Right click: toggle X on empty/X (clears a red frame); gold never changes.
   function toggleX(s, i) {
     if (frozen(s, i)) return same(s);
     var t = copy(s), from = s.marks[i];
-    if (from === 2) { t.marks[i] = 0; t.wrong[i] = 0; return { s: t, hist: [], changed: true }; }
+    t.wrong[i] = 0;
     t.marks[i] = from === 1 ? 0 : 1;
     return { s: t, hist: [{ i: i, from: from, to: t.marks[i] }], changed: true };
   }
@@ -64,7 +62,7 @@
     var to = D.applyMode(mode, s.marks[i]);
     if (to < 0) return same(s);
     var t = copy(s), from = s.marks[i];
-    t.marks[i] = to;
+    t.marks[i] = to; t.wrong[i] = 0;
     return { s: t, hist: [{ i: i, from: from, to: to }], changed: true };
   }
 
