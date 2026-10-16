@@ -1,0 +1,60 @@
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+[50/135] 3s
+[100/135] 6s
+
+wrote bench/results/extra_match_S6.csv / .json  (wall 9.3s)
+
+suite solver     mode       N    #  median_s    max_s timeout error MISMATCH stuck noref
+S6    native_matchclassify  10   15    0.0001   0.0006       0     0        0     0     0
+S6    native_matchclassify  12   15    0.0001   0.0004       0     0        0     0     0
+S6    native_matchclassify  14   15    0.0005   0.0055       0     0        0     0     0
+S6    native_matchcount     10   15    0.0001   0.0006       0     0        0     0     0
+S6    native_matchcount     12   15    0.0001   0.0005       0     0        0     0     0
+S6    native_matchcount     14   15    0.0005   0.0056       0     0        0     0     0
+S6    native_match_rrclassify  10   15    0.0002   0.0046       0     0        0     0     0
+S6    native_match_rrclassify  12   15    0.0003   0.0038       0     0        0     0     0
+S6    native_match_rrclassify  14   15    0.0049   0.0977       0     0        0     0     0

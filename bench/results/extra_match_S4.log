@@ -1,0 +1,53 @@
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+[50/90] 144s
+
+wrote bench/results/extra_match_S4.csv / .json  (wall 276.2s)
+
+suite solver     mode       N    #  median_s    max_s timeout error MISMATCH stuck noref
+S4    native_matchclassify  10    5    0.0000   0.0000       0     0        0     0     0
+S4    native_matchclassify  12    5    0.0000   0.0000       0     0        0     0     0
+S4    native_matchclassify  14    5    0.0001   0.0001       0     0        0     0     0
+S4    native_matchclassify  16    5    0.0001   0.0001       0     0        0     0     0
+S4    native_matchclassify  18    5    0.0001   0.0003       0     0        0     0     0
+S4    native_matchclassify  20    5    0.0001   0.0001       0     0        0     0     0
+S4    native_matchcount     10    5    0.0036   0.0053       0     0        0     0     0
+S4    native_matchcount     12    5    0.1066   0.1605       0     0        0     0     0
+S4    native_matchcount     14    5    8.2187   9.4402       0     0        0     0     0
+S4    native_matchcount     16    5         -        -       5     0        0     0     0
+S4    native_matchcount     18    5         -        -       5     0        0     0     0
+S4    native_matchcount     20    5         -        -       5     0        0     0     0
+S4    native_match_rrclassify  10    5    0.0000   0.0000       0     0        0     0     0
+S4    native_match_rrclassify  12    5    0.0000   0.0000       0     0        0     0     0
+S4    native_match_rrclassify  14    5    0.0001   0.0001       0     0        0     0     0
+S4    native_match_rrclassify  16    5    0.0001   0.0001       0     0        0     0     0
+S4    native_match_rrclassify  18    5    0.0001   0.0001       0     0        0     0     0
+S4    native_match_rrclassify  20    5    0.0001   0.0001       0     0        0     0     0

@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3ed">
+  <title>貓咪找家 — 可玩介面原型</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: ui-rounded, "Arial Rounded MT Bold", "Noto Sans TC", system-ui, sans-serif;
+      --ink: #202638;
+      --muted: #687084;
+      --paper: #f5f3ed;
+      --line: #e1dfd7;
+      --accent: #d85244;
+      --accent-dark: #a9342a;
+      --card: #fff;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: var(--paper); color: var(--ink); }
+    button, select { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, select:focus-visible { outline: 3px solid #236e9b; outline-offset: 2px; }
+    .shell { min-height: 100vh; padding: 26px 24px 96px; }
+    .app { max-width: 1120px; margin: 0 auto; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 18px; margin-bottom: 18px; }
+    .eyebrow { color: var(--muted); font-size: 11px; font-weight: 850; letter-spacing: .14em; }
+    h1 { margin: 5px 0 2px; font-size: clamp(25px, 4vw, 36px); letter-spacing: -.04em; }
+    .subtitle { margin: 0; color: var(--muted); font-size: 13px; }
+    .level-chip { flex: 0 0 auto; padding: 10px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); text-align: right; font-size: 12px; font-weight: 800; }
+    .level-chip strong { color: var(--accent); font-size: 17px; }
+    .meta-line { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; color: var(--muted); font-size: 11px; }
+    .meta-line b { color: var(--ink); }
+    .game-grid { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 18px; align-items: start; }
+    .board-card, .panel { min-width: 0; border: 1px solid var(--line); border-radius: 18px; background: var(--card); box-shadow: 0 8px 26px #2426380a; }
+    .board-card { padding: 18px; }
+    .board-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 0 0 12px; }
+    .board-heading h2 { margin: 0; font-size: 15px; }
+    .board-heading span { color: var(--muted); font-size: 10px; text-align: right; }
+    .board-wrap { width: min(100%, 610px); margin: 0 auto; }
+    .board { display: grid; gap: 0; aspect-ratio: 1; overflow: hidden; padding: 3px; border: 1px solid #101729; border-radius: 12px; background: #101729; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+    .cell { position: relative; display: grid; place-items: center; min-width: 0; min-height: 0; padding: 0; overflow: hidden; border-style: solid; border-radius: 0; background-color: var(--region-color, #ddd); background-image: var(--region-pattern, none); color: #172033; font-size: clamp(15px, 4.5vw, 34px); line-height: 1; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+    .cell:hover { z-index: 1; filter: brightness(1.04); }
+    .cell.cat { background-image: linear-gradient(#fff3, #fff3) !important; }
+    .cat-symbol { filter: drop-shadow(0 1px 2px #fff); }
+    .cell.cross-mark { z-index: 1; background: #b42332 !important; color: #fff; font-size: clamp(20px, 5vw, 38px); font-weight: 1000; text-shadow: 0 2px 2px #52101a; }
+    .cell.cross-mark .mark-symbol { transform: scale(1.2); }
+    .cell.fixed-clue { cursor: not-allowed; background: repeating-linear-gradient(135deg, #d8dee8 0 6px, #c7d0de 6px 9px) !important; color: #26364e; font-size: clamp(17px, 4vw, 30px); }
+    .clue-tag { position: absolute; top: 2px; right: 3px; padding: 1px 3px; border: 1px solid #51637c; border-radius: 3px; background: #fff; color: #26364e; font-size: clamp(6px, 1vw, 8px); font-weight: 900; line-height: 1.2; }
+    .cell.conflict { box-shadow: inset 0 0 0 3px #ffc400, inset 0 0 0 5px #202638; }
+    .cell.hint-flash { animation: hint .65s ease-in-out 2; }
+    @keyframes hint { 50% { box-shadow: inset 0 0 0 5px #f7bc35, 0 0 0 3px #cf7c12; } }
+    .board-footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 11px; color: var(--muted); font-size: 10px; line-height: 1.4; }
+    .side { display: grid; gap: 11px; }
+    .panel { padding: 15px; }
+    .panel h3 { margin: 0 0 10px; font-size: 13px; }
+    .rule-list { display: grid; gap: 7px; margin: 0; padding: 0; list-style: none; color: #50596d; font-size: 11px; }
+    .rule-list li { display: flex; gap: 8px; align-items: baseline; }
+    .rule-list b { width: 18px; color: var(--accent); font-size: 10px; }
+    .tools { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .btn { min-height: 40px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 11px; background: #fff; color: var(--ink); font-size: 12px; font-weight: 850; }
+    .btn:hover:not(:disabled) { border-color: #b7bac5; background: #faf9f6; }
+    .btn.selected { border-color: #26364e; box-shadow: inset 0 0 0 1px #26364e; background: #eef1f5; }
+    .btn.primary { border-color: var(--accent); background: var(--accent); color: #fff; }
+    .btn.primary:hover:not(:disabled) { border-color: var(--accent-dark); background: var(--accent-dark); }
+    .btn:disabled { cursor: not-allowed; opacity: .48; }
+    .button-stack { display: grid; gap: 7px; margin-top: 9px; }
+    .feedback { min-height: 38px; margin: 10px 0 0; padding: 9px 10px; border-radius: 9px; background: #f3f4f6; color: #50596d; font-size: 11px; line-height: 1.45; }
+    .feedback.good { background: #e6f3eb; color: #23664d; }
+    .feedback.warn { background: #fff0e7; color: #8e3b2f; }
+    .progress-track { height: 6px; margin: 9px 0 5px; overflow: hidden; border-radius: 99px; background: #e9e8e2; }
+    .progress-track i { display: block; height: 100%; border-radius: inherit; background: var(--accent); }
+    .progress-copy { display: flex; justify-content: space-between; color: var(--muted); font-size: 10px; }
+    .select-row { display: flex; gap: 8px; align-items: center; }
+    .select-row label { flex: 1; color: var(--muted); font-size: 10px; font-weight: 800; }
+    select { display: block; width: 100%; margin-top: 4px; padding: 8px 7px; border: 1px solid var(--line); border-radius: 9px; background: #fff; color: var(--ink); font-size: 11px; }
+    .note { margin: 9px 0 0; color: var(--muted); font-size: 10px; line-height: 1.45; }
+    .variant-bar { position: fixed; z-index: 10; left: 50%; bottom: 14px; display: flex; align-items: center; gap: 9px; padding: 7px 10px; border: 1px solid #ffffff35; border-radius: 999px; background: #232638; color: white; box-shadow: 0 8px 24px #13152255; transform: translateX(-50%); }
+    .variant-bar button { width: 30px; height: 30px; border: 0; border-radius: 50%; background: #ffffff1b; color: #fff; font-size: 18px; }
+    .variant-bar button:hover { background: #ffffff38; }
+    .variant-label { min-width: 104px; text-align: center; font-size: 10px; font-weight: 850; }
+
+    body[data-variant="starlight"] { background: #171a25; color: #f5f4f0; --paper: #171a25; --ink: #f5f4f0; --muted: #acb0bd; --line: #ffffff20; --card: #222633; --accent: #f0b858; --accent-dark: #c68b35; }
+    body[data-variant="starlight"] .panel, body[data-variant="starlight"] .board-card { box-shadow: 0 14px 38px #0003; }
+    body[data-variant="starlight"] .rule-list { color: #d3d5de; }
+    body[data-variant="starlight"] .btn, body[data-variant="starlight"] select { border-color: #ffffff24; background: #2d3241; color: #fff; }
+    body[data-variant="starlight"] .btn.selected { background: #42495a; }
+    body[data-variant="starlight"] .btn.primary { border-color: var(--accent); background: var(--accent); color: #29261e; }
+    body[data-variant="starlight"] .feedback { background: #303544; color: #e2e3e8; }
+    body[data-variant="starlight"] .feedback.good { background: #214334; color: #c8f0d9; }
+    body[data-variant="starlight"] .feedback.warn { background: #512f2b; color: #ffd6c5; }
+    body[data-variant="starlight"] .progress-track { background: #3c4050; }
+    body[data-variant="starlight"] .level-chip { background: #2d3241; }
+    body[data-variant="starlight"] .level-chip strong { color: var(--accent); }
+
+    body[data-variant="fieldnotes"] { background: #ece7dc; --paper: #ece7dc; --accent: #257765; --accent-dark: #1a5a4c; }
+    body[data-variant="fieldnotes"] .topbar { align-items: flex-start; padding: 14px 16px; border: 1px solid #ddd6c9; border-radius: 14px; background: #fffdf8; }
+    body[data-variant="fieldnotes"] .game-grid { grid-template-columns: 265px minmax(0, 1fr); }
+    body[data-variant="fieldnotes"] .side { grid-column: 1; grid-row: 1; }
+    body[data-variant="fieldnotes"] .board-area { grid-column: 2; grid-row: 1; }
+    body[data-variant="fieldnotes"] .board-card { border-radius: 8px; box-shadow: 0 5px 20px #4b402311; }
+    body[data-variant="fieldnotes"] .panel { border-radius: 8px; box-shadow: none; }
+    body[data-variant="fieldnotes"] .board { border-radius: 6px; }
+
+    body[data-variant="trail"] { background: #f2eee8; --paper: #f2eee8; --accent: #64509a; --accent-dark: #493979; }
+    body[data-variant="trail"] .topbar { padding: 12px 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); }
+    body[data-variant="trail"] .game-grid { grid-template-columns: minmax(0, 1.12fr) minmax(290px, .88fr); }
+    body[data-variant="trail"] .side { grid-template-columns: 1fr 1fr; align-items: start; }
+    body[data-variant="trail"] .rules-panel, body[data-variant="trail"] .progress-panel { grid-column: 1 / -1; }
+    body[data-variant="trail"] .board-card { padding: 14px; }
+    body[data-variant="trail"] .panel { padding: 13px; }
+    body[data-variant="trail"] .board { border-radius: 16px; }
+
+    @media (max-width: 760px) {
+      .shell { padding: 17px 13px 86px; }
+      .game-grid, body[data-variant="fieldnotes"] .game-grid, body[data-variant="trail"] .game-grid { grid-template-columns: minmax(0, 1fr); }
+      body[data-variant="fieldnotes"] .side, body[data-variant="fieldnotes"] .board-area { grid-column: auto; grid-row: auto; }
+      body[data-variant="fieldnotes"] .board-area { grid-row: 1; }
+      body[data-variant="fieldnotes"] .side { grid-row: 2; }
+      body[data-variant="trail"] .side { grid-template-columns: 1fr 1fr; }
+      .board-card { padding: 12px; }
+      .topbar { align-items: flex-start; }
+    }
+    @media (max-width: 460px) {
+      .topbar { gap: 8px; }
+      .level-chip { padding: 8px; font-size: 10px; }
+      .level-chip strong { font-size: 15px; }
+      .meta-line { align-items: flex-start; font-size: 10px; }
+      .board-heading { align-items: flex-start; }
+      .board-heading span { max-width: 48%; }
+      .board-footer { font-size: 9px; }
+      body[data-variant="trail"] .side { grid-template-columns: 1fr; }
+      body[data-variant="trail"] .rules-panel, body[data-variant="trail"] .progress-panel { grid-column: auto; }
+      .variant-label { min-width: 90px; }
+    }
+  </style>
+</head>
+<body data-variant="starlight">
+  <div class="shell"><main id="app" class="app" aria-live="polite"></main></div>
+  <nav class="variant-bar" aria-label="原型版面切換">
+    <button id="variant-prev" aria-label="上一種版面">‹</button>
+    <span id="variant-label" class="variant-label"></span>
+    <button id="variant-next" aria-label="下一種版面">›</button>
+  </nav>
+  <script type="application/json" id="campaign-data">{"schema_version":"1.0","campaign_id":"connected-cats-100","generated_with_seed":20261012,"unique_puzzles":100,"difficulty_method":"按 solver_score 遞增取樣；score = complete_solver_nodes × 10 + 2*board_size - blocked_cell_count + mean_branching；每個 region 恰有 N 格且四方向連通","levels":[{"size":5,"seed":20761106,"regions":[["R01","R01","R00","R00","R02"],["R01","R01","R00","R02","R02"],["R01","R03","R00","R04","R02"],["R03","R03","R00","R04","R02"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[0,0],[0,1],[1,4],[0,3],[0,4]],"fixed_cats":[],"solution":[2,0,4,1,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":7},"solver_profile":{"nodes":7,"decision_points":5,"mean_branching":1.2},"solver_score":76.2,"puzzle_fingerprint":"abd685cccc51436752567507a94d893ca90d9baee04a46d7fbc26a5c32232b97","level":1,"difficulty":"easy"},{"size":5,"seed":20761154,"regions":[["R02","R00","R00","R00","R00"],["R02","R02","R00","R01","R01"],["R04","R02","R02","R01","R01"],["R04","R04","R03","R03","R01"],["R04","R04","R03","R03","R03"]],"blocked_cells":[[0,0],[0,1],[1,0],[0,3],[0,4]],"fixed_cats":[],"solution":[2,4,1,3,0],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":7},"solver_profile":{"nodes":7,"decision_points":5,"mean_branching":1.2},"solver_score":76.2,"puzzle_fingerprint":"e8a65522b5dcbe754c25b4f6b9dc64de96032c296370812c5c0d5c941bfb464b","level":2,"difficulty":"easy"},{"size":5,"seed":20761239,"regions":[["R02","R00","R00","R00","R01"],["R02","R00","R00","R01","R01"],["R02","R02","R02","R03","R01"],["R04","R04","R03","R03","R01"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,0],[0,1],[1,0],[2,1],[0,4]],"fixed_cats":[],"solution":[2,4,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":7},"solver_profile":{"nodes":7,"decision_points":5,"mean_branching":1.2},"solver_score":76.2,"puzzle_fingerprint":"4e701b8bed7451125205519a9c3cbb1768a1b5a90b52e84ad9a03e0535b9457d","level":3,"difficulty":"easy"},{"size":5,"seed":20761326,"regions":[["R02","R02","R00","R00","R01"],["R02","R00","R00","R01","R01"],["R02","R02","R00","R01","R01"],["R04","R04","R03","R03","R03"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,0],[0,1],[1,0],[2,1],[0,4]],"fixed_cats":[],"solution":[2,4,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":7},"solver_profile":{"nodes":7,"decision_points":5,"mean_branching":1.2},"solver_score":76.2,"puzzle_fingerprint":"35246e67cc7f1af03e7b17d65d99facec17e9171af799b9a9d5b382522dfb5b5","level":4,"difficulty":"easy"},{"size":5,"seed":20761206,"regions":[["R00","R00","R00","R01","R01"],["R00","R02","R02","R01","R01"],["R00","R02","R02","R02","R01"],["R03","R03","R03","R04","R04"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[0,0],[0,2],[0,3],[0,4]],"fixed_cats":[],"solution":[1,4,2,0,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":7},"solver_profile":{"nodes":7,"decision_points":5,"mean_branching":1.2},"solver_score":77.2,"puzzle_fingerprint":"e71eab7def0d6d43bfbf4dafe691cdedacc394716d2c30cda249e7b5ca73afbc","level":5,"difficulty":"easy"},{"size":5,"seed":20761041,"regions":[["R02","R00","R00","R01","R01"],["R02","R00","R00","R01","R01"],["R02","R02","R00","R03","R01"],["R02","R04","R04","R03","R03"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,0],[0,1],[1,0],[2,1],[0,4]],"fixed_cats":[],"solution":[2,4,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":8},"solver_profile":{"nodes":8,"decision_points":6,"mean_branching":1.167},"solver_score":86.167,"puzzle_fingerprint":"e3edd9a069a986608917bb7ddccbadcb093ddb68eeb5dd1a61fc7067a287d8d2","level":6,"difficulty":"easy"},{"size":5,"seed":20761302,"regions":[["R00","R00","R00","R01","R01"],["R02","R02","R00","R01","R01"],["R02","R02","R00","R03","R01"],["R02","R04","R04","R03","R03"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,0],[0,1],[1,0],[2,1],[0,4]],"fixed_cats":[],"solution":[2,4,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":8},"solver_profile":{"nodes":8,"decision_points":6,"mean_branching":1.167},"solver_score":86.167,"puzzle_fingerprint":"54a053694249ddcc0344325807a64c75609eadee44216ac8beb3464bb8f86b09","level":7,"difficulty":"easy"},{"size":5,"seed":20761030,"regions":[["R00","R00","R01","R01","R01"],["R00","R00","R01","R01","R02"],["R00","R03","R04","R02","R02"],["R03","R03","R04","R02","R02"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[1,3],[0,2],[0,3],[0,4]],"fixed_cats":[],"solution":[0,2,4,1,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":8},"solver_profile":{"nodes":8,"decision_points":5,"mean_branching":1.4},"solver_score":87.4,"puzzle_fingerprint":"d7febecce10772a58d25ef54c3a6d3bb5358f672cb2464eecd9d234258a7ac5b","level":8,"difficulty":"easy"},{"size":5,"seed":20761274,"regions":[["R00","R00","R00","R01","R01"],["R00","R00","R01","R01","R03"],["R02","R02","R01","R03","R03"],["R02","R02","R04","R03","R03"],["R02","R04","R04","R04","R04"]],"blocked_cells":[[0,0],[1,4],[0,3],[0,4]],"fixed_cats":[],"solution":[1,3,0,4,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":8},"solver_profile":{"nodes":8,"decision_points":5,"mean_branching":1.4},"solver_score":87.4,"puzzle_fingerprint":"ce5a428629e78b412a3ed361098d8ba62c164335ce74184ecbee0e216302b15f","level":9,"difficulty":"easy"},{"size":5,"seed":20761073,"regions":[["R02","R00","R00","R00","R00"],["R02","R02","R00","R01","R01"],["R02","R02","R01","R01","R01"],["R04","R04","R03","R03","R03"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,0],[0,1],[1,0],[2,1],[0,3]],"fixed_cats":[],"solution":[2,4,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":9},"solver_profile":{"nodes":9,"decision_points":7,"mean_branching":1.143},"solver_score":96.143,"puzzle_fingerprint":"da6b0a40c5be1646fa68db1c7c930c7397909de9d8e380d18460728b18629ec9","level":10,"difficulty":"easy"},{"size":5,"seed":20761254,"regions":[["R00","R00","R00","R00","R01"],["R02","R00","R01","R01","R01"],["R02","R02","R01","R03","R03"],["R02","R02","R04","R03","R03"],["R04","R04","R04","R04","R03"]],"blocked_cells":[[0,0],[3,2],[0,2],[0,3],[0,4]],"fixed_cats":[],"solution":[1,3,0,4,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":9},"solver_profile":{"nodes":9,"decision_points":7,"mean_branching":1.143},"solver_score":96.143,"puzzle_fingerprint":"e9ed8106864a4ad4b8be8cee82611050fb2cc8281c36abeef9187ac6972ea67c","level":11,"difficulty":"easy"},{"size":5,"seed":20761021,"regions":[["R00","R00","R00","R01","R01"],["R00","R00","R02","R01","R01"],["R03","R02","R02","R02","R01"],["R03","R03","R02","R04","R04"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[0,0],[1,3],[0,2],[0,3],[0,4]],"fixed_cats":[],"solution":[1,4,2,0,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":9},"solver_profile":{"nodes":9,"decision_points":6,"mean_branching":1.333},"solver_score":96.333,"puzzle_fingerprint":"9703d995f05fe556e1ba5f4aebce4a4f13a9067cf788fbe101e8dd898e768171","level":12,"difficulty":"easy"},{"size":5,"seed":20761037,"regions":[["R01","R00","R00","R00","R00"],["R01","R01","R02","R00","R03"],["R01","R02","R02","R02","R03"],["R01","R04","R02","R03","R03"],["R04","R04","R04","R04","R03"]],"blocked_cells":[[0,0],[0,1],[0,2],[1,1],[0,4]],"fixed_cats":[],"solution":[3,0,2,4,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":9},"solver_profile":{"nodes":9,"decision_points":6,"mean_branching":1.333},"solver_score":96.333,"puzzle_fingerprint":"349da435d94c2fcb7c05082d950d292a8b26b2d8ea0228fb161b47f7b5ddeb9b","level":13,"difficulty":"easy"},{"size":5,"seed":20761066,"regions":[["R00","R00","R00","R00","R01"],["R02","R02","R00","R01","R01"],["R02","R02","R02","R01","R01"],["R04","R04","R03","R03","R03"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,0],[0,1],[1,0],[2,0],[0,3]],"fixed_cats":[],"solution":[2,4,1,3,0],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":9},"solver_profile":{"nodes":9,"decision_points":6,"mean_branching":1.333},"solver_score":96.333,"puzzle_fingerprint":"d686c86a269a628a6dc3eeb5e7ccb666f6c24bfa19bf4912e843f314a7d2e23d","level":14,"difficulty":"easy"},{"size":5,"seed":20761180,"regions":[["R01","R01","R00","R00","R00"],["R01","R01","R02","R00","R00"],["R01","R02","R02","R02","R02"],["R04","R04","R03","R03","R03"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,0],[0,1],[0,2],[1,1],[0,4]],"fixed_cats":[],"solution":[3,0,2,4,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":9},"solver_profile":{"nodes":9,"decision_points":6,"mean_branching":1.333},"solver_score":96.333,"puzzle_fingerprint":"db10e6a61c28dad22e08fc7d0e03a4199ff643098a43bb8ec8db084960f4c18e","level":15,"difficulty":"easy"},{"size":5,"seed":20761231,"regions":[["R02","R00","R00","R00","R01"],["R02","R02","R00","R01","R01"],["R02","R02","R00","R03","R01"],["R04","R04","R04","R03","R01"],["R04","R04","R03","R03","R03"]],"blocked_cells":[[0,0],[0,1],[1,0],[2,0],[0,3]],"fixed_cats":[],"solution":[2,4,1,3,0],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":9},"solver_profile":{"nodes":9,"decision_points":6,"mean_branching":1.333},"solver_score":96.333,"puzzle_fingerprint":"28bf47fac312a5728aa4a4676ce98b9da3d3494b8cac156846816fbd3aeb195c","level":16,"difficulty":"easy"},{"size":5,"seed":20761318,"regions":[["R01","R01","R00","R00","R00"],["R01","R01","R00","R00","R02"],["R03","R01","R02","R02","R02"],["R03","R03","R04","R02","R04"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[0,0],[0,2],[1,0],[3,2],[0,4]],"fixed_cats":[],"solution":[3,1,4,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":9},"solver_profile":{"nodes":9,"decision_points":6,"mean_branching":1.333},"solver_score":96.333,"puzzle_fingerprint":"18f6ce1b5f251e7f038289befa98baa3faae34c6e93033745ba44f3c766f038a","level":17,"difficulty":"easy"},{"size":4,"seed":20661326,"regions":[["R01","R00","R00","R00"],["R01","R00","R02","R02"],["R01","R01","R02","R02"],["R03","R03","R03","R03"]],"blocked_cells":[[0,1]],"fixed_cats":[],"solution":[2,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":9},"solver_profile":{"nodes":9,"decision_points":6,"mean_branching":1.333},"solver_score":98.333,"puzzle_fingerprint":"89a01453863503f82d9127f352b94f142904517d79c72d5cafad50b22a3d9f73","level":18,"difficulty":"easy"},{"size":5,"seed":20761054,"regions":[["R01","R00","R00","R00","R00"],["R01","R01","R00","R02","R02"],["R01","R03","R02","R02","R02"],["R01","R03","R03","R04","R04"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[0,0],[0,1],[2,3],[1,4],[0,3]],"fixed_cats":[],"solution":[2,0,4,1,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":10},"solver_profile":{"nodes":10,"decision_points":7,"mean_branching":1.286},"solver_score":106.286,"puzzle_fingerprint":"4950b035105f19f337edc0d647588468b0a86fa09a7d2b18ad7292d2456741dc","level":19,"difficulty":"easy"},{"size":5,"seed":20761080,"regions":[["R01","R01","R00","R00","R00"],["R01","R01","R01","R00","R00"],["R03","R03","R02","R02","R02"],["R03","R03","R04","R02","R02"],["R03","R04","R04","R04","R04"]],"blocked_cells":[[0,0],[0,1],[0,2],[0,3],[1,2]],"fixed_cats":[],"solution":[4,1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":10},"solver_profile":{"nodes":10,"decision_points":7,"mean_branching":1.286},"solver_score":106.286,"puzzle_fingerprint":"7d7a3640e115c398ee191f21bc5832f3694c54e667276027fef66c4b874fe119","level":20,"difficulty":"easy"},{"size":5,"seed":20761122,"regions":[["R00","R00","R00","R01","R01"],["R02","R00","R01","R01","R01"],["R02","R00","R04","R03","R03"],["R02","R02","R04","R03","R03"],["R02","R04","R04","R04","R03"]],"blocked_cells":[[0,0],[3,2],[0,2],[0,3],[0,4]],"fixed_cats":[],"solution":[1,3,0,4,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":10},"solver_profile":{"nodes":10,"decision_points":7,"mean_branching":1.286},"solver_score":106.286,"puzzle_fingerprint":"dfa398344829195f2ece8e2b95eaf57c720055f5c4ef5c711a8c6a6f5d406be8","level":21,"difficulty":"easy"},{"size":5,"seed":20761161,"regions":[["R01","R00","R00","R00","R00"],["R01","R01","R00","R02","R02"],["R01","R01","R02","R02","R02"],["R03","R03","R03","R04","R04"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[0,0],[0,1],[2,3],[1,4],[0,3]],"fixed_cats":[],"solution":[2,0,4,1,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":10},"solver_profile":{"nodes":10,"decision_points":7,"mean_branching":1.286},"solver_score":106.286,"puzzle_fingerprint":"fe9b6c5c3a8198529f4ecf1b601ff5a865790be0e3a74b797f9ef351f4cfb097","level":22,"difficulty":"easy"},{"size":5,"seed":20761232,"regions":[["R00","R00","R01","R01","R01"],["R00","R00","R00","R01","R01"],["R02","R02","R03","R04","R04"],["R02","R02","R03","R03","R04"],["R02","R03","R03","R04","R04"]],"blocked_cells":[[0,0],[3,4],[1,4],[0,3],[0,4]],"fixed_cats":[],"solution":[1,3,0,2,4],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":10},"solver_profile":{"nodes":10,"decision_points":7,"mean_branching":1.286},"solver_score":106.286,"puzzle_fingerprint":"d3442e0097313d5608837eadb2a6513389c8d84b2d06a6c2a02bab22f73ba40c","level":23,"difficulty":"easy"},{"size":5,"seed":20761025,"regions":[["R01","R01","R00","R00","R00"],["R01","R01","R00","R02","R00"],["R03","R01","R02","R02","R02"],["R03","R03","R04","R02","R04"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[0,0],[0,1],[0,2],[0,3]],"fixed_cats":[],"solution":[4,1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":10},"solver_profile":{"nodes":10,"decision_points":7,"mean_branching":1.286},"solver_score":107.286,"puzzle_fingerprint":"010e3ca0c99346fc334bb5398807a1fdc8662d3561641fc6426d0bd1e38cf0c1","level":24,"difficulty":"easy"},{"size":5,"seed":20761060,"regions":[["R01","R01","R00","R00","R00"],["R01","R01","R00","R02","R00"],["R01","R03","R02","R02","R02"],["R03","R03","R04","R04","R02"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[0,0],[0,1],[2,3],[0,3]],"fixed_cats":[],"solution":[2,0,4,1,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":10},"solver_profile":{"nodes":10,"decision_points":7,"mean_branching":1.286},"solver_score":107.286,"puzzle_fingerprint":"c9ff7f3ab28a1fe9dea5384eea58de9b8e556d8e4d23bc530392a6fab244158d","level":25,"difficulty":"easy"},{"size":5,"seed":20761198,"regions":[["R01","R00","R00","R00","R00"],["R01","R01","R01","R00","R02"],["R01","R03","R02","R02","R02"],["R03","R03","R02","R04","R04"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[2,4],[1,4],[0,3],[0,4]],"fixed_cats":[],"solution":[2,0,3,1,4],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":10},"solver_profile":{"nodes":10,"decision_points":7,"mean_branching":1.286},"solver_score":107.286,"puzzle_fingerprint":"0052bf5d7dc1e164e722c7dc4d4211cd7ccb422d1f9e25fdc99695b73cfd6a6e","level":26,"difficulty":"easy"},{"size":5,"seed":20761210,"regions":[["R00","R00","R00","R00","R01"],["R02","R02","R00","R01","R01"],["R02","R02","R03","R03","R01"],["R02","R04","R04","R03","R01"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,1],[1,0],[2,1],[0,4]],"fixed_cats":[],"solution":[2,4,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":10},"solver_profile":{"nodes":10,"decision_points":7,"mean_branching":1.286},"solver_score":107.286,"puzzle_fingerprint":"d6cb028435a43e9c8ea479d4b134e6a906d211851c32d725f16bd8d60e862b7c","level":27,"difficulty":"easy"},{"size":5,"seed":20761132,"regions":[["R02","R02","R00","R00","R00"],["R02","R01","R01","R01","R00"],["R02","R02","R01","R01","R00"],["R04","R04","R03","R03","R03"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,0],[0,1],[0,2],[0,3]],"fixed_cats":[],"solution":[4,2,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":10},"solver_profile":{"nodes":10,"decision_points":6,"mean_branching":1.5},"solver_score":107.5,"puzzle_fingerprint":"dcb5e515e25b80cc333ae14b28d153e0f52c3de4d97f8a43105cb296701e48cd","level":28,"difficulty":"easy"},{"size":5,"seed":20761146,"regions":[["R00","R00","R00","R01","R01"],["R00","R00","R01","R01","R02"],["R03","R03","R01","R02","R02"],["R03","R03","R04","R02","R02"],["R03","R04","R04","R04","R04"]],"blocked_cells":[[1,3],[0,3],[0,1],[0,4]],"fixed_cats":[],"solution":[0,2,4,1,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":10},"solver_profile":{"nodes":10,"decision_points":6,"mean_branching":1.5},"solver_score":107.5,"puzzle_fingerprint":"29143aacdeb19949b7794ca9dad8a1d2e18552a4c42135999ef38527488494e1","level":29,"difficulty":"easy"},{"size":5,"seed":20761183,"regions":[["R02","R00","R00","R00","R01"],["R02","R02","R00","R00","R01"],["R04","R02","R02","R03","R01"],["R04","R04","R03","R03","R01"],["R04","R04","R03","R03","R01"]],"blocked_cells":[[0,0],[0,1],[1,0],[0,3]],"fixed_cats":[],"solution":[2,4,1,3,0],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":10},"solver_profile":{"nodes":10,"decision_points":6,"mean_branching":1.5},"solver_score":107.5,"puzzle_fingerprint":"a64778dd68f314695c410a4bb2f4fd9e21fe24bb72fa599b7f0268ee96b67d89","level":30,"difficulty":"easy"},{"size":5,"seed":20761220,"regions":[["R00","R00","R00","R01","R01"],["R00","R02","R00","R01","R01"],["R02","R02","R03","R03","R01"],["R02","R04","R04","R03","R03"],["R02","R04","R04","R04","R03"]],"blocked_cells":[[0,0],[0,1],[0,4]],"fixed_cats":[],"solution":[2,4,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":10},"solver_profile":{"nodes":10,"decision_points":6,"mean_branching":1.5},"solver_score":108.5,"puzzle_fingerprint":"ebee6a95e0804ea9c4ffba1d150d441767afa2668761b8ea4ba89c3984c98bff","level":31,"difficulty":"easy"},{"size":5,"seed":20761306,"regions":[["R01","R01","R01","R00","R00"],["R03","R01","R00","R00","R00"],["R03","R01","R02","R02","R02"],["R03","R03","R04","R04","R02"],["R03","R04","R04","R04","R02"]],"blocked_cells":[[0,0],[0,1],[0,3]],"fixed_cats":[],"solution":[4,1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":10},"solver_profile":{"nodes":10,"decision_points":6,"mean_branching":1.5},"solver_score":108.5,"puzzle_fingerprint":"8bc1805f3a09ef2f4a1ab9af52516bac32409efd4be07ce92ec9d90cb6774ed2","level":32,"difficulty":"easy"},{"size":5,"seed":20761019,"regions":[["R00","R00","R00","R01","R01"],["R00","R00","R02","R02","R01"],["R03","R02","R02","R02","R01"],["R03","R03","R03","R04","R01"],["R03","R04","R04","R04","R04"]],"blocked_cells":[[0,0],[1,3],[0,2],[0,4]],"fixed_cats":[],"solution":[1,4,2,0,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":11},"solver_profile":{"nodes":11,"decision_points":7,"mean_branching":1.429},"solver_score":117.429,"puzzle_fingerprint":"780ea8184c837ada466d8f0dd61cded85818de38ea81799628434d77846382c1","level":33,"difficulty":"easy"},{"size":5,"seed":20761221,"regions":[["R02","R00","R00","R01","R01"],["R02","R00","R00","R00","R01"],["R02","R02","R02","R01","R01"],["R04","R04","R03","R03","R03"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,0],[0,1],[1,0],[2,0]],"fixed_cats":[],"solution":[2,4,1,3,0],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":11},"solver_profile":{"nodes":11,"decision_points":7,"mean_branching":1.429},"solver_score":117.429,"puzzle_fingerprint":"a6234b938afde6caeadb32db2e15eab6e1d380f9aed1397538df9aa495c1abd0","level":34,"difficulty":"easy"},{"size":5,"seed":20761309,"regions":[["R00","R00","R00","R02","R02"],["R00","R01","R01","R01","R02"],["R00","R03","R01","R02","R02"],["R03","R03","R01","R04","R04"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[0,1],[0,3],[0,4]],"fixed_cats":[],"solution":[0,2,4,1,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":11},"solver_profile":{"nodes":11,"decision_points":6,"mean_branching":1.667},"solver_score":118.667,"puzzle_fingerprint":"108acfdabbca6b3f8ca41668800790c537c5e4388d74b39b7f50595bb7b52629","level":35,"difficulty":"medium"},{"size":5,"seed":20761070,"regions":[["R01","R00","R00","R00","R02"],["R01","R01","R00","R00","R02"],["R01","R01","R03","R02","R02"],["R03","R03","R03","R04","R02"],["R03","R04","R04","R04","R04"]],"blocked_cells":[[0,0],[2,3],[1,4],[0,3]],"fixed_cats":[],"solution":[2,0,4,1,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":12},"solver_profile":{"nodes":12,"decision_points":7,"mean_branching":1.571},"solver_score":127.571,"puzzle_fingerprint":"07519a37a0073546875513cd2c82ea31a2ed2fa7a20df8706062b3c5574cf1a7","level":36,"difficulty":"medium"},{"size":5,"seed":20761145,"regions":[["R00","R00","R00","R01","R01"],["R00","R02","R00","R01","R01"],["R02","R02","R02","R02","R01"],["R04","R04","R03","R03","R03"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,0],[0,1],[2,0],[0,3]],"fixed_cats":[],"solution":[2,4,1,3,0],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":12},"solver_profile":{"nodes":12,"decision_points":7,"mean_branching":1.571},"solver_score":127.571,"puzzle_fingerprint":"9e8930abb035cf685ca7b6282d4493bc1a861245ce8773669b564e1e1f68dd22","level":37,"difficulty":"medium"},{"size":5,"seed":20761315,"regions":[["R01","R01","R01","R00","R00"],["R01","R01","R00","R00","R00"],["R03","R03","R02","R02","R02"],["R03","R03","R02","R04","R02"],["R03","R04","R04","R04","R04"]],"blocked_cells":[[0,0],[0,1],[0,4]],"fixed_cats":[],"solution":[3,1,4,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":12},"solver_profile":{"nodes":12,"decision_points":8,"mean_branching":1.375},"solver_score":128.375,"puzzle_fingerprint":"42ff20db235b549f232a9eb0b9bcd9cd8d7a13360a1c530fc8550458afa49aa4","level":38,"difficulty":"medium"},{"size":4,"seed":20661014,"regions":[["R00","R00","R00","R01"],["R02","R00","R01","R01"],["R02","R02","R03","R01"],["R02","R03","R03","R03"]],"blocked_cells":[[0,2]],"fixed_cats":[],"solution":[1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":12},"solver_profile":{"nodes":12,"decision_points":7,"mean_branching":1.571},"solver_score":128.571,"puzzle_fingerprint":"4853424f78f550e7dcd9e87832b9730fd647fc254e1f6e071ffd860a7b0ae31b","level":39,"difficulty":"medium"},{"size":4,"seed":20661042,"regions":[["R00","R00","R00","R00"],["R02","R01","R01","R01"],["R02","R02","R03","R01"],["R02","R03","R03","R03"]],"blocked_cells":[[0,2]],"fixed_cats":[],"solution":[1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":12},"solver_profile":{"nodes":12,"decision_points":7,"mean_branching":1.571},"solver_score":128.571,"puzzle_fingerprint":"bbfb4948e0863a39f72bc9631c9812fefc5a8cdb280d3177e4d0b22fd5cf8fcf","level":40,"difficulty":"medium"},{"size":4,"seed":20661100,"regions":[["R02","R00","R00","R01"],["R02","R00","R01","R01"],["R02","R00","R03","R01"],["R02","R03","R03","R03"]],"blocked_cells":[[0,2]],"fixed_cats":[],"solution":[1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":12},"solver_profile":{"nodes":12,"decision_points":7,"mean_branching":1.571},"solver_score":128.571,"puzzle_fingerprint":"83b91a8d2096a4cb10a6fe5133bc70f70f11f7fa268d2d634e235e617a934a07","level":41,"difficulty":"medium"},{"size":4,"seed":20661163,"regions":[["R00","R00","R00","R01"],["R02","R00","R01","R01"],["R02","R02","R02","R01"],["R03","R03","R03","R03"]],"blocked_cells":[[0,2]],"fixed_cats":[],"solution":[1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":12},"solver_profile":{"nodes":12,"decision_points":7,"mean_branching":1.571},"solver_score":128.571,"puzzle_fingerprint":"52d087ebf0fa26d4667c100ae520551e4856cef0831447468e5b0ab1d53f1a87","level":42,"difficulty":"medium"},{"size":5,"seed":20761024,"regions":[["R00","R00","R00","R01","R01"],["R00","R00","R01","R01","R03"],["R02","R02","R04","R01","R03"],["R02","R02","R04","R03","R03"],["R02","R04","R04","R04","R03"]],"blocked_cells":[[0,0],[3,2],[0,3]],"fixed_cats":[],"solution":[1,3,0,4,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":12},"solver_profile":{"nodes":12,"decision_points":7,"mean_branching":1.571},"solver_score":128.571,"puzzle_fingerprint":"d4343b9e33b5a4ca69192436c31d089206839d3e91d5b50aa4e0654210318b08","level":43,"difficulty":"medium"},{"size":5,"seed":20761047,"regions":[["R00","R00","R00","R00","R01"],["R00","R02","R02","R01","R01"],["R04","R02","R02","R01","R01"],["R04","R02","R03","R03","R03"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,0],[0,1],[0,3]],"fixed_cats":[],"solution":[2,4,1,3,0],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":12},"solver_profile":{"nodes":12,"decision_points":7,"mean_branching":1.571},"solver_score":128.571,"puzzle_fingerprint":"f48559e7a331dcd80f1b23acb11c0a5ba95c9e2bfd51e21c2a3f22176e49a000","level":44,"difficulty":"medium"},{"size":5,"seed":20761222,"regions":[["R01","R01","R00","R00","R00"],["R03","R01","R01","R00","R00"],["R03","R01","R04","R02","R02"],["R03","R03","R04","R02","R02"],["R03","R04","R04","R04","R02"]],"blocked_cells":[[0,1],[3,2],[0,4]],"fixed_cats":[],"solution":[3,1,4,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":12},"solver_profile":{"nodes":12,"decision_points":7,"mean_branching":1.571},"solver_score":128.571,"puzzle_fingerprint":"1f9a9bb974948ca74334d34577247219e90ddd6b63a0fb8454ea36541896e178","level":45,"difficulty":"medium"},{"size":4,"seed":20661024,"regions":[["R00","R00","R01","R01"],["R02","R00","R00","R01"],["R02","R02","R03","R01"],["R02","R03","R03","R03"]],"blocked_cells":[],"fixed_cats":[],"solution":[1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":12},"solver_profile":{"nodes":12,"decision_points":7,"mean_branching":1.571},"solver_score":129.571,"puzzle_fingerprint":"daa7f2e81726e22d402d69501f17878701297f11c75676e47a9c77fae41fe495","level":46,"difficulty":"medium"},{"size":5,"seed":20761093,"regions":[["R01","R01","R00","R00","R00"],["R01","R01","R02","R00","R00"],["R01","R02","R02","R02","R02"],["R03","R03","R03","R04","R04"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[0,1],[2,4],[0,3],[0,4]],"fixed_cats":[],"solution":[2,0,3,1,4],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":13},"solver_profile":{"nodes":13,"decision_points":8,"mean_branching":1.5},"solver_score":137.5,"puzzle_fingerprint":"76f7f6743e77f0c72cb3c3ca77d08cc4106ab1c025c16f169edc509e00216489","level":47,"difficulty":"medium"},{"size":5,"seed":20761230,"regions":[["R01","R00","R00","R00","R02"],["R01","R00","R00","R02","R02"],["R01","R01","R03","R04","R02"],["R01","R03","R03","R04","R02"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[0,0],[0,1],[1,4],[0,4]],"fixed_cats":[],"solution":[2,0,4,1,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":13},"solver_profile":{"nodes":13,"decision_points":8,"mean_branching":1.5},"solver_score":137.5,"puzzle_fingerprint":"216c27c35c86e2640c7f4811fa0a0698eb7a51b6c9f9a425f6152f83d11165d3","level":48,"difficulty":"medium"},{"size":5,"seed":20761185,"regions":[["R00","R00","R00","R00","R01"],["R03","R00","R02","R02","R01"],["R03","R02","R02","R01","R01"],["R03","R03","R02","R04","R01"],["R03","R04","R04","R04","R04"]],"blocked_cells":[[0,0],[1,3],[0,2],[0,3]],"fixed_cats":[],"solution":[1,4,2,0,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":13},"solver_profile":{"nodes":13,"decision_points":7,"mean_branching":1.714},"solver_score":137.714,"puzzle_fingerprint":"07b510562c0ed4c310a537477e0a48a1af9153a5251a3b4f8fbf51fe0464d611","level":49,"difficulty":"medium"},{"size":4,"seed":20661093,"regions":[["R00","R00","R01","R01"],["R00","R00","R01","R01"],["R02","R02","R03","R03"],["R02","R02","R03","R03"]],"blocked_cells":[[0,2]],"fixed_cats":[],"solution":[1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":13},"solver_profile":{"nodes":13,"decision_points":8,"mean_branching":1.5},"solver_score":138.5,"puzzle_fingerprint":"5ef620dbd89db01ed7cb5ce38a0d3dde795319958f8e54f11eae7ff6b26bdd22","level":50,"difficulty":"medium"},{"size":5,"seed":20761048,"regions":[["R02","R02","R01","R00","R00"],["R02","R01","R01","R00","R00"],["R02","R01","R01","R00","R03"],["R02","R04","R04","R03","R03"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,0],[0,2],[0,3]],"fixed_cats":[],"solution":[4,2,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":13},"solver_profile":{"nodes":13,"decision_points":8,"mean_branching":1.5},"solver_score":138.5,"puzzle_fingerprint":"7646a438a062b4178008f2c1c5058720cb8de5c990ea668fdb9ff04570b18abc","level":51,"difficulty":"medium"},{"size":5,"seed":20761107,"regions":[["R01","R01","R00","R00","R00"],["R03","R01","R01","R00","R00"],["R03","R01","R04","R02","R02"],["R03","R04","R04","R02","R02"],["R03","R03","R04","R04","R02"]],"blocked_cells":[[0,1],[3,2],[0,4]],"fixed_cats":[],"solution":[3,1,4,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":13},"solver_profile":{"nodes":13,"decision_points":8,"mean_branching":1.5},"solver_score":138.5,"puzzle_fingerprint":"1258712689c946167ac6af2338f46ee20ba6abd8d232ae5ba8da08cb92dbb395","level":52,"difficulty":"medium"},{"size":5,"seed":20761127,"regions":[["R01","R01","R00","R00","R00"],["R03","R01","R01","R00","R00"],["R03","R01","R02","R02","R02"],["R03","R03","R04","R02","R02"],["R03","R04","R04","R04","R04"]],"blocked_cells":[[0,1],[0,3],[1,2]],"fixed_cats":[],"solution":[4,1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":13},"solver_profile":{"nodes":13,"decision_points":8,"mean_branching":1.5},"solver_score":138.5,"puzzle_fingerprint":"e641e57184086155471e7f98d2366d005e98211cdc9bf615f0ed6b3c8bf2d724","level":53,"difficulty":"medium"},{"size":5,"seed":20761261,"regions":[["R00","R00","R00","R01","R01"],["R00","R00","R01","R01","R03"],["R02","R02","R02","R01","R03"],["R04","R02","R02","R03","R03"],["R04","R04","R04","R04","R03"]],"blocked_cells":[[1,2],[0,3],[0,1]],"fixed_cats":[],"solution":[0,3,1,4,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":13},"solver_profile":{"nodes":13,"decision_points":8,"mean_branching":1.5},"solver_score":138.5,"puzzle_fingerprint":"164848ef29e12bc41abcfb00553adc6fc8cdc21013ff871820f68d466651d042","level":54,"difficulty":"medium"},{"size":4,"seed":20661020,"regions":[["R00","R00","R00","R01"],["R00","R01","R01","R01"],["R02","R02","R03","R03"],["R02","R02","R03","R03"]],"blocked_cells":[],"fixed_cats":[],"solution":[1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":13},"solver_profile":{"nodes":13,"decision_points":8,"mean_branching":1.5},"solver_score":139.5,"puzzle_fingerprint":"329c91d8a9a594c29b1eab71256affd0884a4e848ba93c92d9fbbda346678f92","level":55,"difficulty":"medium"},{"size":4,"seed":20661013,"regions":[["R01","R00","R00","R00"],["R01","R01","R00","R02"],["R03","R01","R02","R02"],["R03","R03","R03","R02"]],"blocked_cells":[],"fixed_cats":[],"solution":[2,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":13},"solver_profile":{"nodes":13,"decision_points":7,"mean_branching":1.714},"solver_score":139.714,"puzzle_fingerprint":"e44ae85456d5b1fae1ddf5dfb52a39a3104ce4caeb09d347f7038e7dec278545","level":56,"difficulty":"medium"},{"size":4,"seed":20661033,"regions":[["R01","R00","R00","R00"],["R01","R01","R02","R00"],["R01","R03","R02","R02"],["R03","R03","R03","R02"]],"blocked_cells":[],"fixed_cats":[],"solution":[2,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":13},"solver_profile":{"nodes":13,"decision_points":7,"mean_branching":1.714},"solver_score":139.714,"puzzle_fingerprint":"2f0f1d95811cc32e41a2d6fb7f246bfd53466a255a8f9e95d6bbe2b3a3959256","level":57,"difficulty":"medium"},{"size":4,"seed":20661076,"regions":[["R00","R00","R00","R01"],["R02","R00","R01","R01"],["R02","R02","R01","R03"],["R02","R03","R03","R03"]],"blocked_cells":[],"fixed_cats":[],"solution":[1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":13},"solver_profile":{"nodes":13,"decision_points":7,"mean_branching":1.714},"solver_score":139.714,"puzzle_fingerprint":"479f7b820bbc6b97e61a6adf8ec3b495dfa50e000d6c59d12d9fcb246ca897eb","level":58,"difficulty":"medium"},{"size":4,"seed":20661140,"regions":[["R01","R00","R00","R00"],["R01","R01","R02","R00"],["R03","R01","R02","R02"],["R03","R03","R03","R02"]],"blocked_cells":[],"fixed_cats":[],"solution":[2,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":13},"solver_profile":{"nodes":13,"decision_points":7,"mean_branching":1.714},"solver_score":139.714,"puzzle_fingerprint":"7f42addc967d9a3df317587bc8199d198fcbe75032d1745532abb2bf66e88b78","level":59,"difficulty":"medium"},{"size":4,"seed":20661281,"regions":[["R00","R00","R01","R01"],["R02","R00","R03","R01"],["R02","R00","R03","R01"],["R02","R02","R03","R03"]],"blocked_cells":[],"fixed_cats":[],"solution":[1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":13},"solver_profile":{"nodes":13,"decision_points":7,"mean_branching":1.714},"solver_score":139.714,"puzzle_fingerprint":"fd1a1f7660ae7696b122fd26e6032588a250a2064c6361d15691125704672322","level":60,"difficulty":"medium"},{"size":5,"seed":20761016,"regions":[["R00","R00","R00","R00","R01"],["R00","R02","R02","R01","R01"],["R03","R02","R02","R01","R01"],["R03","R03","R02","R04","R04"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[0,0],[1,3],[0,2],[0,3]],"fixed_cats":[],"solution":[1,4,2,0,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":14},"solver_profile":{"nodes":14,"decision_points":8,"mean_branching":1.625},"solver_score":147.625,"puzzle_fingerprint":"d76f18ddbdd5400cb2f76874a6dd39004aeaf758eee416667eb3839aa76b0e39","level":61,"difficulty":"medium"},{"size":5,"seed":20761126,"regions":[["R01","R00","R00","R00","R00"],["R01","R01","R02","R02","R00"],["R01","R01","R02","R02","R03"],["R04","R04","R02","R03","R03"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,1],[0,2],[1,1],[0,4]],"fixed_cats":[],"solution":[3,0,2,4,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":14},"solver_profile":{"nodes":14,"decision_points":8,"mean_branching":1.625},"solver_score":147.625,"puzzle_fingerprint":"4e2251c85d8da4221ce4c760a7566c6f478c700620561ad50c844ca007e68ed1","level":62,"difficulty":"medium"},{"size":5,"seed":20761017,"regions":[["R02","R02","R01","R00","R00"],["R02","R01","R01","R01","R00"],["R02","R02","R01","R03","R00"],["R04","R04","R03","R03","R00"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,0],[0,1],[0,2]],"fixed_cats":[],"solution":[4,2,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":14},"solver_profile":{"nodes":14,"decision_points":8,"mean_branching":1.625},"solver_score":148.625,"puzzle_fingerprint":"45b6f7118fc680e112d3299ce36ba42779f5d1b569805b8c137f8fc20fdc2a81","level":63,"difficulty":"medium"},{"size":5,"seed":20761271,"regions":[["R02","R02","R00","R00","R00"],["R02","R01","R01","R00","R00"],["R02","R01","R01","R01","R03"],["R02","R04","R03","R03","R03"],["R04","R04","R04","R04","R03"]],"blocked_cells":[[0,0],[0,2],[0,3]],"fixed_cats":[],"solution":[4,2,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":14},"solver_profile":{"nodes":14,"decision_points":8,"mean_branching":1.625},"solver_score":148.625,"puzzle_fingerprint":"65869a31537d57177bcbbc75e0c4824a672f07a28b5cd5a694ce3bedfd5b8b1f","level":64,"difficulty":"medium"},{"size":4,"seed":20661041,"regions":[["R01","R00","R00","R00"],["R01","R01","R00","R02"],["R01","R03","R03","R02"],["R03","R03","R02","R02"]],"blocked_cells":[],"fixed_cats":[],"solution":[2,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":14},"solver_profile":{"nodes":14,"decision_points":8,"mean_branching":1.625},"solver_score":149.625,"puzzle_fingerprint":"2020806386c3ae44f477e14d1917325793bcb60d2c4adbf46d40f45ea7cdb8d7","level":65,"difficulty":"medium"},{"size":4,"seed":20661090,"regions":[["R00","R00","R00","R01"],["R02","R00","R01","R01"],["R02","R03","R03","R01"],["R02","R02","R03","R03"]],"blocked_cells":[],"fixed_cats":[],"solution":[1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":14},"solver_profile":{"nodes":14,"decision_points":8,"mean_branching":1.625},"solver_score":149.625,"puzzle_fingerprint":"9d2c6d0a93d6df00239fb66a64db2efcb46e9bc13b0e6aee7f0ee0a056957737","level":66,"difficulty":"medium"},{"size":4,"seed":20661250,"regions":[["R02","R00","R01","R01"],["R02","R00","R00","R01"],["R02","R00","R03","R01"],["R02","R03","R03","R03"]],"blocked_cells":[],"fixed_cats":[],"solution":[1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":14},"solver_profile":{"nodes":14,"decision_points":8,"mean_branching":1.625},"solver_score":149.625,"puzzle_fingerprint":"446295027cfbf78b2801386d4f584fbc6eb472074ca444eb3b08e839e773a0cf","level":67,"difficulty":"medium"},{"size":5,"seed":20761155,"regions":[["R01","R01","R00","R00","R00"],["R03","R01","R01","R00","R00"],["R03","R01","R02","R02","R02"],["R03","R03","R04","R04","R02"],["R03","R04","R04","R04","R02"]],"blocked_cells":[[0,1],[0,3]],"fixed_cats":[],"solution":[4,1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":14},"solver_profile":{"nodes":14,"decision_points":8,"mean_branching":1.625},"solver_score":149.625,"puzzle_fingerprint":"00a7f72ce6e0d23c4847f83f9f0c3b39b4643c87f71fceafbf21ad6c32e003cd","level":68,"difficulty":"hard"},{"size":5,"seed":20761294,"regions":[["R02","R00","R00","R01","R01"],["R02","R00","R00","R01","R01"],["R02","R02","R00","R03","R01"],["R02","R04","R03","R03","R03"],["R04","R04","R04","R04","R03"]],"blocked_cells":[[0,1],[2,1],[0,3],[0,4]],"fixed_cats":[],"solution":[2,4,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":15},"solver_profile":{"nodes":15,"decision_points":9,"mean_branching":1.556},"solver_score":157.556,"puzzle_fingerprint":"6aa98d0bc7e74b5d247442d9425436076cedebf845f4714f7d13ea3881207ce1","level":69,"difficulty":"hard"},{"size":5,"seed":20761014,"regions":[["R01","R01","R00","R00","R00"],["R01","R02","R02","R00","R00"],["R01","R02","R02","R03","R03"],["R01","R04","R02","R03","R03"],["R04","R04","R04","R04","R03"]],"blocked_cells":[[0,0],[1,1],[0,4]],"fixed_cats":[],"solution":[3,0,2,4,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":15},"solver_profile":{"nodes":15,"decision_points":9,"mean_branching":1.556},"solver_score":158.556,"puzzle_fingerprint":"5833df0519fee2d28ba36fdd19c8c415af1f8a8b55e92115a8608259237766a5","level":70,"difficulty":"hard"},{"size":5,"seed":20761201,"regions":[["R01","R00","R00","R00","R00"],["R01","R01","R01","R00","R02"],["R04","R01","R03","R02","R02"],["R04","R04","R03","R02","R02"],["R04","R04","R03","R03","R03"]],"blocked_cells":[[0,2],[1,0],[3,0]],"fixed_cats":[],"solution":[3,1,4,2,0],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":15},"solver_profile":{"nodes":15,"decision_points":9,"mean_branching":1.556},"solver_score":158.556,"puzzle_fingerprint":"5ea6ac37f4658e37e6c5e7bc803b140610726b9d973a8eaf54269715318a7346","level":71,"difficulty":"hard"},{"size":5,"seed":20761324,"regions":[["R00","R00","R01","R01","R01"],["R00","R02","R02","R01","R01"],["R00","R02","R02","R03","R03"],["R00","R02","R04","R03","R03"],["R04","R04","R04","R04","R03"]],"blocked_cells":[[0,2],[0,3],[0,4]],"fixed_cats":[],"solution":[0,3,1,4,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":15},"solver_profile":{"nodes":15,"decision_points":9,"mean_branching":1.556},"solver_score":158.556,"puzzle_fingerprint":"ac50ad8e0393d4c030e06e50e317e9c2de5e78aa33cb909cf7e4e0849593226c","level":72,"difficulty":"hard"},{"size":5,"seed":20761327,"regions":[["R02","R02","R00","R00","R00"],["R02","R01","R01","R01","R00"],["R02","R01","R01","R03","R00"],["R02","R04","R04","R03","R03"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,0],[0,3],[1,1]],"fixed_cats":[],"solution":[4,2,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":15},"solver_profile":{"nodes":15,"decision_points":9,"mean_branching":1.556},"solver_score":158.556,"puzzle_fingerprint":"ce8e7a00ddb0e82a9df5d3886e8d5103992ee852201a6f855cad9a25da76fce6","level":73,"difficulty":"hard"},{"size":5,"seed":20761169,"regions":[["R02","R00","R00","R00","R00"],["R02","R02","R00","R01","R01"],["R02","R04","R03","R03","R01"],["R02","R04","R03","R03","R01"],["R04","R04","R04","R03","R01"]],"blocked_cells":[[0,0],[1,0],[0,3]],"fixed_cats":[],"solution":[2,4,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":15},"solver_profile":{"nodes":15,"decision_points":8,"mean_branching":1.75},"solver_score":158.75,"puzzle_fingerprint":"c6756d7ca478ddb671f4f10dc21bc1767bb10d023a2b02f873a45f67cc552ef5","level":74,"difficulty":"hard"},{"size":5,"seed":20761242,"regions":[["R01","R00","R00","R00","R00"],["R01","R01","R02","R02","R00"],["R01","R02","R02","R02","R03"],["R01","R04","R03","R03","R03"],["R04","R04","R04","R04","R03"]],"blocked_cells":[[0,1],[0,2],[0,4]],"fixed_cats":[],"solution":[3,0,2,4,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":15},"solver_profile":{"nodes":15,"decision_points":8,"mean_branching":1.75},"solver_score":158.75,"puzzle_fingerprint":"481932c31fb894dc49e134047daf99dd613631ac1be4c7f889db5ebeb64e5d6c","level":75,"difficulty":"hard"},{"size":4,"seed":20661066,"regions":[["R00","R00","R01","R01"],["R00","R00","R01","R01"],["R02","R02","R02","R03"],["R02","R03","R03","R03"]],"blocked_cells":[],"fixed_cats":[],"solution":[1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":15},"solver_profile":{"nodes":15,"decision_points":9,"mean_branching":1.556},"solver_score":159.556,"puzzle_fingerprint":"3f6fdc079b0ca275d425ff7b8850b8143028184a999c7fed8463ea6003a96a25","level":76,"difficulty":"hard"},{"size":4,"seed":20661080,"regions":[["R01","R01","R00","R00"],["R01","R02","R00","R00"],["R01","R02","R02","R02"],["R03","R03","R03","R03"]],"blocked_cells":[],"fixed_cats":[],"solution":[2,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":15},"solver_profile":{"nodes":15,"decision_points":9,"mean_branching":1.556},"solver_score":159.556,"puzzle_fingerprint":"b855048c79378a49555b6d7f43bfbe36773ed5e433799d972dbc23bcde631d50","level":77,"difficulty":"hard"},{"size":5,"seed":20761053,"regions":[["R01","R00","R00","R00","R00"],["R01","R01","R01","R00","R02"],["R03","R01","R02","R02","R02"],["R03","R03","R04","R04","R02"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[0,2],[0,3]],"fixed_cats":[],"solution":[4,1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":15},"solver_profile":{"nodes":15,"decision_points":8,"mean_branching":1.75},"solver_score":159.75,"puzzle_fingerprint":"0fb9014b83736f5ffb34bdf4ced5232d76ff4f413905afe97aef1d3b849f0996","level":78,"difficulty":"hard"},{"size":5,"seed":20761247,"regions":[["R01","R01","R00","R00","R00"],["R01","R01","R01","R00","R00"],["R03","R02","R02","R02","R02"],["R03","R03","R04","R04","R02"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[0,1],[0,2],[3,2],[0,4]],"fixed_cats":[],"solution":[3,1,4,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":16},"solver_profile":{"nodes":16,"decision_points":10,"mean_branching":1.5},"solver_score":167.5,"puzzle_fingerprint":"7df6d7b2aeb4691db60146f5dba878be236b1041d4d43df737b98c404f59f774","level":79,"difficulty":"hard"},{"size":5,"seed":20761099,"regions":[["R01","R01","R01","R00","R00"],["R03","R01","R01","R00","R00"],["R03","R02","R02","R02","R00"],["R03","R03","R04","R02","R02"],["R03","R04","R04","R04","R04"]],"blocked_cells":[[0,1],[0,2],[1,2]],"fixed_cats":[],"solution":[4,1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":16},"solver_profile":{"nodes":16,"decision_points":9,"mean_branching":1.667},"solver_score":168.667,"puzzle_fingerprint":"30367126513e22cc2d3d1b9c37a7371668fcedbf43951f489ff1a3d5b19e67c6","level":80,"difficulty":"hard"},{"size":5,"seed":20761162,"regions":[["R00","R00","R01","R01","R01"],["R00","R00","R01","R01","R03"],["R00","R02","R02","R02","R03"],["R04","R02","R02","R03","R03"],["R04","R04","R04","R04","R03"]],"blocked_cells":[[1,2],[0,2],[0,3]],"fixed_cats":[],"solution":[0,3,1,4,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":16},"solver_profile":{"nodes":16,"decision_points":9,"mean_branching":1.667},"solver_score":168.667,"puzzle_fingerprint":"67d6f5c32cea2f35c5368830faa0abf3040b3c164328f0655e49d458e7f1cc3f","level":81,"difficulty":"hard"},{"size":5,"seed":20761199,"regions":[["R00","R00","R00","R01","R01"],["R03","R00","R00","R01","R01"],["R03","R02","R02","R02","R01"],["R03","R02","R02","R04","R04"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[1,3],[0,2],[0,4]],"fixed_cats":[],"solution":[1,4,2,0,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":16},"solver_profile":{"nodes":16,"decision_points":9,"mean_branching":1.667},"solver_score":168.667,"puzzle_fingerprint":"7ca9d4ab56c89d9c4aed5a62456bfc14705a230390ea8190e8d0e7af83d1d0bf","level":82,"difficulty":"hard"},{"size":5,"seed":20761248,"regions":[["R02","R01","R01","R00","R00"],["R02","R01","R01","R00","R00"],["R02","R02","R01","R03","R00"],["R04","R02","R04","R03","R03"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,1],[0,2],[0,3]],"fixed_cats":[],"solution":[4,2,0,3,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":16},"solver_profile":{"nodes":16,"decision_points":9,"mean_branching":1.667},"solver_score":168.667,"puzzle_fingerprint":"1432c6a166c0c2930d6efdc36fe4db635c105722c2e06db66124657e4a22193c","level":83,"difficulty":"hard"},{"size":5,"seed":20761305,"regions":[["R00","R00","R00","R00","R01"],["R02","R00","R01","R01","R01"],["R02","R03","R03","R01","R04"],["R02","R02","R03","R04","R04"],["R02","R03","R03","R04","R04"]],"blocked_cells":[[3,4],[1,4]],"fixed_cats":[],"solution":[1,3,0,2,4],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":16},"solver_profile":{"nodes":16,"decision_points":10,"mean_branching":1.5},"solver_score":169.5,"puzzle_fingerprint":"cf166391729c6ad28ffcec9ce25169d5976d25dfaaf8f7a09a9612aded2c4d04","level":84,"difficulty":"hard"},{"size":5,"seed":20761229,"regions":[["R00","R00","R00","R01","R01"],["R00","R00","R01","R01","R01"],["R02","R02","R02","R04","R04"],["R02","R02","R03","R03","R04"],["R03","R03","R03","R04","R04"]],"blocked_cells":[[0,0],[3,4],[0,3],[0,4]],"fixed_cats":[],"solution":[1,3,0,2,4],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":17},"solver_profile":{"nodes":17,"decision_points":11,"mean_branching":1.455},"solver_score":177.455,"puzzle_fingerprint":"458cda04c74ab13d311d9f93231a8407e2b6526642f72d8de6ebdde513f3651e","level":85,"difficulty":"hard"},{"size":5,"seed":20761094,"regions":[["R01","R01","R00","R00","R00"],["R01","R01","R01","R00","R00"],["R03","R02","R02","R02","R02"],["R03","R03","R02","R04","R04"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[0,1],[2,3],[0,3]],"fixed_cats":[],"solution":[2,0,4,1,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":17},"solver_profile":{"nodes":17,"decision_points":10,"mean_branching":1.6},"solver_score":178.6,"puzzle_fingerprint":"ac3049c900a0b50a6c65ce942a9a6f8ee6eeb08cfb5da5ff2b7d6648656efe05","level":86,"difficulty":"hard"},{"size":5,"seed":20761321,"regions":[["R00","R00","R00","R01","R01"],["R03","R00","R02","R01","R01"],["R03","R00","R02","R02","R01"],["R03","R02","R02","R04","R04"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[1,3],[0,2],[0,4]],"fixed_cats":[],"solution":[1,4,2,0,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":17},"solver_profile":{"nodes":17,"decision_points":10,"mean_branching":1.6},"solver_score":178.6,"puzzle_fingerprint":"2f4cefcef6cf3f27533aae2778926319aa50f1aaf563484d1164ce0b9bcf4c9a","level":87,"difficulty":"hard"},{"size":5,"seed":20761170,"regions":[["R01","R01","R00","R00","R00"],["R01","R02","R02","R00","R03"],["R01","R02","R02","R00","R03"],["R01","R04","R02","R03","R03"],["R04","R04","R04","R04","R03"]],"blocked_cells":[[0,0],[1,1],[0,4]],"fixed_cats":[],"solution":[3,0,2,4,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":17},"solver_profile":{"nodes":17,"decision_points":9,"mean_branching":1.778},"solver_score":178.778,"puzzle_fingerprint":"c5690c18aab4bf44e762b51a7a9d541364f5921e92c17ee95e5b1a3afde8569a","level":88,"difficulty":"hard"},{"size":5,"seed":20761293,"regions":[["R00","R00","R00","R00","R01"],["R00","R02","R01","R01","R01"],["R02","R02","R04","R01","R03"],["R02","R02","R04","R03","R03"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,1],[0,2]],"fixed_cats":[],"solution":[0,3,1,4,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":17},"solver_profile":{"nodes":17,"decision_points":10,"mean_branching":1.6},"solver_score":179.6,"puzzle_fingerprint":"ff9066e9dba73b787efbf56256b49e2d850b53e9873423fe0c4ecef04e430ef7","level":89,"difficulty":"hard"},{"size":5,"seed":20761202,"regions":[["R01","R01","R00","R00","R00"],["R01","R01","R01","R00","R00"],["R03","R02","R02","R02","R02"],["R03","R03","R04","R02","R04"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[0,1],[0,2],[0,3]],"fixed_cats":[],"solution":[4,1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":18},"solver_profile":{"nodes":18,"decision_points":11,"mean_branching":1.545},"solver_score":188.545,"puzzle_fingerprint":"f0f4e0b693e4d89135cc0b76f1aaa038d4e0103a767a756e8a407faa413116e4","level":90,"difficulty":"hard"},{"size":5,"seed":20761013,"regions":[["R00","R00","R00","R00","R01"],["R03","R00","R01","R01","R01"],["R03","R02","R02","R02","R01"],["R03","R03","R02","R02","R04"],["R03","R04","R04","R04","R04"]],"blocked_cells":[[1,3],[0,4],[0,2]],"fixed_cats":[],"solution":[1,4,2,0,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":19},"solver_profile":{"nodes":19,"decision_points":11,"mean_branching":1.636},"solver_score":198.636,"puzzle_fingerprint":"fbd42b513bfebb374122b1674e60998b34790cb6532644c0f3838011980706a6","level":91,"difficulty":"hard"},{"size":5,"seed":20761051,"regions":[["R01","R00","R00","R00","R00"],["R01","R01","R01","R00","R03"],["R01","R02","R02","R02","R03"],["R04","R02","R02","R03","R03"],["R04","R04","R04","R04","R03"]],"blocked_cells":[[0,0],[0,2],[1,1]],"fixed_cats":[],"solution":[3,0,2,4,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":19},"solver_profile":{"nodes":19,"decision_points":11,"mean_branching":1.636},"solver_score":198.636,"puzzle_fingerprint":"b9a24a476b6d3a54aeb79b80d23c061734eb9237153bf375150b397d4731c6e3","level":92,"difficulty":"hard"},{"size":5,"seed":20761164,"regions":[["R01","R01","R00","R00","R00"],["R01","R01","R02","R00","R00"],["R01","R02","R02","R03","R03"],["R04","R04","R02","R02","R03"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,0],[0,1],[1,1]],"fixed_cats":[],"solution":[3,0,2,4,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":19},"solver_profile":{"nodes":19,"decision_points":11,"mean_branching":1.636},"solver_score":198.636,"puzzle_fingerprint":"a31dc8738e858997189ab2540bdc9496771c60da94ee9f3fe1159d49c3e3116b","level":93,"difficulty":"hard"},{"size":5,"seed":20761063,"regions":[["R01","R01","R00","R00","R00"],["R01","R01","R01","R02","R00"],["R03","R03","R02","R02","R00"],["R03","R03","R04","R02","R02"],["R03","R04","R04","R04","R04"]],"blocked_cells":[[0,1],[0,2],[1,2]],"fixed_cats":[],"solution":[4,1,3,0,2],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":20},"solver_profile":{"nodes":20,"decision_points":12,"mean_branching":1.583},"solver_score":208.583,"puzzle_fingerprint":"edf81a8c24c37d5be1fd87e2735c6de9b12bb280239d74a8e40652ebf824eb56","level":94,"difficulty":"hard"},{"size":5,"seed":20761109,"regions":[["R01","R01","R00","R00","R00"],["R01","R01","R01","R00","R00"],["R04","R02","R02","R02","R03"],["R04","R04","R02","R03","R03"],["R04","R04","R02","R03","R03"]],"blocked_cells":[[0,1],[0,2],[1,1]],"fixed_cats":[],"solution":[3,0,2,4,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":20},"solver_profile":{"nodes":20,"decision_points":11,"mean_branching":1.727},"solver_score":208.727,"puzzle_fingerprint":"3d9f64616ec8a3dd3b8cdb1a4ca7a7eb60a4b57d0cf88af6479fd3483575e320","level":95,"difficulty":"hard"},{"size":5,"seed":20761212,"regions":[["R00","R00","R00","R01","R01"],["R00","R02","R00","R01","R01"],["R03","R02","R02","R02","R01"],["R03","R03","R02","R04","R04"],["R03","R03","R04","R04","R04"]],"blocked_cells":[[1,3],[0,3],[0,2]],"fixed_cats":[],"solution":[1,4,2,0,3],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":20},"solver_profile":{"nodes":20,"decision_points":11,"mean_branching":1.727},"solver_score":208.727,"puzzle_fingerprint":"90cffb2448b5a4454817ab2294118e9c680fe9d0fa8624dcc3bacfc83b860a75","level":96,"difficulty":"hard"},{"size":5,"seed":20761224,"regions":[["R00","R00","R00","R00","R01"],["R02","R00","R03","R01","R01"],["R02","R02","R03","R01","R01"],["R02","R03","R03","R04","R04"],["R02","R03","R04","R04","R04"]],"blocked_cells":[[1,4],[0,2]],"fixed_cats":[],"solution":[1,3,0,2,4],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":21},"solver_profile":{"nodes":21,"decision_points":11,"mean_branching":1.818},"solver_score":219.818,"puzzle_fingerprint":"5a0c77ac7e73d9c56c56c156ef62c9f1565534a65a2be51a68e820fca2e8b222","level":97,"difficulty":"hard"},{"size":5,"seed":20761319,"regions":[["R01","R01","R00","R00","R00"],["R01","R01","R02","R00","R00"],["R01","R04","R02","R02","R03"],["R04","R04","R02","R02","R03"],["R04","R04","R03","R03","R03"]],"blocked_cells":[[0,1],[0,2],[1,1]],"fixed_cats":[],"solution":[3,0,2,4,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":23},"solver_profile":{"nodes":23,"decision_points":14,"mean_branching":1.571},"solver_score":238.571,"puzzle_fingerprint":"f9f65a0c4f2cbbbce64e94878a0088a5c3e55a51e37b586e9f8d5ff27b214d85","level":98,"difficulty":"hard"},{"size":5,"seed":20761263,"regions":[["R01","R00","R00","R00","R00"],["R01","R01","R01","R02","R00"],["R01","R04","R02","R02","R02"],["R04","R04","R03","R02","R03"],["R04","R04","R03","R03","R03"]],"blocked_cells":[[0,2],[1,1]],"fixed_cats":[],"solution":[3,0,2,4,1],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":24},"solver_profile":{"nodes":24,"decision_points":14,"mean_branching":1.643},"solver_score":249.643,"puzzle_fingerprint":"ab5271ae3ee2ab11ed40e5b12a828fe1e396f1639ffae63a3a5623778576cfa7","level":99,"difficulty":"hard"},{"size":5,"seed":20761035,"regions":[["R01","R01","R00","R00","R00"],["R01","R01","R00","R00","R02"],["R04","R01","R02","R02","R02"],["R04","R03","R03","R03","R02"],["R04","R04","R04","R03","R03"]],"blocked_cells":[[0,2]],"fixed_cats":[],"solution":[3,1,4,2,0],"proof":{"status":"SOLVED","uniqueness":"UNIQUE","search_complete":true,"nodes":30},"solver_profile":{"nodes":30,"decision_points":17,"mean_branching":1.706},"solver_score":310.706,"puzzle_fingerprint":"24de65c521e8de088493b0639ae0800abccc000863cac75578ff7d73813a8bcb","level":100,"difficulty":"hard"}]}</script>
+  <script>
+    (() => {
+      "use strict";
+      const VARIANTS = [
+        { id: "starlight", label: "星夜街機", mark: "✦" },
+        { id: "fieldnotes", label: "探險手帳", mark: "▤" },
+        { id: "trail", label: "旅程地圖", mark: "➜" }
+      ];
+      const PALETTE = [
+        "#ffd166", "#ef476f", "#06d6a0", "#4ea8de", "#9b5de5",
+        "#f15bb5", "#adb5bd", "#84a59d", "#f9844a", "#90be6d",
+        "#f2a7a0", "#a8dadc"
+      ];
+      const PATTERNS = [
+        "none",
+        "repeating-linear-gradient(135deg, transparent 0 8px, #ffffff55 8px 10px)",
+        "repeating-linear-gradient(45deg, transparent 0 8px, #14213d28 8px 10px)",
+        "radial-gradient(#14213d38 1px, transparent 1.7px)",
+        "repeating-linear-gradient(90deg, transparent 0 8px, #ffffff55 8px 10px)",
+        "repeating-linear-gradient(0deg, transparent 0 8px, #14213d28 8px 10px)",
+        "radial-gradient(#ffffffa0 1px, transparent 1.7px)",
+        "repeating-linear-gradient(135deg, transparent 0 11px, #14213d30 11px 13px)",
+        "repeating-linear-gradient(45deg, transparent 0 11px, #ffffff60 11px 13px)",
+        "repeating-linear-gradient(90deg, transparent 0 11px, #14213d28 11px 13px)",
+        "radial-gradient(#14213d35 1.2px, transparent 1.8px)",
+        "repeating-linear-gradient(0deg, transparent 0 11px, #ffffff55 11px 13px)"
+      ];
+      const campaign = JSON.parse(document.getElementById("campaign-data").textContent);
+      const app = document.getElementById("app");
+      const params = new URLSearchParams(location.search);
+      const requestedVariant = params.get("variant");
+      const state = {
+        variant: VARIANTS.some(item => item.id === requestedVariant) ? requestedVariant : VARIANTS[0].id,
+        mode: "campaign", level: 1, unlocked: 1, completed: new Set(),
+        puzzle: null, solution: [], marks: new Map(), tool: "cat", hintUses: 0,
+        feedback: "", feedbackKind: "", hintCell: null, won: false, drag: null,
+        dragClickGuard: null
+      };
+
+      function key(row, column) { return `${row},${column}`; }
+      function seededRandom(seed) {
+        let value = seed >>> 0;
+        return () => {
+          value = (value + 0x6D2B79F5) | 0;
+          let t = Math.imul(value ^ (value >>> 15), 1 | value);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+      function shuffled(items, random) {
+        const result = items.slice();
+        for (let i = result.length - 1; i > 0; i--) {
+          const j = Math.floor(random() * (i + 1));
+          [result[i], result[j]] = [result[j], result[i]];
+        }
+        return result;
+      }
+      function isValidSolution(regions, columns, blocked = []) {
+        const n = columns.length;
+        if (new Set(columns).size !== n) return false;
+        const usedRegions = new Set();
+        const blockedSet = new Set(blocked.map(([r, c]) => key(r, c)));
+        for (let row = 0; row < n; row++) {
+          const column = columns[row];
+          if (column < 0 || column >= n || blockedSet.has(key(row, column))) return false;
+          const region = regions[row][column];
+          if (usedRegions.has(region)) return false;
+          usedRegions.add(region);
+          if (row && Math.abs(columns[row - 1] - column) <= 1) return false;
+        }
+        return usedRegions.size === n;
+      }
+      function classify(puzzle, limit = 2) {
+        const n = puzzle.size;
+        const blocked = new Set(puzzle.blocked_cells.map(([r, c]) => key(r, c)));
+        const assigned = [];
+        const usedCols = new Set();
+        const usedRegions = new Set();
+        const answers = [];
+        let nodes = 0;
+        function visit() {
+          if (answers.length >= limit) return;
+          nodes++;
+          if (assigned.length === n) {
+            const answer = Array(n);
+            assigned.forEach(([r, c]) => { answer[r] = c; });
+            if (isValidSolution(puzzle.regions, answer, puzzle.blocked_cells)) answers.push(answer);
+            return;
+          }
+          let bestRow = -1;
+          let bestDomain = null;
+          for (let row = 0; row < n; row++) {
+            if (assigned.some(([r]) => r === row)) continue;
+            const domain = [];
+            for (let col = 0; col < n; col++) {
+              const region = puzzle.regions[row][col];
+              if (blocked.has(key(row, col)) || usedCols.has(col) || usedRegions.has(region)) continue;
+              if (assigned.some(([r, c]) => Math.abs(r - row) === 1 && Math.abs(c - col) <= 1)) continue;
+              domain.push(col);
+            }
+            if (!bestDomain || domain.length < bestDomain.length) {
+              bestRow = row;
+              bestDomain = domain;
+            }
+          }
+          if (!bestDomain || !bestDomain.length) return;
+          for (const column of bestDomain) {
+            const region = puzzle.regions[bestRow][column];
+            assigned.push([bestRow, column]);
+            usedCols.add(column);
+            usedRegions.add(region);
+            visit();
+            assigned.pop();
+            usedCols.delete(column);
+            usedRegions.delete(region);
+            if (answers.length >= limit) return;
+          }
+        }
+        visit();
+        return { answers, nodes, complete: answers.length < limit };
+      }
+      function connectedRegions(regions) {
+        const n = regions.length;
+        const ids = new Set(regions.flat());
+        if (ids.size !== n) return false;
+        for (const id of ids) {
+          const cells = new Set();
+          for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (regions[r][c] === id) cells.add(key(r, c));
+          if (cells.size !== n) return false;
+          const first = cells.values().next().value;
+          const reached = new Set([first]);
+          const queue = [first];
+          while (queue.length) {
+            const [r, c] = queue.pop().split(",").map(Number);
+            for (const [nr, nc] of [[r - 1, c], [r + 1, c], [r, c - 1], [r, c + 1]]) {
+              const next = key(nr, nc);
+              if (nr >= 0 && nr < n && nc >= 0 && nc < n && cells.has(next) && !reached.has(next)) {
+                reached.add(next);
+                queue.push(next);
+              }
+            }
+          }
+          if (reached.size !== cells.size) return false;
+        }
+        return true;
+      }
+      function validCampaignLevel(level) {
+        return level.fixed_cats.length === 0 &&
+          connectedRegions(level.regions) &&
+          isValidSolution(level.regions, level.solution, level.blocked_cells);
+      }
+      function makeRandomSolution(size, random) {
+        const answer = Array(size).fill(-1);
+        const used = new Set();
+        function place(row) {
+          if (row === size) return true;
+          for (const column of shuffled(Array.from({ length: size }, (_, i) => i), random)) {
+            if (used.has(column) || (row && Math.abs(answer[row - 1] - column) <= 1)) continue;
+            answer[row] = column;
+            used.add(column);
+            if (place(row + 1)) return true;
+            used.delete(column);
+          }
+          return false;
+        }
+        return place(0) ? answer : null;
+      }
+      function makeRandomRegions(size, answer, random) {
+        const owners = Array.from({ length: size }, () => Array(size).fill(-1));
+        const ownerSizes = Array(size).fill(0);
+        answer.forEach((column, row) => { owners[row][column] = row; ownerSizes[row] = 1; });
+        const unassigned = new Set();
+        for (let r = 0; r < size; r++) for (let c = 0; c < size; c++) if (owners[r][c] < 0) unassigned.add(key(r, c));
+        let nodes = 0;
+        function grow() {
+          if (++nodes > 100000) return false;
+          if (!unassigned.size) return ownerSizes.every(count => count === size);
+          const frontier = [];
+          for (const item of unassigned) {
+            const [r, c] = item.split(",").map(Number);
+            const ownersAround = new Set();
+            for (const [nr, nc] of [[r - 1, c], [r + 1, c], [r, c - 1], [r, c + 1]]) {
+              if (nr >= 0 && nr < size && nc >= 0 && nc < size &&
+                  owners[nr][nc] >= 0 && ownerSizes[owners[nr][nc]] < size) ownersAround.add(owners[nr][nc]);
+            }
+            if (ownersAround.size) frontier.push({ r, c, owners: [...ownersAround] });
+          }
+          if (!frontier.length) return false;
+          const fewest = Math.min(...frontier.map(cell => cell.owners.length));
+          const choices = shuffled(frontier.filter(cell => cell.owners.length === fewest), random);
+          for (const cell of choices) {
+            for (const owner of shuffled(cell.owners, random)) {
+              owners[cell.r][cell.c] = owner;
+              ownerSizes[owner]++;
+              unassigned.delete(key(cell.r, cell.c));
+              if (grow()) return true;
+              unassigned.add(key(cell.r, cell.c));
+              ownerSizes[owner]--;
+              owners[cell.r][cell.c] = -1;
+            }
+          }
+          return false;
+        }
+        if (!grow()) return null;
+        return owners.map(row => row.map(owner => `R${String(owner).padStart(2, "0")}`));
+      }
+      function makeRandomPuzzle() {
+        for (let attempt = 0; attempt < 24; attempt++) {
+          const seed = (Date.now() + Math.floor(Math.random() * 0xffffffff) + attempt) >>> 0;
+          const random = seededRandom(seed);
+          const boardSize = 4 + Math.floor(random() * 2);
+          const solution = makeRandomSolution(boardSize, random);
+          const puzzle = {
+            size: boardSize,
+            regions: makeRandomRegions(boardSize, solution, random),
+            blocked_cells: [],
+            fixed_cats: []
+          };
+          if (!puzzle.regions || !isValidSolution(puzzle.regions, solution)) continue;
+          while (puzzle.blocked_cells.length < boardSize) {
+            const result = classify(puzzle);
+            if (!result.answers.length) break;
+            if (result.answers.length === 1) {
+              if (result.answers[0].join(",") !== solution.join(",") || !connectedRegions(puzzle.regions)) break;
+              return { ...puzzle, solution, seed, proof: { nodes: result.nodes, uniqueness: "UNIQUE", complete: result.complete } };
+            }
+            const alternative = result.answers.find(answer => answer.join(",") !== solution.join(","));
+            const row = alternative.findIndex((column, r) => column !== solution[r]);
+            puzzle.blocked_cells.push([row, alternative[row]]);
+          }
+        }
+        throw new Error("暫時無法產生唯一解，請再試一次。");
+      }
+      function difficultyFor(level) {
+        if (level <= 34) return { label: "輕鬆", hints: 3 };
+        if (level <= 67) return { label: "進階", hints: 1 };
+        return { label: "挑戰", hints: 0 };
+      }
+      function currentDifficulty() {
+        return state.mode === "campaign" ? difficultyFor(state.level) : { label: "隨機", hints: 1 };
+      }
+      function resetPuzzle(puzzle, solution, mode, level = 1) {
+        state.puzzle = puzzle;
+        state.solution = solution.slice();
+        state.mode = mode;
+        state.level = level;
+        state.marks = new Map();
+        state.tool = "cat";
+        state.hintUses = 0;
+        state.hintCell = null;
+        state.won = false;
+        state.drag = null;
+        state.dragClickGuard = null;
+        state.feedback = mode === "campaign"
+          ? `第 ${level} 關開始。棋盤沒有預放貓，題目叉格不是你的標記。`
+          : "隨機唯一解題目已準備好。";
+        state.feedbackKind = "";
+        render();
+      }
+      function playLevel(level) {
+        if (level < 1 || level > state.unlocked) return;
+        const item = campaign.levels[level - 1];
+        if (!validCampaignLevel(item)) throw new Error(`第 ${level} 關資料驗證失敗。`);
+        resetPuzzle({
+          size: item.size,
+          regions: item.regions,
+          blocked_cells: item.blocked_cells,
+          fixed_cats: item.fixed_cats
+        }, item.solution, "campaign", level);
+      }
+      function currentBlocked() {
+        return new Set(state.puzzle.blocked_cells.map(([r, c]) => key(r, c)));
+      }
+      function catCells() {
+        return [...state.marks.entries()]
+          .filter(([, value]) => value === "cat")
+          .map(([cell]) => cell.split(",").map(Number));
+      }
+      function findConflicts() {
+        const cats = catCells();
+        const conflicts = new Set();
+        for (let i = 0; i < cats.length; i++) {
+          const [r1, c1] = cats[i];
+          for (let j = i + 1; j < cats.length; j++) {
+            const [r2, c2] = cats[j];
+            const duplicateRegion = state.puzzle.regions[r1][c1] === state.puzzle.regions[r2][c2];
+            if (r1 === r2 || c1 === c2 || duplicateRegion ||
+                Math.max(Math.abs(r1 - r2), Math.abs(c1 - c2)) === 1) {
+              conflicts.add(key(r1, c1));
+              conflicts.add(key(r2, c2));
+            }
+          }
+        }
+        return conflicts;
+      }
+      function checkWin() {
+        const cats = catCells();
+        const columns = Array(state.puzzle.size).fill(-1);
+        const rows = Array(state.puzzle.size).fill(0);
+        for (const [row, column] of cats) {
+          rows[row]++;
+          columns[row] = column;
+        }
+        return cats.length === state.puzzle.size &&
+          rows.every(count => count === 1) &&
+          isValidSolution(state.puzzle.regions, columns, state.puzzle.blocked_cells) &&
+          connectedRegions(state.puzzle.regions);
+      }
+      function setFeedback(text, kind = "") {
+        state.feedback = text;
+        state.feedbackKind = kind;
+      }
+      function handleWin() {
+        if (state.won) return;
+        state.won = true;
+        if (state.mode === "campaign") {
+          state.completed.add(state.level);
+          state.unlocked = Math.max(state.unlocked, Math.min(campaign.levels.length, state.level + 1));
+        }
+        setFeedback(state.level === 100 && state.mode === "campaign"
+          ? "太棒了！100 關全部完成；你可以重玩任何已解關卡。"
+          : "答對了！所有列、欄、顏色區域各有一隻貓。", "good");
+      }
+      function placeMark(row, column) {
+        const cell = key(row, column);
+        if (currentBlocked().has(cell)) return;
+        const current = state.marks.get(cell);
+        if (state.tool === "cat") {
+          if (current === "cat") state.marks.delete(cell);
+          else state.marks.set(cell, "cat");
+        } else {
+          if (current === "cross") state.marks.delete(cell);
+          else state.marks.set(cell, "cross");
+        }
+        state.hintCell = null;
+        const conflicts = findConflicts();
+        state.won = false;
+        if (conflicts.size) setFeedback(`${conflicts.size} 格違反列、欄、區域或相鄰規則，已用黃框標出。`, "warn");
+        else setFeedback("標記已更新。每個顏色區域都必須四方向連通，且只能放一隻貓。");
+        if (checkWin()) handleWin();
+        render();
+      }
+      function checkAnswer() {
+        const cats = catCells();
+        if (cats.length < state.puzzle.size) {
+          setFeedback(`還需要 ${state.puzzle.size - cats.length} 隻貓；每列剛好一隻。`, "warn");
+        } else if (checkWin()) {
+          handleWin();
+        } else {
+          const conflicts = findConflicts();
+          setFeedback(conflicts.size
+            ? "有貓違反列、欄、顏色區域或八方向不相鄰規則，請看黃框。"
+            : "目前每列有貓，但欄、區域或相鄰條件尚未全部符合。", "warn");
+        }
+        render();
+      }
+      function giveHint() {
+        const allowance = currentDifficulty().hints;
+        if (state.hintUses >= allowance) {
+          setFeedback("這個難度的提示次數已用完。", "warn");
+          render();
+          return;
+        }
+        const row = state.solution.findIndex((column, r) => state.marks.get(key(r, column)) !== "cat");
+        if (row < 0) {
+          setFeedback("正確位置都已標出，按「檢查答案」確認。");
+          render();
+          return;
+        }
+        for (const [cell, mark] of state.marks) {
+          if (mark === "cat" && Number(cell.split(",")[0]) === row) state.marks.delete(cell);
+        }
+        const cell = key(row, state.solution[row]);
+        state.marks.set(cell, "cat");
+        state.hintCell = cell;
+        state.hintUses++;
+        setFeedback(`提示：第 ${row + 1} 列的貓在第 ${state.solution[row] + 1} 欄。`);
+        if (checkWin()) handleWin();
+        render();
+      }
+      function nextLevel() {
+        if (state.mode !== "campaign") {
+          playLevel(state.unlocked);
+        } else if (state.level < campaign.levels.length) {
+          playLevel(state.level + 1);
+        } else {
+          playLevel(campaign.levels.length);
+        }
+      }
+      function cellStyle(row, column, regionIndex) {
+        const regions = state.puzzle.regions;
+        const id = regions[row][column];
+        const edge = (r, c) => r < 0 || c < 0 || r >= state.puzzle.size || c >= state.puzzle.size || regions[r][c] !== id;
+        return `--region-color:${PALETTE[regionIndex % PALETTE.length]};--region-pattern:${PATTERNS[regionIndex % PATTERNS.length]};border-width:${edge(row - 1, column) ? 3 : 1}px ${edge(row, column + 1) ? 3 : 1}px ${edge(row + 1, column) ? 3 : 1}px ${edge(row, column - 1) ? 3 : 1}px;border-color:#182237`;
+      }
+      function boardMarkup() {
+        const n = state.puzzle.size;
+        const blocked = currentBlocked();
+        const conflicts = findConflicts();
+        let html = `<div class="board" role="grid" aria-label="${n} 乘 ${n} 貓咪棋盤" style="grid-template-columns:repeat(${n},minmax(0,1fr))">`;
+        for (let row = 0; row < n; row++) {
+          for (let column = 0; column < n; column++) {
+            const cell = key(row, column);
+            const clue = blocked.has(cell);
+            const mark = state.marks.get(cell);
+            const classes = ["cell"];
+            if (mark === "cat") classes.push("cat");
+            if (mark === "cross") classes.push("cross-mark");
+            if (clue) classes.push("fixed-clue");
+            if (conflicts.has(cell)) classes.push("conflict");
+            if (state.hintCell === cell) classes.push("hint-flash");
+            const symbol = mark === "cat" ? `<span class="cat-symbol">🐈‍⬛</span>` :
+              clue ? `<span class="mark-symbol">×</span><span class="clue-tag">題目</span>` :
+              mark === "cross" ? `<span class="mark-symbol">×</span>` : "";
+            const label = `第 ${row + 1} 列，第 ${column + 1} 欄，${clue ? "題目提供的禁用格" : mark === "cat" ? "已標貓" : mark === "cross" ? "玩家排除" : "空格"}`;
+            html += `<button type="button" class="${classes.join(" ")}" role="gridcell" aria-label="${label}" aria-pressed="${!!mark}" data-row="${row}" data-col="${column}" style="${cellStyle(row, column, Number(state.puzzle.regions[row][column].slice(1)) || 0)}">${symbol}</button>`;
+          }
+        }
+        return html + "</div>";
+      }
+      function controlsMarkup() {
+        const difficulty = currentDifficulty();
+        const hintsLeft = Math.max(0, difficulty.hints - state.hintUses);
+        const hintButton = difficulty.hints > 0
+          ? `<button class="btn" data-action="hint" ${hintsLeft ? "" : "disabled"}>提示一隻 · ${hintsLeft} 次</button>`
+          : `<button class="btn" disabled>挑戰關不提供提示</button>`;
+        const nextLabel = state.mode === "campaign" && state.level === 100 ? "重玩第 100 關" : state.mode === "campaign" ? "下一關 →" : "再來一題 →";
+        const nextButton = state.won ? `<button class="btn primary" data-action="next">${nextLabel}</button>` : "";
+        const levelChoices = Array.from({ length: state.unlocked }, (_, index) => {
+          const level = index + 1;
+          const done = state.completed.has(level) ? " ✓" : "";
+          return `<option value="${level}" ${state.mode === "campaign" && state.level === level ? "selected" : ""}>第 ${level} 關${done}</option>`;
+        }).join("");
+        const replay = state.mode === "campaign" && state.unlocked > 1
+          ? `<div class="select-row"><label>重玩已解關<select id="level-select">${levelChoices}</select></label></div>` : "";
+        return `<section class="panel"><h3>標記棋盤</h3>
+          <div class="tools"><button class="btn ${state.tool === "cat" ? "selected" : ""}" data-tool="cat">🐈 放貓</button><button class="btn ${state.tool === "cross" ? "selected" : ""}" data-tool="cross">✕ 點格排除</button></div>
+          <p class="note">桌面：左鍵按住滑過空格，直接標叉。觸控：點格放貓，先選「點格排除」再點叉。</p>
+          <div class="button-stack">${hintButton}<button class="btn" data-action="check">✓ 檢查答案</button>${nextButton}<button class="btn" data-action="random">🎲 隨機唯一解題</button>${state.mode === "random" ? `<button class="btn" data-action="campaign">返回主線</button>` : ""}</div>
+          <p class="feedback ${state.feedbackKind}" role="status">${state.feedback}</p>
+          ${replay ? `<div style="margin-top:10px">${replay}</div>` : ""}</section>`;
+      }
+      function gameMarkup() {
+        const puzzle = state.puzzle;
+        const size = puzzle.size;
+        const level = campaign.levels[state.level - 1];
+        const difficulty = currentDifficulty();
+        const cats = catCells().length;
+        const blockedCount = puzzle.blocked_cells.length;
+        const progress = Math.round(state.completed.size / campaign.levels.length * 100);
+        const title = state.mode === "campaign" ? "貓咪找家" : "隨機挑戰";
+        const description = state.mode === "campaign"
+          ? "每列、每欄、每個相連顏色區域各一隻；貓不能八方向相鄰。"
+          : "新生成的連通色區棋盤，已由瀏覽器求解器確認唯一解。";
+        const score = state.mode === "campaign" ? level.solver_score : puzzle.proof.nodes;
+        const scoreLabel = state.mode === "campaign" ? "solver 挑戰分數" : "求解節點";
+        const scoreExplanation = state.mode === "campaign"
+          ? `分數 = 10×完整 solver 節點 + 2×N − 題目叉 + 平均分支（${level.solver_profile.mean_branching}）。`
+          : "此數字是隨機題完整唯一解搜尋的節點數。";
+        const rules = `<section class="panel rules-panel"><h3>尋貓規則</h3><ul class="rule-list"><li><b>01</b><span>每一列恰好一隻貓</span></li><li><b>02</b><span>每一欄恰好一隻貓</span></li><li><b>03</b><span>每色恰有 ${size} 格、四方向連通且只放一隻貓</span></li><li><b>04</b><span>貓不能水平、垂直或斜對角相鄰</span></li></ul></section>`;
+        const progressPanel = `<section class="panel progress-panel"><h3>${state.mode === "campaign" ? "100 關主線" : "本題"}</h3>
+          <div class="progress-copy"><span>${state.mode === "campaign" ? `已解 ${state.completed.size} / 100 關` : "隨機題不計入主線"}</span><b>${state.mode === "campaign" ? `${progress}%` : `${cats} / ${size} 隻`}</b></div>
+          <div class="progress-track"><i style="width:${state.mode === "campaign" ? progress : Math.round(cats / size * 100)}%"></i></div>
+          <div class="progress-copy"><span>題目叉 ${blockedCount} 格</span><b>${scoreLabel} ${score}</b></div>
+          <p class="note">${scoreExplanation} 這是成本代理，不等同人類體感難度。</p></section>`;
+        return `<header class="topbar"><div><div class="eyebrow">CAT PUZZLE · PLAYABLE PROTOTYPE</div><h1>${title}</h1><p class="subtitle">${description}</p></div>
+          <div class="level-chip">${state.mode === "campaign" ? `第 <strong>${state.level}</strong> / 100 關` : "隨機關卡"}<br>${size} × ${size} · ${difficulty.label}</div></header>
+          <div class="meta-line"><span>盤面 <b>${cats}/${size}</b> 隻貓 · <b>${blockedCount}</b> 個題目禁用格</span><span>${scoreLabel} <b>${score}</b></span></div>
+          <div class="game-grid"><section class="board-area board-card"><div class="board-heading"><h2>${state.mode === "campaign" ? `第 ${state.level} 關棋盤` : "隨機題目棋盤"}</h2><span>顏色與紋理區分區域 · 粗線為區域邊界</span></div>
+          <div class="board-wrap">${boardMarkup()}</div><div class="board-footer"><span>題目灰叉是固定禁用格；紅叉是你的排除標記。</span><span>${cats} / ${size} 隻</span></div></section>
+          <aside class="side">${controlsMarkup()}${progressPanel}${rules}</aside></div>`;
+      }
+      function markCell(row, column, mark) {
+        const cell = key(row, column);
+        if (currentBlocked().has(cell) || state.marks.has(cell)) return;
+        state.marks.set(cell, mark);
+        const button = app.querySelector(`.cell[data-row="${row}"][data-col="${column}"]`);
+        if (button) {
+          button.classList.add("cross-mark");
+          button.setAttribute("aria-pressed", "true");
+          button.setAttribute("aria-label", `第 ${row + 1} 列，第 ${column + 1} 欄，玩家排除`);
+          button.innerHTML = `<span class="mark-symbol">×</span>`;
+        }
+      }
+      function render() {
+        document.body.dataset.variant = state.variant;
+        app.innerHTML = gameMarkup();
+        const variant = VARIANTS.find(item => item.id === state.variant);
+        document.getElementById("variant-label").textContent = `${variant.mark} ${variant.label}`;
+        const board = app.querySelector(".board");
+        board.addEventListener("click", event => {
+          const cell = event.target.closest(".cell");
+          if (!cell) return;
+          placeMark(Number(cell.dataset.row), Number(cell.dataset.col));
+        });
+        board.addEventListener("pointerdown", event => {
+          if (event.button !== 0 || (event.pointerType !== "mouse" && event.pointerType !== "pen")) return;
+          const cell = event.target.closest(".cell");
+          if (!cell) return;
+          const row = Number(cell.dataset.row), column = Number(cell.dataset.col);
+          if (currentBlocked().has(key(row, column)) || state.marks.has(key(row, column))) return;
+          state.drag = {
+            pointerId: event.pointerId, start: [row, column], last: null, moved: false,
+            lastPoint: [event.clientX, event.clientY]
+          };
+        });
+        board.addEventListener("pointermove", event => {
+          const drag = state.drag;
+          if (!drag || event.pointerId !== drag.pointerId) return;
+          const rect = board.getBoundingClientRect();
+          const cellSize = rect.width / state.puzzle.size;
+          const previous = drag.lastPoint || [event.clientX, event.clientY];
+          const distance = Math.hypot(event.clientX - previous[0], event.clientY - previous[1]);
+          const steps = Math.max(1, Math.ceil(distance / Math.max(2, cellSize * 0.35)));
+          for (let step = 1; step <= steps; step++) {
+            const x = previous[0] + (event.clientX - previous[0]) * step / steps;
+            const y = previous[1] + (event.clientY - previous[1]) * step / steps;
+            const target = document.elementFromPoint(x, y)?.closest(".cell");
+            if (!target) continue;
+            const row = Number(target.dataset.row), column = Number(target.dataset.col);
+            if (row === drag.start[0] && column === drag.start[1]) continue;
+            if (!drag.moved) {
+              drag.moved = true;
+              markCell(...drag.start, "cross");
+            }
+            if (currentBlocked().has(key(row, column)) || state.marks.has(key(row, column))) continue;
+            if (drag.last !== key(row, column)) {
+              markCell(row, column, "cross");
+              drag.last = key(row, column);
+            }
+          }
+          drag.lastPoint = [event.clientX, event.clientY];
+          event.preventDefault();
+        });
+        board.addEventListener("pointerup", event => {
+          const drag = state.drag;
+          if (!drag || event.pointerId !== drag.pointerId) return;
+          state.drag = null;
+          if (drag.moved) {
+            state.dragClickGuard = { cell: key(...drag.start), timeStamp: event.timeStamp };
+            setFeedback("拖曳經過的空格已標成紅叉；原有貓、叉與題目禁用格不變。");
+            setTimeout(() => {
+              if (state.dragClickGuard?.timeStamp === event.timeStamp) state.dragClickGuard = null;
+            }, 0);
+          }
+        });
+        board.addEventListener("pointercancel", () => { state.drag = null; render(); });
+        board.addEventListener("contextmenu", event => event.preventDefault());
+        board.addEventListener("click", event => {
+          const cell = event.target.closest(".cell");
+          const guard = state.dragClickGuard;
+          if (!cell || !guard) return;
+          state.dragClickGuard = null;
+          if (
+            event.detail > 0 &&
+            key(Number(cell.dataset.row), Number(cell.dataset.col)) === guard.cell &&
+            event.timeStamp - guard.timeStamp < 50
+          ) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+          }
+        }, true);
+        app.querySelectorAll("[data-tool]").forEach(button => button.addEventListener("click", () => {
+          state.tool = button.dataset.tool;
+          render();
+        }));
+        app.querySelectorAll("[data-action]").forEach(button => button.addEventListener("click", () => {
+          const action = button.dataset.action;
+          if (action === "check") checkAnswer();
+          if (action === "hint") giveHint();
+          if (action === "next") nextLevel();
+          if (action === "random") {
+            try {
+              const puzzle = makeRandomPuzzle();
+              resetPuzzle(puzzle, puzzle.solution, "random");
+            } catch (error) {
+              setFeedback(error.message, "warn");
+              render();
+            }
+          }
+          if (action === "campaign") playLevel(state.unlocked);
+        }));
+        app.querySelector("#level-select")?.addEventListener("change", event => playLevel(Number(event.target.value)));
+      }
+      function changeVariant(delta) {
+        const index = VARIANTS.findIndex(item => item.id === state.variant);
+        state.variant = VARIANTS[(index + delta + VARIANTS.length) % VARIANTS.length].id;
+        const url = new URL(location.href);
+        url.searchParams.set("variant", state.variant);
+        try { history.replaceState(null, "", url); } catch (_) { /* file:// may reject URL history updates */ }
+        render();
+      }
+      document.getElementById("variant-prev").addEventListener("click", () => changeVariant(-1));
+      document.getElementById("variant-next").addEventListener("click", () => changeVariant(1));
+      document.addEventListener("keydown", event => {
+        const target = event.target;
+        if (target instanceof HTMLElement && (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName))) return;
+        if (event.key === "ArrowLeft") changeVariant(-1);
+        if (event.key === "ArrowRight") changeVariant(1);
+      });
+      globalThis.CatPuzzlePrototype = {
+        campaign,
+        playLevel,
+        state,
+        classify,
+        connectedRegions,
+        makeRandomPuzzle,
+        isValidSolution
+      };
+      playLevel(1);
+    })();
+  </script>
+</body>
+</html>

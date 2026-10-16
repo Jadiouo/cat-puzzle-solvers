@@ -1,0 +1,149 @@
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+[50/360] 3s
+[100/360] 6s
+[150/360] 10s
+[200/360] 23s
+[250/360] 43s
+[300/360] 76s
+[350/360] 139s
+
+wrote bench/results/extra_match_S3.csv / .json  (wall 149.4s)
+
+suite solver     mode       N    #  median_s    max_s timeout error MISMATCH stuck noref
+S3    native_matchclassify   8   20    0.0000   0.0000       0     0        0     0     0
+S3    native_matchclassify  10   20    0.0000   0.0001       0     0        0     0     0
+S3    native_matchclassify  12   20    0.0000   0.0000       0     0        0     0     0
+S3    native_matchclassify  15   20    0.0000   0.0047       0     0        0     0     0
+S3    native_matchclassify  20   20    0.0000   0.0001       0     0        0     0     0
+S3    native_matchclassify  25   20    0.0001   0.0078       0     0        0     0     0
+S3    native_matchcount      8   20    0.0000   0.0001       0     0        0     0     0
+S3    native_matchcount     10   20    0.0000   0.0011       0     0        0     0     0
+S3    native_matchcount     12   20    0.0000   0.0098       0     0        0     0     0
+S3    native_matchcount     15   20    0.0005   3.2473       0     0        0     0     0
+S3    native_matchcount     20   20    0.0000   1.9700       4     0        0     0     0
+S3    native_matchcount     25   20    0.0001   0.0001       7     0        0     0     0
+S3    native_match_rrclassify   8   20    0.0000   0.0000       0     0        0     0     0
+S3    native_match_rrclassify  10   20    0.0000   0.0001       0     0        0     0     0
+S3    native_match_rrclassify  12   20    0.0000   0.0000       0     0        0     0     0
+S3    native_match_rrclassify  15   20    0.0000   0.0770       0     0        0     0     0
+S3    native_match_rrclassify  20   20    0.0000   0.0001       0     0        0     0     0
+S3    native_match_rrclassify  25   20    0.0001   0.0003       0     0        0     0     0

@@ -1,0 +1,39 @@
+[50/270] 29s
+[100/270] 59s
+[150/270] 89s
+[200/270] 122s
+[250/270] 153s
+
+wrote bench/results/final_native_S5.csv / .json  (wall 169.3s)
+
+suite solver     mode       N    #  median_s    max_s timeout error MISMATCH stuck noref
+S5    cpsat_w1   classify  11   10    0.0096   0.0126       0     0        0     0     0
+S5    cpsat_w1   classify  12   10    0.0138   0.0236       0     0        0     0     0
+S5    cpsat_w1   classify  13   10    0.0123   0.0400       0     0        0     0     0
+S5    cpsat_w1   classify  14   10    0.0240   0.0299       0     0        0     0     0
+S5    cpsat_w1   classify  15   10    0.0312   0.0713       0     0        0     0     0
+S5    cpsat_w1   classify  16    4    0.0710   0.2552       0     0        0     0     0
+S5    native_bitmaskclassify  11   10    0.0000   0.0001       0     0        0     0     0
+S5    native_bitmaskclassify  12   10    0.0001   0.0005       0     0        0     0     0
+S5    native_bitmaskclassify  13   10    0.0002   0.0006       0     0        0     0     0
+S5    native_bitmaskclassify  14   10    0.0004   0.0110       0     0        0     0     0
+S5    native_bitmaskclassify  15   10    0.0002   0.0085       0     0        0     0     0
+S5    native_bitmaskclassify  16    4    0.0110   0.0219       0     0        0     0     0
+S5    native_dlx classify  11   10    0.0001   0.0001       0     0        0     0     0
+S5    native_dlx classify  12   10    0.0001   0.0007       0     0        0     0     0
+S5    native_dlx classify  13   10    0.0003   0.0037       0     0        0     0     0
+S5    native_dlx classify  14   10    0.0005   0.0127       0     0        0     0     0
+S5    native_dlx classify  15   10    0.0003   0.0111       0     0        0     0     0
+S5    native_dlx classify  16    4    0.0123   0.0340       0     0        0     0     0
+S5    native_hybridclassify  11   10    0.0000   0.0001       0     0        0     0     0
+S5    native_hybridclassify  12   10    0.0001   0.0003       0     0        0     0     0
+S5    native_hybridclassify  13   10    0.0002   0.0005       0     0        0     0     0
+S5    native_hybridclassify  14   10    0.0003   0.0059       0     0        0     0     0
+S5    native_hybridclassify  15   10    0.0002   0.0028       0     0        0     0     0
+S5    native_hybridclassify  16    4    0.0055   0.0218       0     0        0     0     0
+S5    sat_cadical153_seqclassify  11   10    0.0015   0.0048       0     0        0     0     0
+S5    sat_cadical153_seqclassify  12   10    0.0023   0.0088       0     0        0     0     0
+S5    sat_cadical153_seqclassify  13   10    0.0062   0.0109       0     0        0     0     0
+S5    sat_cadical153_seqclassify  14   10    0.0083   0.0150       0     0        0     0     0
+S5    sat_cadical153_seqclassify  15   10    0.0074   0.0197       0     0        0     0     0
+S5    sat_cadical153_seqclassify  16    4    0.0228   0.0452       0     0        0     0     0

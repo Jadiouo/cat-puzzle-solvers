@@ -1,0 +1,21 @@
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+
+wrote bench/results/extra_match_S2.csv / .json  (wall 2.6s)
+
+suite solver     mode       N    #  median_s    max_s timeout error MISMATCH stuck noref
+S2    native_matchclassify  10   14    0.0000   0.0001       0     0        0     0     0
+S2    native_matchcount     10   14    0.0000   0.0001       0     0        0     0     0
+S2    native_match_rrclassify  10   14    0.0000   0.0001       0     0        0     0     0

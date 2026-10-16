@@ -1,0 +1,39 @@
+[50/405] 17s
+[100/405] 32s
+[150/405] 52s
+[200/405] 87s
+[250/405] 108s
+[300/405] 116s
+[350/405] 124s
+[400/405] 133s
+
+wrote bench/results/unified_S6x.csv / .json  (wall 134.0s)
+
+suite solver     mode       N    #  median_s    max_s timeout error MISMATCH stuck noref
+S6x   cpsat_w1   classify  14    5    0.0089   0.0092       0     0        0     0     0
+S6x   cpsat_w1   classify  16   20    0.0155   0.0428       0     0        0     0     0
+S6x   cpsat_w1   classify  18   20    0.0328   0.1281       0     0        0     0     0
+S6x   native_bitmaskclassify  14    5    0.0008   0.0020       0     0        0     0     0
+S6x   native_bitmaskclassify  16   20    0.0059   0.2630       0     0        0     0     0
+S6x   native_bitmaskclassify  18   20    0.1594   0.8557       0     0        0     0     0
+S6x   native_dlx classify  14    5    0.0009   0.0021       0     0        0     0     0
+S6x   native_dlx classify  16   20    0.0057   0.2718       0     0        0     0     0
+S6x   native_dlx classify  18   20    0.1193   0.5633       0     0        0     0     0
+S6x   native_hybridclassify  14    5    0.0007   0.0014       0     0        0     0     0
+S6x   native_hybridclassify  16   20    0.0056   0.3416       0     0        0     0     0
+S6x   native_hybridclassify  18   20    0.0589   0.8077       0     0        0     0     0
+S6x   native_matchclassify  14    5    0.0002   0.0018       0     0        0     0     0
+S6x   native_matchclassify  16   20    0.0016   0.0567       0     0        0     0     0
+S6x   native_matchclassify  18   20    0.0033   0.1104       0     0        0     0     0
+S6x   native_match_rrclassify  14    5    0.0010   0.0113       0     0        0     0     0
+S6x   native_match_rrclassify  16   20    0.0173   0.5564       0     0        0     0     0
+S6x   native_match_rrclassify  18   20    0.0249   1.1607       0     0        0     0     0
+S6x   sat_cadical153_seqclassify  14    5    0.0033   0.0069       0     0        0     0     0
+S6x   sat_cadical153_seqclassify  16   20    0.0057   0.0216       0     0        0     0     0
+S6x   sat_cadical153_seqclassify  18   20    0.0098   0.0618       0     0        0     0     0
+S6x   sat_cadical195_seqclassify  14    5    0.0032   0.0060       0     0        0     0     0
+S6x   sat_cadical195_seqclassify  16   20    0.0058   0.0228       0     0        0     0     0
+S6x   sat_cadical195_seqclassify  18   20    0.0097   0.0391       0     0        0     0     0
+S6x   sat_glucose4_seqclassify  14    5    0.0025   0.0036       0     0        0     0     0
+S6x   sat_glucose4_seqclassify  16   20    0.0042   0.0213       0     0        0     0     0
+S6x   sat_glucose4_seqclassify  18   20    0.0103   0.0509       0     0        0     0     0

@@ -1,0 +1,29 @@
+[50/360] 276s
+[100/360] 458s
+[150/360] 803s
+[200/360] 1063s
+[250/360] 1332s
+[300/360] 1583s
+[350/360] 1871s
+
+wrote ./bench/results/rerun_S3_count_n15plus.csv / .json  (wall 1952.4s)
+
+suite solver     mode       N    #  median_s    max_s timeout error MISMATCH stuck noref
+S3    bitmask    count     15   20    0.2108   4.5603       2     0        0     0     0
+S3    bitmask    count     20   20    0.0051   8.7269       8     0        0     0     2
+S3    bitmask    count     25   20    0.0037   1.7714      13     0        0     0     2
+S3    cat_solver count     15   20    0.0193   6.9925      12     0        0     0     0
+S3    cat_solver count     20   20    0.0005   0.0158       9     0        0     0     0
+S3    cat_solver count     25   20    0.0007   0.0009      13     0        0     0     0
+S3    cpsat_w1   count     15   20    0.0141   2.6843       6     0        0     0     0
+S3    cpsat_w1   count     20   20    0.0310   0.1530       5     0        0     0     2
+S3    cpsat_w1   count     25   20    0.0448   0.1671       7     0        0     0     6
+S3    dlx        count     15   20    0.3884   6.8567       2     0        0     0     0
+S3    dlx        count     20   20    0.0058   6.4032      10     0        0     0     1
+S3    dlx        count     25   20    0.0054   3.6854      13     0        0     0     2
+S3    hybrid     count     15   20    0.0148   2.3198       4     0        0     0     0
+S3    hybrid     count     20   20    0.0048   8.6000       9     0        0     0     1
+S3    hybrid     count     25   20    0.0049   1.2300      13     0        0     0     2
+S3    sat_cadical153_seqcount     15   20    0.0040   2.1326       5     0        0     0     0
+S3    sat_cadical153_seqcount     20   20    0.0059   0.0494       5     0        0     0     2
+S3    sat_cadical153_seqcount     25   20    0.0120   0.0223       7     0        0     0     6

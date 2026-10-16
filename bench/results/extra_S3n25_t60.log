@@ -1,0 +1,25 @@
+[50/300] 86s
+[100/300] 332s
+[150/300] 411s
+[200/300] 608s
+[250/300] 971s
+[300/300] 1465s
+
+wrote bench/results/extra_S3n25_t60.csv / .json  (wall 1464.6s)
+
+suite solver     mode       N    #  median_s    max_s timeout error MISMATCH stuck noref
+S3    cpsat_w1   classify  25   20    0.0213   0.1311       0     0        0     0     0
+S3    native_bitmaskclassify  25   20    0.0009     54.1       5     0        0     0     0
+S3    native_dlx classify  25   20    0.0015     27.1       4     0        0     0     0
+S3    native_hybridclassify  25   20    0.0022     56.8       4     0        0     0     0
+S3    native_matchclassify  25   20    0.0001   0.0077       0     0        0     0     0
+S3    native_match_rrclassify  25   20    0.0001   0.0003       0     0        0     0     0
+S3    native_rr  classify  25   20    0.0004   2.5806       6     0        0     0     0
+S3    sat_cadical153_bitwiseclassify  25   20    0.0092   0.0616       0     0        0     0     0
+S3    sat_cadical153_ladderclassify  25   20    0.0068   0.0147       0     0        0     0     0
+S3    sat_cadical153_pairwiseclassify  25   20    0.0155   0.5554       0     0        0     0     0
+S3    sat_cadical153_seqclassify  25   20    0.0064   0.1521       0     0        0     0     0
+S3    sat_cadical153_totalizerclassify  25   20    0.0216   0.0884       0     0        0     0     0
+S3    sat_cadical195_seqclassify  25   20    0.0056   0.0682       0     0        0     0     0
+S3    sat_glucose4_seqclassify  25   20    0.0041   0.0250       0     0        0     0     0
+S3    sat_minisat22_seqclassify  25   20    0.0036   0.2540       0     0        0     0     0

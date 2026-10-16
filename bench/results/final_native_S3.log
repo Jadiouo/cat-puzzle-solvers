@@ -1,0 +1,88 @@
+[50/1200] 11s
+[100/1200] 23s
+[150/1200] 34s
+[200/1200] 45s
+[250/1200] 58s
+[300/1200] 69s
+[350/1200] 82s
+[400/1200] 93s
+[450/1200] 105s
+[500/1200] 155s
+[550/1200] 167s
+[600/1200] 183s
+[650/1200] 261s
+[700/1200] 300s
+[750/1200] 358s
+[800/1200] 416s
+[850/1200] 540s
+[900/1200] 679s
+[950/1200] 739s
+[1000/1200] 806s
+[1050/1200] 959s
+[1100/1200] 1231s
+[1150/1200] 1442s
+[1200/1200] 1773s
+
+wrote bench/results/final_native_S3.csv / .json  (wall 1773.5s)
+
+suite solver     mode       N    #  median_s    max_s timeout error MISMATCH stuck noref
+S3    cpsat_w1   classify   8   20    0.0021   0.0042       0     0        0     0     0
+S3    cpsat_w1   classify  10   20    0.0033   0.0059       0     0        0     0     0
+S3    cpsat_w1   classify  12   20    0.0036   0.0071       0     0        0     0     0
+S3    cpsat_w1   classify  15   20    0.0087   0.0481       0     0        0     0     0
+S3    cpsat_w1   classify  20   20    0.0159   0.1477       0     0        0     0     0
+S3    cpsat_w1   classify  25   20    0.0570   0.2477       0     0        0     0     0
+S3    cpsat_w1   count      8   20    0.0022   0.0088       0     0        0     0     0
+S3    cpsat_w1   count     10   20    0.0042   0.2466       0     0        0     0     0
+S3    cpsat_w1   count     12   20    0.0044   3.3328       0     0        0     0     0
+S3    cpsat_w1   count     15   20    0.0094   5.5039       5     0        0     0     0
+S3    cpsat_w1   count     20   20    0.0133   0.1416       5     0        0     0     0
+S3    cpsat_w1   count     25   20    0.0335   0.4368       7     0        0     0     0
+S3    native_bitmaskclassify   8   20    0.0000   0.0000       0     0        0     0     0
+S3    native_bitmaskclassify  10   20    0.0000   0.0000       0     0        0     0     0
+S3    native_bitmaskclassify  12   20    0.0000   0.0002       0     0        0     0     0
+S3    native_bitmaskclassify  15   20    0.0001   0.0391       0     0        0     0     0
+S3    native_bitmaskclassify  20   20    0.0016   1.5920       0     0        0     0     0
+S3    native_bitmaskclassify  25   20    0.0001   0.9153       9     0        0     0     0
+S3    native_bitmaskcount      8   20    0.0000   0.0000       0     0        0     0     0
+S3    native_bitmaskcount     10   20    0.0000   0.0007       0     0        0     0     0
+S3    native_bitmaskcount     12   20    0.0001   0.0073       0     0        0     0     0
+S3    native_bitmaskcount     15   20    0.0100   2.6421       0     0        0     0     0
+S3    native_bitmaskcount     20   20    0.0054   3.6599       4     0        0     0     0
+S3    native_bitmaskcount     25   20    0.0001   0.2842      13     0        0     0     0
+S3    native_dlx classify   8   20    0.0000   0.0000       0     0        0     0     0
+S3    native_dlx classify  10   20    0.0000   0.0001       0     0        0     0     0
+S3    native_dlx classify  12   20    0.0000   0.0003       0     0        0     0     0
+S3    native_dlx classify  15   20    0.0001   0.0368       0     0        0     0     0
+S3    native_dlx classify  20   20    0.0013   1.1270       0     0        0     0     0
+S3    native_dlx classify  25   20    0.0003   6.8238       8     0        0     0     0
+S3    native_dlx count      8   20    0.0000   0.0001       0     0        0     0     0
+S3    native_dlx count     10   20    0.0000   0.0011       0     0        0     0     0
+S3    native_dlx count     12   20    0.0001   0.0098       0     0        0     0     0
+S3    native_dlx count     15   20    0.0097   2.5752       0     0        0     0     0
+S3    native_dlx count     20   20    0.0035   2.2405       4     0        0     0     0
+S3    native_dlx count     25   20    0.0003   9.2075      11     0        0     0     0
+S3    native_hybridclassify   8   20    0.0000   0.0000       0     0        0     0     0
+S3    native_hybridclassify  10   20    0.0000   0.0000       0     0        0     0     0
+S3    native_hybridclassify  12   20    0.0000   0.0001       0     0        0     0     0
+S3    native_hybridclassify  15   20    0.0001   0.0281       0     0        0     0     0
+S3    native_hybridclassify  20   20    0.0005   1.2365       0     0        0     0     0
+S3    native_hybridclassify  25   20    0.0005   8.6156       8     0        0     0     0
+S3    native_hybridcount      8   20    0.0000   0.0001       0     0        0     0     0
+S3    native_hybridcount     10   20    0.0000   0.0014       0     0        0     0     0
+S3    native_hybridcount     12   20    0.0000   0.0218       0     0        0     0     0
+S3    native_hybridcount     15   20    0.0092   6.1381       0     0        0     0     0
+S3    native_hybridcount     20   20    0.0009   7.1712       4     0        0     0     0
+S3    native_hybridcount     25   20    0.0004   9.6033      12     0        0     0     0
+S3    sat_cadical153_seqclassify   8   20    0.0004   0.0006       0     0        0     0     0
+S3    sat_cadical153_seqclassify  10   20    0.0007   0.0013       0     0        0     0     0
+S3    sat_cadical153_seqclassify  12   20    0.0009   0.0012       0     0        0     0     0
+S3    sat_cadical153_seqclassify  15   20    0.0017   0.0042       0     0        0     0     0
+S3    sat_cadical153_seqclassify  20   20    0.0041   0.0186       0     0        0     0     0
+S3    sat_cadical153_seqclassify  25   20    0.0147   0.1743       0     0        0     0     0
+S3    sat_cadical153_seqcount      8   20    0.0005   0.0037       0     0        0     0     0
+S3    sat_cadical153_seqcount     10   20    0.0010   0.1578       0     0        0     0     0
+S3    sat_cadical153_seqcount     12   20    0.0011   2.0686       0     0        0     0     0
+S3    sat_cadical153_seqcount     15   20    0.0021   4.1337       4     0        0     0     0
+S3    sat_cadical153_seqcount     20   20    0.0038   0.0188       5     0        0     0     0
+S3    sat_cadical153_seqcount     25   20    0.0140   0.0421       7     0        0     0     0

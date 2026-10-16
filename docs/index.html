@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cat Board Lab</title>
+<meta name="description" content="Play a cat-placement logic puzzle, then race plain backtracking against backtracking with Hall-matching pruning.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 3l4 3.2a9 9 0 0 1 8 0L20 3v8.5a8 8 0 0 1-16 0z' fill='%23e07a3f'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="cat" viewBox="0 0 24 24">
+    <path d="M4 3l4 3.2a9 9 0 0 1 8 0L20 3v8.5a8 8 0 0 1-16 0z" fill="currentColor"/>
+    <circle cx="9" cy="12" r="1.3" fill="var(--cat-eye)"/><circle cx="15" cy="12" r="1.3" fill="var(--cat-eye)"/>
+    <path d="M10.4 15.3q1.6 1.3 3.2 0" stroke="var(--cat-eye)" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap top-in">
+    <div class="brand"><svg class="logo"><use href="#cat"/></svg><span data-i18n="title">Cat Board Lab</span></div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-tab="play" aria-selected="true" data-i18n="tabPlay">Play</button>
+      <button role="tab" data-tab="race" aria-selected="false" data-i18n="tabRace">Race</button>
+      <button role="tab" data-tab="findings" aria-selected="false" data-i18n="tabFindings">Findings</button>
+    </nav>
+    <div class="tools">
+      <button id="btnLang" class="ghost" aria-label="Language">中文</button>
+      <button id="btnTheme" class="ghost" aria-label="Theme">◐</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1 data-i18n="heroTitle">Place one cat per row, column and colour region.</h1>
+    <p data-i18n="heroText">An N×N board has N colour regions. Every row, column and region holds exactly one cat, and no two cats touch, not even diagonally. Play a puzzle, then watch two solvers fight over the same board.</p>
+  </section>
+
+  <!-- PLAY -->
+  <section id="tab-play" class="panel">
+    <div class="controls">
+      <label><span data-i18n="size">Size</span>
+        <select id="selSize"></select></label>
+      <label><span data-i18n="difficulty">Difficulty</span>
+        <select id="selLevel"></select></label>
+      <button id="btnNew" class="primary" data-i18n="newPuzzle">New puzzle</button>
+    </div>
+    <div class="play-grid">
+      <div class="board-col">
+        <div class="statusbar"><span id="playTitle" class="muted"></span><span id="playTimer" class="timer">0:00</span></div>
+        <div id="playBoard" class="board" role="grid" aria-label="Puzzle board"></div>
+        <p class="muted small" data-i18n="tapHelp">Tap a cell: empty, then X, then cat. Right-click also toggles X.</p>
+      </div>
+      <div class="side-col">
+        <div class="btnrow">
+          <button id="btnCheck" data-i18n="check">Check</button>
+          <button id="btnHint" data-i18n="hint">Hint</button>
+          <button id="btnReset" class="ghost" data-i18n="reset">Reset</button>
+          <button id="btnRaceThis" class="ghost" data-i18n="raceThis">Race this puzzle</button>
+        </div>
+        <div id="playMsg" class="msg" role="status" aria-live="polite"></div>
+        <div class="card small">
+          <b data-i18n="rulesTitle">Rules</b>
+          <ul>
+            <li data-i18n="rule1">Exactly one cat in every row.</li>
+            <li data-i18n="rule2">Exactly one cat in every column.</li>
+            <li data-i18n="rule3">Exactly one cat in every colour region.</li>
+            <li data-i18n="rule4">Cats never touch, diagonals included.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RACE -->
+  <section id="tab-race" class="panel" hidden>
+    <p class="lead" data-i18n="raceIntro">Same board, same branching order, two solvers. Both are bitmask backtracking; the second one also asks, at every node, whether the unplaced colour regions can still be matched to distinct free rows and to distinct free columns (Hall's condition). If not, it prunes.</p>
+    <div class="controls">
+      <label class="grow"><span data-i18n="puzzle">Puzzle</span>
+        <select id="selRace"></select></label>
+      <label><span data-i18n="nodeCap">Node cap</span>
+        <select id="selCap">
+          <option value="1000000">1 M</option>
+          <option value="5000000">5 M</option>
+          <option value="20000000" selected>20 M</option>
+          <option value="100000000">100 M</option>
+        </select></label>
+      <label><span data-i18n="mode">Mode</span>
+        <select id="selMode">
+          <option value="live" data-i18n="modeLive">Live race</option>
+          <option value="anim" data-i18n="modeAnim">Step-by-step (N ≤ 10)</option>
+        </select></label>
+      <button id="btnRun" class="primary" data-i18n="run">Run race</button>
+      <button id="btnCancel" disabled data-i18n="cancel">Cancel</button>
+    </div>
+    <div id="raceNote" class="muted small"></div>
+    <div class="race-grid">
+      <article class="card racer" id="racerA">
+        <header><h3 data-i18n="algoBitmask">Bitmask DFS</h3><span class="chip" id="chipA"></span></header>
+        <div class="stats"><div><span class="k" data-i18n="nodes">Nodes</span><span class="v" id="nodesA">–</span></div><div><span class="k" data-i18n="time">Time</span><span class="v" id="timeA">–</span></div></div>
+        <div class="bar"><i id="barA"></i></div>
+        <div class="board mini" id="boardA"></div>
+      </article>
+      <article class="card racer" id="racerB">
+        <header><h3 data-i18n="algoMatch">DFS + Hall matching</h3><span class="chip" id="chipB"></span></header>
+        <div class="stats"><div><span class="k" data-i18n="nodes">Nodes</span><span class="v" id="nodesB">–</span></div><div><span class="k" data-i18n="time">Time</span><span class="v" id="timeB">–</span></div></div>
+        <div class="bar"><i id="barB"></i></div>
+        <div class="board mini" id="boardB"></div>
+      </article>
+    </div>
+    <div id="animBar" class="btnrow animbar" hidden>
+      <button id="aPlay" class="primary" data-i18n="play">Play</button>
+      <button id="aStep" data-i18n="step">Step</button>
+      <button id="aRestart" class="ghost" data-i18n="restart">Restart</button>
+      <label class="inline"><span data-i18n="speed">Speed</span><input id="aSpeed" type="range" min="0" max="100" value="45"></label>
+      <span id="aInfo" class="muted small"></span>
+      <span class="legend small"><i class="lg place"></i><span data-i18n="lgPlace">cat placed</span><i class="lg prune"></i><span data-i18n="lgPrune">pruned by Hall check</span><i class="lg dead"></i><span data-i18n="lgDead">dead end</span></span>
+    </div>
+    <div id="raceSummary" class="summary" role="status" aria-live="polite"></div>
+    <div id="raceRef" class="muted small"></div>
+  </section>
+
+  <!-- FINDINGS -->
+  <section id="tab-findings" class="panel" hidden>
+    <div class="card findings">
+      <h2 data-i18n="findTitle">What the benchmark found</h2>
+      <p data-i18n="find1">On ordinary puzzles, backtracking with Hall-matching pruning was the fastest method tested: on random unique-solution boards (N=11–16) it needed 0.3 ms against 1.2–1.6 ms for SAT, and on random-region N=25 boards it solved all 20 puzzles (slowest 0.01 s) while three plain DFS variants timed out on 4–5 of 20 at 60 s.</p>
+      <p data-i18n="find2">On the hardest puzzles found by hill-climbing (N=10–18, all unique-solution), CDCL SAT was the steadiest: worst single puzzle 76–91 ms, against 454 ms for Hall-matching DFS and 0.8–1.1 s for plain DFS. This is not a worst-case guarantee; no unsatisfiable adversarial puzzles were tried.</p>
+      <p data-i18n="find3">SAT is not in this demo because the solvers behind those numbers (CaDiCaL, Glucose, CP-SAT) are native libraries driven from Python; this page is plain static JavaScript with no build step and no dependencies.</p>
+      <p><a id="readmeLink" class="btn-link" href="#" target="_blank" rel="noopener" data-i18n="readmeLink">Read the full write-up in the README</a></p>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap foot small muted" data-i18n="footer">Solver code runs entirely in your browser, in a Web Worker. Node counts match the C++ implementation exactly.</footer>
+
+<script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/board.js"></script>
+<script src="js/runner.js"></script>
+<script src="js/play.js"></script>
+<script src="js/race.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

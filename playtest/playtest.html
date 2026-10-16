@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>貓咪棋盤試玩</title>
+<style>
+:root{--bg:#f4f1ea;--ink:#1d2433;--mut:#667;--card:#fff;--acc:#2f6fed}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Noto Sans TC",sans-serif}
+main{max-width:640px;margin:0 auto;padding:12px 16px 40px}
+h1{font-size:20px;margin:8px 0}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:6px 0}
+.bar b{font-size:18px}
+.rules{font-size:13px;color:var(--mut);margin:4px 0 10px}
+button{font:inherit;padding:8px 14px;border:1px solid #9aa;border-radius:8px;background:#fff;color:var(--ink);cursor:pointer}
+button.pri{background:var(--acc);color:#fff;border-color:var(--acc)}
+button:disabled{opacity:.4}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+#board{display:grid;width:min(100%,560px);aspect-ratio:1;margin:0 auto;background:#101729;padding:3px;border-radius:10px;touch-action:none;user-select:none;-webkit-user-select:none}
+.cell{position:relative;display:grid;place-items:center;font-size:clamp(14px,5.5vw,30px);line-height:1;border:0 solid #101729;cursor:pointer}
+.cell i{position:absolute;left:2px;top:1px;font:normal 9px/1 sans-serif;opacity:.45}
+.cell.x{color:#555}
+.modal{position:fixed;inset:0;background:rgba(10,15,30,.55);display:none;align-items:center;justify-content:center;padding:16px;z-index:5}
+.modal.on{display:flex}
+.box{background:var(--card);border-radius:14px;padding:18px;width:min(100%,420px);max-height:92vh;overflow:auto}
+.rate{display:flex;gap:6px;margin:4px 0 12px}
+.rate button{flex:1;padding:10px 0}
+.rate button.sel{background:var(--acc);color:#fff;border-color:var(--acc)}
+.lbl{font-weight:600;margin-top:6px}.hint{font-size:12px;color:var(--mut);font-weight:400}
+textarea{width:100%;height:64px;font:inherit;padding:6px;border-radius:8px;border:1px solid #9aa}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border-bottom:1px solid #ccc;padding:4px 3px;text-align:center}
+.tw{overflow-x:auto}
+#cpbox{width:100%;height:120px;margin-top:8px;font:12px/1.3 monospace}
+#msg{font-size:13px;color:#2a7;min-height:20px}
+</style>
+</head>
+<body>
+<main>
+<div id="play">
+  <h1>貓咪棋盤試玩</h1>
+  <div class="bar"><b id="prog"></b><span id="timer" style="color:var(--mut)"></span></div>
+  <div class="rules">每列、每欄、每個色區各放一隻貓；貓之間八方向都不能相鄰（含斜角）。點一下放貓，再點變叉，再點清空；滑鼠可拖曳標叉。</div>
+  <div id="board"></div>
+  <div class="btns">
+    <button id="undo">Undo</button><button id="reset">重來</button><button id="skip">跳過此題</button><button id="clr2">清除全部紀錄重新開始</button>
+  </div>
+</div>
+<div id="done" hidden>
+  <h1>全部完成，謝謝！</h1>
+  <p>請下載 results.json 或複製內容，傳給出題者。</p>
+  <div class="btns"><button class="pri" id="dl">下載 results.json</button><button id="cp">複製到剪貼簿</button><button id="clr">清除全部紀錄</button></div>
+  <div id="msg"></div>
+  <div class="tw"><table id="tbl"></table></div>
+</div>
+</main>
+<div class="modal" id="cfm"><div class="box"><p id="cfmt" style="margin:0 0 12px"></p><div class="btns"><button id="cfmno">取消</button><button class="pri" id="cfmyes">確定</button></div></div></div>
+<div class="modal" id="modal"><div class="box">
+  <h2 style="margin:0 0 8px" id="mt">完成！</h2>
+  <div class="lbl">這題難度 <span class="hint">1 很簡單 – 5 很難</span></div>
+  <div class="rate" id="r1"></div>
+  <div class="lbl">色區形狀看起來自然嗎？ <span class="hint">1 很怪 – 5 很自然</span></div>
+  <div class="rate" id="r2"></div>
+  <div class="lbl">備註 <span class="hint">（選填）</span></div>
+  <textarea id="note"></textarea>
+  <div class="btns"><button class="pri" id="submit" disabled>送出，下一題</button></div>
+</div></div>
+<script>
+const DATA = /*DATA*/{"order":["p7m","p9m","p6h","p6m","p7h","p8h","p8l","p6l","p9l","p8m","p9h","p7l"],"puzzles":[{"id":"p6l","size":6,"regions":["BBAAAA","BBBAAA","BBAAAC","BBBDCC","BEBDDD","EEFFFD"],"solution":[[0,2],[1,0],[2,5],[3,3],[4,1],[5,4]]},{"id":"p6m","size":6,"regions":["AABBBB","AAABBB","ACBBBB","FCFDBB","FCFDBE","FFFDEE"],"solution":[[0,0],[1,4],[2,1],[3,3],[4,5],[5,2]]},{"id":"p6h","size":6,"regions":["AABBBB","CACBBB","CCCCBB","CFEEDD","CFFEDF","CFFFFF"],"solution":[[0,0],[1,4],[2,2],[3,5],[4,3],[5,1]]},{"id":"p7l","size":7,"regions":["AABFFCC","ABBBFCC","DBFFFEC","DBFGFEE","DGFGFEE","GGFGFFF","GGGGGGG"],"solution":[[0,1],[1,3],[2,6],[3,0],[4,5],[5,2],[6,4]]},{"id":"p7m","size":7,"regions":["AAABBBB","ABBBDBB","ACBBDDB","ACCCDDB","FEEEGDB","FEGGGDD","FGGGGDD"],"solution":[[0,2],[1,6],[2,1],[3,5],[4,3],[5,0],[6,4]]},{"id":"p7h","size":7,"regions":["EEAAAAA","EAADBAC","EADDBBC","EEEDFBC","GEFFFFC","GEEGGFF","GGGGFFF"],"solution":[[0,2],[1,4],[2,6],[3,3],[4,1],[5,5],[6,0]]},{"id":"p8l","size":8,"regions":["ADDDDDBC","ADBDBBBC","ADBBBBCC","ADDDDBBH","GEDDDBHH","GEEEHHHF","GGGEHHFF","HHHHHHHH"],"solution":[[0,0],[1,4],[2,6],[3,3],[4,1],[5,7],[6,2],[7,5]]},{"id":"p8m","size":8,"regions":["DBBBEAAA","DBEEEAAA","DEEEEACC","DDDDEEFC","DGDEEEFF","DGDDGEEF","DGGGGGGG","DGGGHHHG"],"solution":[[0,5],[1,1],[2,6],[3,0],[4,3],[5,7],[6,2],[7,4]]},{"id":"p8h","size":8,"regions":["AAAAABBB","CAABBBEB","CAAAAEEE","CCCDAEEE","FCCDAAEE","FFFDAGEG","HDDDAGEG","HHDDGGGG"],"solution":[[0,4],[1,7],[2,0],[3,3],[4,6],[5,2],[6,5],[7,1]]},{"id":"p9l","size":9,"regions":["EEEEEBBAA","EEEBBBBBA","DEEEGBCCA","DDEEGGGCC","EEEGGFGGC","EGGGHFFGG","IHHHHHHGH","IIIHIHHHH","IIIIIIHHH"],"solution":[[0,8],[1,4],[2,6],[3,0],[4,2],[5,5],[6,7],[7,3],[8,1]]},{"id":"p9m","size":9,"regions":["DBAAAAAAA","DBBBEEACC","DDDDEAAAC","FDDEEEAAC","FDGEGEAAC","FDGGGEGGC","DDDGGGGCC","DHDGCCCCI","HHDDCCCII"],"solution":[[0,6],[1,3],[2,8],[3,2],[4,5],[5,0],[6,4],[7,1],[8,7]]},{"id":"p9h","size":9,"regions":["AAAAAAAAA","AABABBCAA","BABABCCCA","BBBBBDCCC","BFEBBDCDC","FFEEEDDDC","FGGGEHHHH","FFFEEHHIH","FFFFFFHII"],"solution":[[0,1],[1,4],[2,7],[3,5],[4,2],[5,0],[6,3],[7,6],[8,8]]}]}/*END*/;
+const KEY = 'catplay_v1';
+const PAL = ['#f6c1c1','#bfe3c0','#bcd4f5','#f7e3a1','#d9c2ee','#f5cfa3','#aee3e0','#e6e6a8','#d0d0d0'];
+const $ = id => document.getElementById(id);
+const PZ = {}; DATA.puzzles.forEach(p => PZ[p.id] = p);
+const N_TOTAL = DATA.order.length;
+
+let S = {results: [], idx: 0, cur: null};   // cur: {marks, hist, acc, undo, wrong, resets}
+let t0 = null;                               // running timer start (null = paused)
+let rated = {d: 0, n: 0}, pendingGiveUp = false, locked = false;
+
+function load(){ try{ const j = localStorage.getItem(KEY); if(j){ const o = JSON.parse(j); if(o && Array.isArray(o.results)) S = o; } }catch(e){} }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+
+let cfmCb = null;
+function askConfirm(t, cb){ $('cfmt').textContent = t; cfmCb = cb; stopTimer(); $('cfm').classList.add('on'); }
+function closeCfm(){ $('cfm').classList.remove('on'); cfmCb = null; startTimer(); }
+$('cfmno').onclick = closeCfm;
+$('cfmyes').onclick = () => { const f = cfmCb; $('cfm').classList.remove('on'); cfmCb = null; startTimer(); if(f) f(); };
+function curP(){ return PZ[DATA.order[S.idx]]; }
+function freshCur(p){ return {marks: new Array(p.size*p.size).fill(0), hist: [], acc: 0, undo: 0, wrong: 0, resets: 0}; }
+function elapsedMs(){ return S.cur.acc + (t0 === null ? 0 : performance.now() - t0); }
+function startTimer(){ if(t0 === null && !locked && !document.hidden && !blurred && !$('cfm').classList.contains('on') && !$('play').hidden) t0 = performance.now(); }
+function stopTimer(){ if(t0 !== null){ S.cur.acc += performance.now() - t0; t0 = null; } }
+document.addEventListener('visibilitychange', () => { if(!S.cur) return; if(document.hidden){ stopTimer(); save(); } else startTimer(); });
+let blurred = false;
+window.addEventListener('blur', () => { blurred = true; if(S.cur && !locked){ stopTimer(); save(); } });
+window.addEventListener('focus', () => { blurred = false; if(S.cur && !$('play').hidden) startTimer(); });
+window.addEventListener('pagehide', () => { if(S.cur && !locked){ stopTimer(); save(); } });
+
+function showPuzzle(){
+  if(S.idx >= N_TOTAL){ showDone(); return; }
+  $('play').hidden = false; $('done').hidden = true;
+  const p = curP();
+  if(!S.cur) S.cur = freshCur(p);
+  $('prog').textContent = '第 ' + (S.idx+1) + ' / ' + N_TOTAL + ' 題';
+  buildBoard(p); render(); save(); startTimer();
+}
+
+function buildBoard(p){
+  const n = p.size, b = $('board'); b.innerHTML = '';
+  b.style.gridTemplate = 'repeat('+n+',1fr)/repeat('+n+',1fr)';
+  for(let r=0;r<n;r++) for(let c=0;c<n;c++){
+    const g = p.regions[r].charCodeAt(c)-65, d = document.createElement('div');
+    d.className = 'cell'; d.dataset.i = r*n+c; d.style.background = PAL[g%PAL.length];
+    const same = (a,bb) => a>=0&&a<n&&bb>=0&&bb<n && p.regions[a].charCodeAt(bb)-65 === g;
+    const bw = (s,v) => d.style[s] = v ? '1px' : '3px';
+    bw('borderTopWidth', same(r-1,c)); bw('borderBottomWidth', same(r+1,c)); bw('borderLeftWidth', same(r,c-1)); bw('borderRightWidth', same(r,c+1));
+    d.innerHTML = '<i>'+String.fromCharCode(65+g)+'</i><span></span>';
+    b.appendChild(d);
+  }
+}
+function render(){
+  const m = S.cur.marks, cells = $('board').children;
+  for(let i=0;i<m.length;i++){
+    const s = cells[i].lastChild; s.textContent = m[i]===1 ? '🐱' : m[i]===2 ? '✕' : '';
+    cells[i].classList.toggle('x', m[i]===2);
+  }
+  $('undo').disabled = S.cur.hist.length === 0;
+}
+function setCell(i, v){
+  const p = curP(), n = p.size, m = S.cur.marks;
+  if(m[i]===1 && v!==1){ const r = Math.floor(i/n), c = i%n; if(p.solution[r][1] !== c) S.cur.wrong++; }
+  m[i] = v;
+}
+function apply(changes){   // changes: [[i, old, new]]
+  const ch = changes.filter(x => x[1] !== x[2]); if(!ch.length) return;
+  ch.forEach(x => setCell(x[0], x[2]));
+  S.cur.hist.push(ch); render(); save(); checkDone();
+}
+function undo(){
+  if(locked || !S.cur.hist.length) return;
+  S.cur.hist.pop().slice().reverse().forEach(x => setCell(x[0], x[1]));
+  S.cur.undo++; render(); save();
+}
+function reset(){
+  if(locked) return;
+  const m = S.cur.marks; if(!m.some(v => v)) return;
+  askConfirm('清空棋盤重來？', () => {
+    for(let i=0;i<m.length;i++) setCell(i, 0);
+    S.cur.hist = []; S.cur.resets++; render(); save();
+  });
+}
+
+function solved(p, m){
+  const n = p.size, cats = [];
+  m.forEach((v,i) => { if(v===1) cats.push([Math.floor(i/n), i%n]); });
+  if(cats.length !== n) return false;
+  const R = new Set(), C = new Set(), G = new Set();
+  for(const [r,c] of cats){ R.add(r); C.add(c); G.add(p.regions[r].charCodeAt(c)); }
+  if(R.size!==n || C.size!==n || G.size!==n) return false;
+  for(let a=0;a<n;a++) for(let b=a+1;b<n;b++)
+    if(Math.abs(cats[a][0]-cats[b][0])<=1 && Math.abs(cats[a][1]-cats[b][1])<=1) return false;
+  return true;
+}
+function checkDone(){
+  if(locked || !solved(curP(), S.cur.marks)) return;
+  openRating(false);
+}
+
+// ---- rating
+function mkRate(id, key){
+  const box = $(id); box.innerHTML = '';
+  for(let k=1;k<=5;k++){
+    const b = document.createElement('button'); b.textContent = k;
+    b.onclick = () => { rated[key] = k; [...box.children].forEach((x,j) => x.classList.toggle('sel', j+1===k)); upd(); };
+    box.appendChild(b);
+  }
+}
+function upd(){ $('submit').disabled = !pendingGiveUp && !(rated.d && rated.n); }
+function openRating(giveUp){
+  stopTimer(); locked = true; pendingGiveUp = giveUp; rated = {d:0, n:0};
+  mkRate('r1','d'); mkRate('r2','n'); $('note').value = '';
+  $('mt').textContent = giveUp ? '跳過此題（可選填評分）' : '完成！';
+  upd(); $('modal').classList.add('on'); save();
+}
+$('submit').onclick = () => {
+  const p = curP(), c = S.cur;
+  S.results.push({
+    puzzle_id: p.id, size: p.size, order_index: S.idx+1,
+    seconds: Math.round(c.acc/100)/10, undo_count: c.undo, wrong_cat_removed: c.wrong, reset_count: c.resets,
+    gave_up: pendingGiveUp, difficulty: rated.d || null, naturalness: rated.n || null,
+    note: $('note').value.trim(), finished_at: new Date().toISOString()
+  });
+  S.idx++; S.cur = null; locked = false; $('modal').classList.remove('on'); save(); showPuzzle();
+};
+$('skip').onclick = () => { if(!locked) askConfirm('確定跳過此題？會記為放棄。', () => openRating(true)); };
+$('undo').onclick = undo; $('reset').onclick = reset;
+
+// ---- input: click cycles, mouse/touch drag marks X
+let drag = null;
+function cellAt(e){ const el = document.elementFromPoint(e.clientX, e.clientY) || e.target; const c = el && el.closest && el.closest('.cell'); return c ? +c.dataset.i : null; }
+const board = $('board');
+board.addEventListener('pointerdown', e => {
+  blurred = false; startTimer();
+  if(locked || $('cfm').classList.contains('on') || (e.pointerType==='mouse' && e.button!==0)) return;
+  const i = cellAt(e); if(i===null) return; e.preventDefault();
+  drag = {start: i, moved: false, ch: new Map()};
+});
+board.addEventListener('pointermove', e => {
+  if(!drag) return; const i = cellAt(e); if(i===null) return;
+  if(i !== drag.start) drag.moved = true;
+  if(drag.moved){
+    [drag.start, i].forEach(k => {
+      if(!drag.ch.has(k) && S.cur.marks[k]===0){ drag.ch.set(k, [k,0,2]); S.cur.marks[k]=2; }
+    });
+    render();
+  }
+});
+function endDrag(e, cancel){
+  if(!drag) return; const d = drag; drag = null;
+  d.ch.forEach(x => S.cur.marks[x[0]] = 0);   // revert preview, then apply as one undo step
+  if(cancel){ render(); return; }
+  if(d.moved) apply([...d.ch.values()]);
+  else { const old = S.cur.marks[d.start]; apply([[d.start, old, (old+1)%3]]); }
+}
+board.addEventListener('pointerup', e => endDrag(e,false));
+board.addEventListener('pointercancel', e => endDrag(e,true));
+board.addEventListener('contextmenu', e => e.preventDefault());
+
+// ---- timer display
+setInterval(() => { if(S.cur && !$('play').hidden){ const s = Math.floor(elapsedMs()/1000); $('timer').textContent = Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); } }, 500);
+
+// ---- results page
+function exportObj(){ return {version: 1, exported_at: new Date().toISOString(), order: DATA.order, results: S.results}; }
+function showDone(){
+  $('play').hidden = true; $('done').hidden = false;
+  const h = ['#','題目','尺寸','秒數','Undo','放錯移除','重來','放棄','難度','自然度','備註'];
+  const rows = S.results.map(r => [r.order_index, r.puzzle_id, r.size+'×'+r.size, r.seconds, r.undo_count, r.wrong_cat_removed, r.reset_count, r.gave_up?'是':'', r.difficulty??'', r.naturalness??'', r.note]);
+  const t = $('tbl'); t.innerHTML = '';
+  const tr = (a, tag) => { const e = document.createElement('tr'); a.forEach(v => { const c = document.createElement(tag); c.textContent = v; e.appendChild(c); }); t.appendChild(e); };
+  tr(h,'th'); rows.forEach(r => tr(r,'td'));
+}
+$('dl').onclick = () => {
+  const blob = new Blob([JSON.stringify(exportObj(), null, 2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'results.json';
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+};
+function showCopyBox(txt, why){
+  let ta = $('cpbox');
+  if(!ta){ ta = document.createElement('textarea'); ta.id = 'cpbox'; ta.readOnly = true; $('msg').after(ta); }
+  ta.value = txt; ta.hidden = false; ta.focus(); ta.select();
+  $('msg').textContent = why + '請在下方文字框全選複製（Ctrl/Cmd+A、Ctrl/Cmd+C），或改用下載。';
+}
+$('cp').onclick = async () => {
+  const txt = JSON.stringify(exportObj(), null, 2);
+  try{ await navigator.clipboard.writeText(txt); $('msg').textContent = '已複製'; const t = $('cpbox'); if(t) t.hidden = true; }
+  catch(e){ showCopyBox(txt, '自動複製被瀏覽器擋下。'); }
+};
+function doClear(){ askConfirm('清除所有紀錄並重新開始？此動作無法復原（請先確認已匯出）。', () => {
+  try{ localStorage.removeItem(KEY); }catch(e){}
+  S = {results:[], idx:0, cur:null}; locked = false; t0 = null; $('modal').classList.remove('on');
+  const t = $('cpbox'); if(t) t.hidden = true; $('msg').textContent = ''; showPuzzle(); }); }
+$('clr').onclick = doClear; $('clr2').onclick = doClear;
+
+load();
+if(S.cur && S.idx < N_TOTAL && S.cur.marks.length !== curP().size**2) S.cur = null;
+showPuzzle();
+if(S.cur && S.idx < N_TOTAL && solved(curP(), S.cur.marks)) openRating(false);
+</script>
+</body>
+</html>

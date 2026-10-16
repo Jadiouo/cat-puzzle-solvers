@@ -1,0 +1,361 @@
+suite,id,n,solver,mode,status,elapsed_s,elapsed_all,nodes,count,build_s,solve_s,import_s,ref_count,ref_source,verdict,note
+S4,S4-n10-00,10,cat_solver,classify,SOLVED,0.00107,0.00109;0.00107;0.00107,18,2,,,,14666,bench.reference bitmask DFS,OK,
+S4,S4-n10-00,10,cat_solver,count,SOLVED,1.74683,1.77648;1.74545;1.74683,83534,14666,,,,14666,bench.reference bitmask DFS,OK,
+S4,S4-n10-00,10,bitmask,classify,SOLVED,0.00019,0.00020;0.00019;0.00019,13,2,,,,14666,bench.reference bitmask DFS,OK,
+S4,S4-n10-00,10,bitmask,count,SOLVED,0.07036,0.07179;0.06931;0.07036,51187,14666,,,,14666,bench.reference bitmask DFS,OK,
+S4,S4-n10-00,10,hybrid,classify,SOLVED,0.00038,0.00038;0.00039;0.00038,9,2,,,,14666,bench.reference bitmask DFS,OK,
+S4,S4-n10-00,10,hybrid,count,SOLVED,0.21287,0.21287;0.20365;0.24964,27048,14666,,,,14666,bench.reference bitmask DFS,OK,
+S4,S4-n10-00,10,dlx,classify,SOLVED,0.00027,0.00027;0.00027;0.00027,13,2,,,,14666,bench.reference bitmask DFS,OK,
+S4,S4-n10-00,10,dlx,count,SOLVED,0.17235,0.17235;0.17225;0.17459,51187,14666,,,,14666,bench.reference bitmask DFS,OK,
+S4,S4-n10-00,10,sat_cadical153_seq,classify,SOLVED,0.00061,0.00064;0.00061;0.00059,6,2,0.00048604499897919595,0.00010823100092238747,0.00905377200251678,14666,bench.reference bitmask DFS,OK,
+S4,S4-n10-00,10,sat_cadical153_seq,count,SOLVED,0.53761,0.53872;0.53761;0.53735,18524,14666,0.0004978070028300863,0.5368549239319691,0.009854864998487756,14666,bench.reference bitmask DFS,OK,
+S4,S4-n10-00,10,cpsat_w1,classify,SOLVED,0.00415,0.00415;0.00411;0.00415,1008,2,0.0008037270017666742,0.0033440879997215234,0.19019711700093467,14666,bench.reference bitmask DFS,OK,
+S4,S4-n10-00,10,cpsat_w1,count,SOLVED,1.0466,1.04261;1.05284;1.04660,331309,14666,0.0008696099976077676,1.045726840999123,0.2045434749998094,14666,bench.reference bitmask DFS,OK,
+S4,S4-n10-01,10,cat_solver,classify,SOLVED,0.00085,0.00086;0.00085;0.00085,15,2,,,,10737,bench.reference bitmask DFS,OK,
+S4,S4-n10-01,10,cat_solver,count,SOLVED,1.05324,1.05324;1.04432;1.05850,47787,10737,,,,10737,bench.reference bitmask DFS,OK,
+S4,S4-n10-01,10,bitmask,classify,SOLVED,0.00019,0.00019;0.00019;0.00019,14,2,,,,10737,bench.reference bitmask DFS,OK,
+S4,S4-n10-01,10,bitmask,count,SOLVED,0.05006,0.05006;0.05031;0.04861,36110,10737,,,,10737,bench.reference bitmask DFS,OK,
+S4,S4-n10-01,10,hybrid,classify,SOLVED,0.00045,0.00045;0.00044;0.00045,10,2,,,,10737,bench.reference bitmask DFS,OK,
+S4,S4-n10-01,10,hybrid,count,SOLVED,0.15101,0.15101;0.15426;0.14661,20151,10737,,,,10737,bench.reference bitmask DFS,OK,
+S4,S4-n10-01,10,dlx,classify,SOLVED,0.00028,0.00028;0.00030;0.00027,14,2,,,,10737,bench.reference bitmask DFS,OK,
+S4,S4-n10-01,10,dlx,count,SOLVED,0.11279,0.11279;0.11383;0.10970,36110,10737,,,,10737,bench.reference bitmask DFS,OK,
+S4,S4-n10-01,10,sat_cadical153_seq,classify,SOLVED,0.0006,0.00063;0.00060;0.00060,5,2,0.00048503400103072636,0.00011977400208706968,0.009050575998116983,10737,bench.reference bitmask DFS,OK,
+S4,S4-n10-01,10,sat_cadical153_seq,count,SOLVED,0.34201,0.33935;0.34201;0.34866,13655,10737,0.0005013039990444668,0.3481541441506124,0.010217148999799974,10737,bench.reference bitmask DFS,OK,
+S4,S4-n10-01,10,cpsat_w1,classify,SOLVED,0.0041,0.00410;0.00414;0.00409,998,2,0.0007973649990162812,0.003294606001873035,0.1963386019997415,10737,bench.reference bitmask DFS,OK,
+S4,S4-n10-01,10,cpsat_w1,count,SOLVED,0.74425,0.80015;0.73972;0.74425,241765,10737,0.0008386520021304023,0.7434121740006958,0.19123708099868963,10737,bench.reference bitmask DFS,OK,
+S4,S4-n10-02,10,cat_solver,classify,SOLVED,0.00094,0.00094;0.00100;0.00094,18,2,,,,9283,bench.reference bitmask DFS,OK,
+S4,S4-n10-02,10,cat_solver,count,SOLVED,0.98723,0.98723;0.99838;0.98426,46777,9283,,,,9283,bench.reference bitmask DFS,OK,
+S4,S4-n10-02,10,bitmask,classify,SOLVED,0.00019,0.00019;0.00019;0.00019,14,2,,,,9283,bench.reference bitmask DFS,OK,
+S4,S4-n10-02,10,bitmask,count,SOLVED,0.04288,0.04288;0.04254;0.04341,30870,9283,,,,9283,bench.reference bitmask DFS,OK,
+S4,S4-n10-02,10,hybrid,classify,SOLVED,0.00045,0.00044;0.00045;0.00052,9,2,,,,9283,bench.reference bitmask DFS,OK,
+S4,S4-n10-02,10,hybrid,count,SOLVED,0.13309,0.13069;0.13309;0.13463,17271,9283,,,,9283,bench.reference bitmask DFS,OK,
+S4,S4-n10-02,10,dlx,classify,SOLVED,0.00027,0.00027;0.00027;0.00027,14,2,,,,9283,bench.reference bitmask DFS,OK,
+S4,S4-n10-02,10,dlx,count,SOLVED,0.09863,0.09924;0.09372;0.09863,30870,9283,,,,9283,bench.reference bitmask DFS,OK,
+S4,S4-n10-02,10,sat_cadical153_seq,classify,SOLVED,0.00059,0.00060;0.00059;0.00057,1,2,0.0004854140024690423,8.053900091908872e-05,0.008975816999736708,9283,bench.reference bitmask DFS,OK,
+S4,S4-n10-02,10,sat_cadical153_seq,count,SOLVED,0.34859,0.34859;0.35257;0.34813,12117,9283,0.0005004119993827771,0.3476269518760091,0.00990001800164464,9283,bench.reference bitmask DFS,OK,
+S4,S4-n10-02,10,cpsat_w1,classify,SOLVED,0.00422,0.00426;0.00417;0.00422,997,2,0.0007972349994815886,0.00342226399880019,0.19913067900051828,9283,bench.reference bitmask DFS,OK,
+S4,S4-n10-02,10,cpsat_w1,count,SOLVED,0.66494,0.66494;0.69929;0.66487,217556,9283,0.0008038670021051075,0.6640645480001695,0.18508120299884467,9283,bench.reference bitmask DFS,OK,
+S4,S4-n10-03,10,cat_solver,classify,SOLVED,0.00096,0.00096;0.00095;0.00096,20,2,,,,12296,bench.reference bitmask DFS,OK,
+S4,S4-n10-03,10,cat_solver,count,SOLVED,1.31195,1.31150;1.31195;1.32561,61849,12296,,,,12296,bench.reference bitmask DFS,OK,
+S4,S4-n10-03,10,bitmask,classify,SOLVED,0.00019,0.00019;0.00020;0.00019,13,2,,,,12296,bench.reference bitmask DFS,OK,
+S4,S4-n10-03,10,bitmask,count,SOLVED,0.06038,0.06038;0.05985;0.06038,43421,12296,,,,12296,bench.reference bitmask DFS,OK,
+S4,S4-n10-03,10,hybrid,classify,SOLVED,0.00045,0.00045;0.00045;0.00045,11,2,,,,12296,bench.reference bitmask DFS,OK,
+S4,S4-n10-03,10,hybrid,count,SOLVED,0.17287,0.17287;0.17825;0.17196,22903,12296,,,,12296,bench.reference bitmask DFS,OK,
+S4,S4-n10-03,10,dlx,classify,SOLVED,0.00027,0.00027;0.00027;0.00029,13,2,,,,12296,bench.reference bitmask DFS,OK,
+S4,S4-n10-03,10,dlx,count,SOLVED,0.14481,0.14430;0.14481;0.14481,43421,12296,,,,12296,bench.reference bitmask DFS,OK,
+S4,S4-n10-03,10,sat_cadical153_seq,classify,SOLVED,0.00054,0.00056;0.00054;0.00054,0,2,0.000485052998556057,5.471199983730912e-05,0.009067838000191841,12296,bench.reference bitmask DFS,OK,
+S4,S4-n10-03,10,sat_cadical153_seq,count,SOLVED,0.63711,0.63971;0.63707;0.63711,16925,12296,0.0005009229971619789,0.6366079160798108,0.010329848999390379,12296,bench.reference bitmask DFS,OK,
+S4,S4-n10-03,10,cpsat_w1,classify,SOLVED,0.0042,0.00420;0.00420;0.00459,1008,2,0.0008095379998849239,0.0037757520003651734,0.16540881299806642,12296,bench.reference bitmask DFS,OK,
+S4,S4-n10-03,10,cpsat_w1,count,SOLVED,0.95674,0.95787;0.95674;0.95521,309880,12296,0.0008173219976015389,0.9543954109976767,0.19360546600000816,12296,bench.reference bitmask DFS,OK,
+S4,S4-n10-04,10,cat_solver,classify,SOLVED,0.001,0.00102;0.00100;0.00100,20,2,,,,22624,bench.reference bitmask DFS,OK,
+S4,S4-n10-04,10,cat_solver,count,SOLVED,1.75257,1.75257;1.75269;1.74751,86989,22624,,,,22624,bench.reference bitmask DFS,OK,
+S4,S4-n10-04,10,bitmask,classify,SOLVED,0.00019,0.00019;0.00019;0.00020,14,2,,,,22624,bench.reference bitmask DFS,OK,
+S4,S4-n10-04,10,bitmask,count,SOLVED,0.10452,0.10452;0.16915;0.10292,77565,22624,,,,22624,bench.reference bitmask DFS,OK,
+S4,S4-n10-04,10,hybrid,classify,SOLVED,0.00043,0.00043;0.00053;0.00043,10,2,,,,22624,bench.reference bitmask DFS,OK,
+S4,S4-n10-04,10,hybrid,count,SOLVED,0.33636,0.35290;0.33279;0.33636,42601,22624,,,,22624,bench.reference bitmask DFS,OK,
+S4,S4-n10-04,10,dlx,classify,SOLVED,0.00027,0.00027;0.00027;0.00027,14,2,,,,22624,bench.reference bitmask DFS,OK,
+S4,S4-n10-04,10,dlx,count,SOLVED,0.24922,0.25245;0.24338;0.24922,77565,22624,,,,22624,bench.reference bitmask DFS,OK,
+S4,S4-n10-04,10,sat_cadical153_seq,classify,SOLVED,0.00073,0.00073;0.00060;0.00073,8,2,0.0006101059989305213,0.00012416000390658155,0.009688463000202319,22624,bench.reference bitmask DFS,OK,
+S4,S4-n10-04,10,sat_cadical153_seq,count,SOLVED,0.72833,0.72833;0.72517;0.72948,27284,22624,0.0005069540020485874,0.7289733146753861,0.009875502000795677,22624,bench.reference bitmask DFS,OK,
+S4,S4-n10-04,10,cpsat_w1,classify,SOLVED,0.00413,0.00416;0.00413;0.00407,999,2,0.0007889900007285178,0.00328130100024282,0.1884863689992926,22624,bench.reference bitmask DFS,OK,
+S4,S4-n10-04,10,cpsat_w1,count,SOLVED,1.63971,1.63971;1.62199;1.65108,518983,22624,0.0008458350021101069,1.650235397999495,0.18392964199665585,22624,bench.reference bitmask DFS,OK,
+S4,S4-n12-00,12,cat_solver,classify,SOLVED,0.00347,0.00345;0.00350;0.00347,70,2,,,,518006,bench.reference bitmask DFS,OK,
+S4,S4-n12-00,12,cat_solver,count,TIMEOUT,10.00005,10.00005,412717,,,,,518006,bench.reference bitmask DFS,TIMEOUT,
+S4,S4-n12-00,12,bitmask,classify,SOLVED,0.00026,0.00026;0.00026;0.00026,15,2,,,,518006,bench.reference bitmask DFS,OK,
+S4,S4-n12-00,12,bitmask,count,SOLVED,2.96118,2.96754;2.96118;2.94484,1680560,518006,,,,518006,bench.reference bitmask DFS,OK,
+S4,S4-n12-00,12,hybrid,classify,SOLVED,0.00058,0.00058;0.00058;0.00058,12,2,,,,518006,bench.reference bitmask DFS,OK,
+S4,S4-n12-00,12,hybrid,count,SOLVED,8.44409,8.44409;8.59443;8.43689,954634,518006,,,,518006,bench.reference bitmask DFS,OK,
+S4,S4-n12-00,12,dlx,classify,SOLVED,0.00037,0.00037;0.00037;0.00036,15,2,,,,518006,bench.reference bitmask DFS,OK,
+S4,S4-n12-00,12,dlx,count,SOLVED,5.40863,5.37960;5.59265;5.40863,1680560,518006,,,,518006,bench.reference bitmask DFS,OK,
+S4,S4-n12-00,12,sat_cadical153_seq,classify,SOLVED,0.00095,0.00103;0.00095;0.00086,11,2,0.0006845949974376708,0.00017262100300285965,0.008965346001787111,518006,bench.reference bitmask DFS,OK,
+S4,S4-n12-00,12,sat_cadical153_seq,count,TIMEOUT,8.34742,8.34742,122323,,0.0006879309985379223,8.346735344872286,0.008969103000708856,518006,bench.reference bitmask DFS,TIMEOUT,
+S4,S4-n12-00,12,cpsat_w1,classify,SOLVED,0.00524,0.00524;0.00527;0.00517,1447,2,0.0010221730008197483,0.004144688999076607,0.18935995799984084,518006,bench.reference bitmask DFS,OK,
+S4,S4-n12-00,12,cpsat_w1,count,TIMEOUT,10.00075,10.00075,3008235,,0.001026873000228079,9.99972008700206,0.18703833399922587,518006,bench.reference bitmask DFS,TIMEOUT,
+S4,S4-n12-01,12,cat_solver,classify,SOLVED,0.00336,0.00334;0.00336;0.00340,74,2,,,,365092,bench.reference bitmask DFS,OK,
+S4,S4-n12-01,12,cat_solver,count,TIMEOUT,10.00004,10.00004,356084,,,,,365092,bench.reference bitmask DFS,TIMEOUT,
+S4,S4-n12-01,12,bitmask,classify,SOLVED,0.00027,0.00027;0.00027;0.00027,15,2,,,,365092,bench.reference bitmask DFS,OK,
+S4,S4-n12-01,12,bitmask,count,SOLVED,2.16055,2.13797;2.16055;2.22718,1228638,365092,,,,365092,bench.reference bitmask DFS,OK,
+S4,S4-n12-01,12,hybrid,classify,SOLVED,0.00061,0.00061;0.00074;0.00059,11,2,,,,365092,bench.reference bitmask DFS,OK,
+S4,S4-n12-01,12,hybrid,count,SOLVED,6.16339,6.01730;6.16339;6.25428,676453,365092,,,,365092,bench.reference bitmask DFS,OK,
+S4,S4-n12-01,12,dlx,classify,SOLVED,0.00037,0.00037;0.00036;0.00037,15,2,,,,365092,bench.reference bitmask DFS,OK,
+S4,S4-n12-01,12,dlx,count,SOLVED,4.22532,4.25068;4.22532;4.19401,1228638,365092,,,,365092,bench.reference bitmask DFS,OK,
+S4,S4-n12-01,12,sat_cadical153_seq,classify,SOLVED,0.00093,0.00093;0.00090;0.00094,18,2,0.0007256309982039966,0.00021274599930620752,0.009406175999174593,365092,bench.reference bitmask DFS,OK,
+S4,S4-n12-01,12,sat_cadical153_seq,count,TIMEOUT,8.42119,8.42119,118748,,0.0007056939975882415,8.420481786983146,0.009421123999345582,365092,bench.reference bitmask DFS,TIMEOUT,
+S4,S4-n12-01,12,cpsat_w1,classify,SOLVED,0.00546,0.00546;0.00543;0.00554,1535,2,0.0010511779983062297,0.004488799000682775,0.19003304700163426,365092,bench.reference bitmask DFS,OK,
+S4,S4-n12-01,12,cpsat_w1,count,TIMEOUT,10.00141,10.00141,2839161,,0.0010270120001223404,10.000387126998248,0.19057450499894912,365092,bench.reference bitmask DFS,TIMEOUT,
+S4,S4-n12-02,12,cat_solver,classify,SOLVED,0.31641,0.31465;0.31641;0.31714,7260,2,,,,616209,bench.reference bitmask DFS,OK,
+S4,S4-n12-02,12,cat_solver,count,TIMEOUT,10.00007,10.00007,387186,,,,,616209,bench.reference bitmask DFS,TIMEOUT,
+S4,S4-n12-02,12,bitmask,classify,SOLVED,0.0003,0.00040;0.00030;0.00030,30,2,,,,616209,bench.reference bitmask DFS,OK,
+S4,S4-n12-02,12,bitmask,count,SOLVED,3.66973,3.60617;4.09489;3.66973,2059937,616209,,,,616209,bench.reference bitmask DFS,OK,
+S4,S4-n12-02,12,hybrid,classify,SOLVED,0.00082,0.00082;0.00083;0.00082,19,2,,,,616209,bench.reference bitmask DFS,OK,
+S4,S4-n12-02,12,hybrid,count,TIMEOUT,10.00023,10.00023,1093824,,,,,616209,bench.reference bitmask DFS,TIMEOUT,
+S4,S4-n12-02,12,dlx,classify,SOLVED,0.00053,0.00052;0.00053;0.00053,30,2,,,,616209,bench.reference bitmask DFS,OK,
+S4,S4-n12-02,12,dlx,count,SOLVED,6.92253,6.95824;6.92253;6.70042,2059937,616209,,,,616209,bench.reference bitmask DFS,OK,
+S4,S4-n12-02,12,sat_cadical153_seq,classify,SOLVED,0.00093,0.00097;0.00092;0.00093,30,2,0.0007083189993863925,0.00022273500144365244,0.009559961999912048,616209,bench.reference bitmask DFS,OK,
+S4,S4-n12-02,12,sat_cadical153_seq,count,TIMEOUT,8.07484,8.07484,138636,,0.0006818390029366128,8.074161038806778,0.009067915001651272,616209,bench.reference bitmask DFS,TIMEOUT,
+S4,S4-n12-02,12,cpsat_w1,classify,SOLVED,0.00529,0.00542;0.00523;0.00529,1468,2,0.0010446960004628636,0.004248430999723496,0.1977764119983476,616209,bench.reference bitmask DFS,OK,
+S4,S4-n12-02,12,cpsat_w1,count,TIMEOUT,10.00184,10.00184,3339912,,0.0010528300008445513,10.000787107001088,0.19134121900060563,616209,bench.reference bitmask DFS,TIMEOUT,
+S4,S4-n12-03,12,cat_solver,classify,SOLVED,0.00197,0.00197;0.00198;0.00194,34,2,,,,421590,bench.reference bitmask DFS,OK,
+S4,S4-n12-03,12,cat_solver,count,TIMEOUT,10.00005,10.00005,412392,,,,,421590,bench.reference bitmask DFS,TIMEOUT,
+S4,S4-n12-03,12,bitmask,classify,SOLVED,0.00026,0.00027;0.00026;0.00026,15,2,,,,421590,bench.reference bitmask DFS,OK,
+S4,S4-n12-03,12,bitmask,count,SOLVED,2.40739,2.36112;2.40739;2.41125,1347744,421590,,,,421590,bench.reference bitmask DFS,OK,
+S4,S4-n12-03,12,hybrid,classify,SOLVED,0.0006,0.00060;0.00059;0.00060,13,2,,,,421590,bench.reference bitmask DFS,OK,
+S4,S4-n12-03,12,hybrid,count,SOLVED,6.77177,6.77177;6.78161;6.61643,783620,421590,,,,421590,bench.reference bitmask DFS,OK,
+S4,S4-n12-03,12,dlx,classify,SOLVED,0.00036,0.00036;0.00036;0.00040,15,2,,,,421590,bench.reference bitmask DFS,OK,
+S4,S4-n12-03,12,dlx,count,SOLVED,4.27182,4.39057;4.26394;4.27182,1347744,421590,,,,421590,bench.reference bitmask DFS,OK,
+S4,S4-n12-03,12,sat_cadical153_seq,classify,SOLVED,0.00078,0.00079;0.00077;0.00078,0,2,0.0007101519986463245,7.114200343494304e-05,0.009362323002278572,421590,bench.reference bitmask DFS,OK,
+S4,S4-n12-03,12,sat_cadical153_seq,count,TIMEOUT,8.30149,8.30149,123270,,0.0007082080010150094,8.300786102419806,0.009072043001651764,421590,bench.reference bitmask DFS,TIMEOUT,
+S4,S4-n12-03,12,cpsat_w1,classify,SOLVED,0.00534,0.00534;0.00572;0.00529,1458,2,0.0010220530020887963,0.0042698010001913644,0.19798717300000135,421590,bench.reference bitmask DFS,OK,
+S4,S4-n12-03,12,cpsat_w1,count,TIMEOUT,10.00164,10.00164,3009967,,0.0010308700002497062,10.000613602998783,0.19968274100028793,421590,bench.reference bitmask DFS,TIMEOUT,
+S4,S4-n12-04,12,cat_solver,classify,SOLVED,0.00186,0.00186;0.00189;0.00186,23,2,,,,305939,bench.reference bitmask DFS,OK,
+S4,S4-n12-04,12,cat_solver,count,TIMEOUT,10.00006,10.00006,371241,,,,,305939,bench.reference bitmask DFS,TIMEOUT,
+S4,S4-n12-04,12,bitmask,classify,SOLVED,0.00119,0.00119;0.00119;0.00119,443,2,,,,305939,bench.reference bitmask DFS,OK,
+S4,S4-n12-04,12,bitmask,count,SOLVED,2.00295,2.01935;2.00295;2.00281,1131218,305939,,,,305939,bench.reference bitmask DFS,OK,
+S4,S4-n12-04,12,hybrid,classify,SOLVED,0.00171,0.00171;0.00196;0.00169,53,2,,,,305939,bench.reference bitmask DFS,OK,
+S4,S4-n12-04,12,hybrid,count,SOLVED,5.82875,5.87341;5.78685;5.82875,579282,305939,,,,305939,bench.reference bitmask DFS,OK,
+S4,S4-n12-04,12,dlx,classify,SOLVED,0.00389,0.00417;0.00389;0.00376,443,2,,,,305939,bench.reference bitmask DFS,OK,
+S4,S4-n12-04,12,dlx,count,SOLVED,4.07928,4.10759;4.07928;4.01840,1131218,305939,,,,305939,bench.reference bitmask DFS,OK,
+S4,S4-n12-04,12,sat_cadical153_seq,classify,SOLVED,0.00082,0.00084;0.00080;0.00082,5,2,0.0007130180019885302,0.0001049150014296174,0.009373083001264604,305939,bench.reference bitmask DFS,OK,
+S4,S4-n12-04,12,sat_cadical153_seq,count,TIMEOUT,8.36642,8.36642,118819,,0.0007177859988587443,8.365705041669571,0.009283335999498377,305939,bench.reference bitmask DFS,TIMEOUT,
+S4,S4-n12-04,12,cpsat_w1,classify,SOLVED,0.00559,0.00590;0.00559;0.00553,1457,2,0.0010905999988608528,0.004434927999682259,0.21490896199975396,305939,bench.reference bitmask DFS,OK,
+S4,S4-n12-04,12,cpsat_w1,count,TIMEOUT,10.00145,10.00145,2707315,,0.0011245839996263385,10.000322257001244,0.1803605230015819,305939,bench.reference bitmask DFS,TIMEOUT,
+S4,S4-n14-00,14,cat_solver,classify,SOLVED,0.00212,0.00212;0.00212;0.00211,20,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-00,14,cat_solver,count,TIMEOUT,10.00003,10.00003,306986,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-00,14,bitmask,classify,SOLVED,0.00037,0.00037;0.00037;0.00038,22,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-00,14,bitmask,count,TIMEOUT,10.00048,10.00048,4883712,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-00,14,hybrid,classify,SOLVED,0.0008,0.00080;0.00109;0.00078,17,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-00,14,hybrid,count,TIMEOUT,10.00048,10.00048,1035392,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-00,14,dlx,classify,SOLVED,0.00053,0.00053;0.00055;0.00053,22,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-00,14,dlx,count,TIMEOUT,10.00038,10.00038,2806528,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-00,14,sat_cadical153_seq,classify,SOLVED,0.00109,0.00110;0.00109;0.00104,4,2,0.0008922220004023984,0.00014656300118076615,0.009494128000369528,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-00,14,sat_cadical153_seq,count,TIMEOUT,7.98745,7.98745,110534,,0.0009089529994525947,7.986545473017031,0.009133005001785932,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-00,14,cpsat_w1,classify,SOLVED,0.00677,0.00670;0.00681;0.00677,1990,2,0.0013195070023357403,0.005450268999993568,0.1774502369989932,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-00,14,cpsat_w1,count,TIMEOUT,10.00198,10.00198,3625986,,0.0012999009995837696,10.00068335800097,0.16352688199913246,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-01,14,cat_solver,classify,SOLVED,0.00278,0.00286;0.00278;0.00277,31,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-01,14,cat_solver,count,TIMEOUT,10.00006,10.00006,365930,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-01,14,bitmask,classify,SOLVED,0.00035,0.00035;0.00035;0.00039,17,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-01,14,bitmask,count,TIMEOUT,10.00039,10.00039,4845568,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-01,14,hybrid,classify,SOLVED,0.00079,0.00079;0.00080;0.00079,13,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-01,14,hybrid,count,TIMEOUT,10.0006,10.00060,1024768,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-01,14,dlx,classify,SOLVED,0.00049,0.00049;0.00049;0.00048,17,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-01,14,dlx,count,TIMEOUT,10.00042,10.00042,2779136,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-01,14,sat_cadical153_seq,classify,SOLVED,0.00102,0.00107;0.00102;0.00102,3,2,0.0009004959974845406,0.00012196700117783621,0.009087019003345631,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-01,14,sat_cadical153_seq,count,TIMEOUT,8.01917,8.01917,109362,,0.0009250719995179679,8.018240339228214,0.00913246399795753,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-01,14,cpsat_w1,classify,SOLVED,0.00676,0.00676;0.00658;0.00696,2012,2,0.0015080370030773338,0.005450508997455472,0.1918419069988886,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-01,14,cpsat_w1,count,TIMEOUT,10.03136,10.03136,3668988,,0.0013320910002221353,10.030026164000446,0.1905854279975756,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-02,14,cat_solver,classify,SOLVED,0.0028,0.00286;0.00279;0.00280,26,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-02,14,cat_solver,count,TIMEOUT,10.00005,10.00005,361917,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-02,14,bitmask,classify,SOLVED,0.00036,0.00036;0.00035;0.00036,19,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-02,14,bitmask,count,TIMEOUT,10.00038,10.00038,4849920,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-02,14,hybrid,classify,SOLVED,0.00072,0.00072;0.00072;0.00072,12,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-02,14,hybrid,count,TIMEOUT,10.00038,10.00038,1059840,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-02,14,dlx,classify,SOLVED,0.00051,0.00050;0.00055;0.00051,19,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-02,14,dlx,count,TIMEOUT,10.00033,10.00033,3194624,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-02,14,sat_cadical153_seq,classify,SOLVED,0.00111,0.00115;0.00109;0.00111,6,2,0.0009292489994550124,0.00017846599803306162,0.009205498001392698,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-02,14,sat_cadical153_seq,count,TIMEOUT,7.96718,7.96718,111478,,0.0008921690023271367,7.9662839195698325,0.00893212300070445,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-02,14,cpsat_w1,classify,SOLVED,0.00673,0.00673;0.00673;0.00682,1986,2,0.0013363859980017878,0.005485724002937786,0.19401428700075485,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-02,14,cpsat_w1,count,TIMEOUT,10.00131,10.00131,4094930,,0.0013297719997353852,9.99997719699968,0.18966355699740234,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-03,14,cat_solver,classify,SOLVED,0.00245,0.00252;0.00243;0.00245,29,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-03,14,cat_solver,count,TIMEOUT,10.00008,10.00008,336157,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-03,14,bitmask,classify,SOLVED,0.00036,0.00036;0.00036;0.00036,19,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-03,14,bitmask,count,TIMEOUT,10.00005,10.00005,4862464,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-03,14,hybrid,classify,SOLVED,0.00084,0.00084;0.00084;0.00084,14,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-03,14,hybrid,count,TIMEOUT,10.00063,10.00063,978688,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-03,14,dlx,classify,SOLVED,0.00051,0.00051;0.00052;0.00050,19,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-03,14,dlx,count,TIMEOUT,10.00069,10.00069,2917120,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-03,14,sat_cadical153_seq,classify,SOLVED,0.00107,0.00109;0.00106;0.00107,11,2,0.000925910997466417,0.00013952199878985994,0.009686964000138687,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-03,14,sat_cadical153_seq,count,TIMEOUT,8.26957,8.26957,97120,,0.0009413400002813432,8.268630842529092,0.009439097997528734,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-03,14,cpsat_w1,classify,SOLVED,0.00677,0.00674;0.00678;0.00677,1986,2,0.0013254520017653704,0.005443263002234744,0.18977429100050358,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-03,14,cpsat_w1,count,TIMEOUT,10.00155,10.00155,3749091,,0.0013836710022587795,10.000167173999216,0.18763828900046065,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-04,14,cat_solver,classify,SOLVED,0.00223,0.00223;0.00222;0.00242,22,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-04,14,cat_solver,count,TIMEOUT,10.00005,10.00005,346059,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-04,14,bitmask,classify,SOLVED,0.00038,0.00039;0.00037;0.00038,26,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-04,14,bitmask,count,TIMEOUT,10.00045,10.00045,4876544,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-04,14,hybrid,classify,SOLVED,0.00076,0.00076;0.00076;0.00075,13,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-04,14,hybrid,count,TIMEOUT,10.00023,10.00023,1015168,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-04,14,dlx,classify,SOLVED,0.00056,0.00059;0.00056;0.00055,26,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-04,14,dlx,count,TIMEOUT,10.00062,10.00062,2920704,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-04,14,sat_cadical153_seq,classify,SOLVED,0.00105,0.00106;0.00105;0.00105,0,2,0.00092739200044889,0.00012102700202376582,0.009553476000291994,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-04,14,sat_cadical153_seq,count,TIMEOUT,7.77486,7.77486,121115,,0.0009310489986091852,7.7739323976420565,0.009262909999961266,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n14-04,14,cpsat_w1,classify,SOLVED,0.00677,0.00684;0.00675;0.00677,1999,2,0.0013196889995015226,0.005451327997434419,0.20089980099874083,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n14-04,14,cpsat_w1,count,TIMEOUT,10.00117,10.00117,3619545,,0.001334777000010945,9.999837260998902,0.18202521200146293,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-00,16,cat_solver,classify,SOLVED,0.00482,0.00482;0.00476;0.00487,38,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-00,16,cat_solver,count,TIMEOUT,10.0001,10.00010,321868,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-00,16,bitmask,classify,SOLVED,0.00046,0.00057;0.00046;0.00046,20,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-00,16,bitmask,count,TIMEOUT,10.02275,10.02275,4318976,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-00,16,hybrid,classify,SOLVED,0.00106,0.00106;0.00106;0.00104,16,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-00,16,hybrid,count,TIMEOUT,10.00032,10.00032,859840,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-00,16,dlx,classify,SOLVED,0.00065,0.00069;0.00065;0.00064,20,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-00,16,dlx,count,TIMEOUT,10.00028,10.00028,2633472,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-00,16,sat_cadical153_seq,classify,SOLVED,0.00138,0.00141;0.00138;0.00134,4,2,0.0011389879982743878,0.00020401399888214655,0.009312447997217532,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-00,16,sat_cadical153_seq,count,TIMEOUT,7.37773,7.37773,114595,,0.0011271960029262118,7.376602332402399,0.00956348900217563,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-00,16,cpsat_w1,classify,SOLVED,0.00842,0.00842;0.00860;0.00839,2595,2,0.0016457380006613676,0.006739266002114164,0.19182100000034552,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-00,16,cpsat_w1,count,TIMEOUT,10.00288,10.00288,3989614,,0.0016251999986707233,10.00125966899941,0.16225368500090553,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-01,16,cat_solver,classify,SOLVED,0.00547,0.00547;0.00552;0.00546,39,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-01,16,cat_solver,count,TIMEOUT,10.00005,10.00005,270122,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-01,16,bitmask,classify,SOLVED,0.00049,0.00049;0.00050;0.00049,32,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-01,16,bitmask,count,TIMEOUT,10.00036,10.00036,4296448,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-01,16,hybrid,classify,SOLVED,0.00112,0.00110;0.00112;0.00112,27,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-01,16,hybrid,count,TIMEOUT,10.00008,10.00008,855232,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-01,16,dlx,classify,SOLVED,0.00072,0.00072;0.00073;0.00071,32,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-01,16,dlx,count,TIMEOUT,10.00037,10.00037,2764800,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-01,16,sat_cadical153_seq,classify,SOLVED,0.00158,0.00172;0.00158;0.00157,32,2,0.0011485340000945143,0.00042267199751222506,0.0097131359980267,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-01,16,sat_cadical153_seq,count,TIMEOUT,7.63939,7.63939,102495,,0.0011265930006629787,7.6382676254506805,0.009270916001696605,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-01,16,cpsat_w1,classify,SOLVED,0.00853,0.00849;0.00853;0.00858,2745,2,0.0016305570024996996,0.0069514250026259106,0.1899229769987869,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-01,16,cpsat_w1,count,TIMEOUT,10.03294,10.03294,3840088,,0.0016685490008967463,10.031276383000659,0.16112447599880397,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-02,16,cat_solver,classify,SOLVED,0.00739,0.00738;0.00747;0.00739,88,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-02,16,cat_solver,count,TIMEOUT,10.00008,10.00008,293583,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-02,16,bitmask,classify,SOLVED,0.00046,0.00046;0.00046;0.00046,21,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-02,16,bitmask,count,TIMEOUT,10.00021,10.00021,4269312,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-02,16,hybrid,classify,SOLVED,0.00106,0.00106;0.00106;0.00119,17,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-02,16,hybrid,count,TIMEOUT,10.0008,10.00080,855808,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-02,16,dlx,classify,SOLVED,0.00064,0.00064;0.00063;0.00064,21,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-02,16,dlx,count,TIMEOUT,10.00092,10.00092,2636288,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-02,16,sat_cadical153_seq,classify,SOLVED,0.00134,0.00137;0.00134;0.00132,8,2,0.0011243970002396964,0.00019554699974833056,0.009447825999814086,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-02,16,sat_cadical153_seq,count,TIMEOUT,7.93853,7.93853,90356,,0.001112214999011485,7.937421255144727,0.008935044999816455,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-02,16,cpsat_w1,classify,SOLVED,0.00836,0.00836;0.00834;0.00857,2608,2,0.0016311059989675414,0.0069429700015462,0.16158010800063494,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-02,16,cpsat_w1,count,TIMEOUT,10.00233,10.00233,4001333,,0.0016571359992667567,10.000668265001877,0.18793362900032662,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-03,16,cat_solver,classify,SOLVED,0.01051,0.01041;0.01051;0.01053,138,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-03,16,cat_solver,count,TIMEOUT,10.00004,10.00004,294315,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-03,16,bitmask,classify,SOLVED,0.0006,0.00060;0.00060;0.00060,65,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-03,16,bitmask,count,TIMEOUT,10.00026,10.00026,4267520,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-03,16,hybrid,classify,SOLVED,0.00155,0.00155;0.00156;0.00154,47,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-03,16,hybrid,count,TIMEOUT,10.0005,10.00050,859392,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-03,16,dlx,classify,SOLVED,0.00136,0.00136;0.00152;0.00122,65,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-03,16,dlx,count,TIMEOUT,10.0009,10.00090,2811904,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-03,16,sat_cadical153_seq,classify,SOLVED,0.00142,0.00146;0.00142;0.00141,13,2,0.0011652130015136208,0.0002464720018906519,0.00959925899951486,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-03,16,sat_cadical153_seq,count,TIMEOUT,7.42458,7.42458,113355,,0.0011322210011712741,7.423448476438352,0.009308824999607168,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-03,16,cpsat_w1,classify,SOLVED,0.00831,0.00830;0.00831;0.00847,2591,2,0.001641905000724364,0.006825352000305429,0.1927273180008342,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-03,16,cpsat_w1,count,TIMEOUT,10.00213,10.00213,3931929,,0.0016438389975519385,10.000483592000819,0.19108889700146392,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-04,16,cat_solver,classify,SOLVED,0.00442,0.00442;0.00441;0.00445,30,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-04,16,cat_solver,count,TIMEOUT,10.00008,10.00008,306489,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-04,16,bitmask,classify,SOLVED,0.00048,0.00048;0.00046;0.00057,23,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-04,16,bitmask,count,TIMEOUT,10.00005,10.00005,4242176,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-04,16,hybrid,classify,SOLVED,0.00126,0.00126;0.00132;0.00121,17,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-04,16,hybrid,count,TIMEOUT,10.00066,10.00066,895104,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-04,16,dlx,classify,SOLVED,0.00066,0.00066;0.00066;0.00067,23,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-04,16,dlx,count,TIMEOUT,10.00085,10.00085,2860032,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-04,16,sat_cadical153_seq,classify,SOLVED,0.00137,0.00140;0.00137;0.00134,9,2,0.001146375998359872,0.0001914490021590609,0.009191706001729472,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-04,16,sat_cadical153_seq,count,TIMEOUT,7.70048,7.70048,102119,,0.001121399000112433,7.699362424646097,0.008950846000516322,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n16-04,16,cpsat_w1,classify,SOLVED,0.00835,0.00835;0.00838;0.00834,2604,2,0.0016181689970835578,0.00672561800092808,0.16198627699850476,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n16-04,16,cpsat_w1,count,TIMEOUT,10.00264,10.00264,3611406,,0.0016341080008714925,10.001003112000035,0.19053556399740046,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-00,18,cat_solver,classify,SOLVED,4.91709,4.96876;4.91709;4.89461,78392,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-00,18,cat_solver,count,TIMEOUT,10.00004,10.00004,192914,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-00,18,bitmask,classify,SOLVED,0.00064,0.00064;0.00062;0.00064,27,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-00,18,bitmask,count,TIMEOUT,10.00016,10.00016,3957504,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-00,18,hybrid,classify,SOLVED,0.00136,0.00136;0.00136;0.00136,21,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-00,18,hybrid,count,TIMEOUT,10.00079,10.00079,841856,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-00,18,dlx,classify,SOLVED,0.00089,0.00112;0.00088;0.00089,27,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-00,18,dlx,count,TIMEOUT,10.00057,10.00057,2201856,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-00,18,sat_cadical153_seq,classify,SOLVED,0.00178,0.00182;0.00177;0.00178,6,2,0.001539601002150448,0.00024299500364577398,0.0096318190007878,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-00,18,sat_cadical153_seq,count,TIMEOUT,7.20066,7.20066,100372,,0.0014959780019125901,7.199159982454148,0.009375931000249693,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-00,18,cpsat_w1,classify,SOLVED,0.01032,0.01052;0.01032;0.01030,3315,2,0.002025719000812387,0.008274457999505103,0.16394263099937234,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-00,18,cpsat_w1,count,TIMEOUT,10.00221,10.00221,3663025,,0.0020400159992277622,10.000167964000866,0.1643664040020667,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-01,18,cat_solver,classify,SOLVED,0.01386,0.01389;0.01383;0.01386,138,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-01,18,cat_solver,count,TIMEOUT,10.0001,10.00010,273860,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-01,18,bitmask,classify,SOLVED,0.00061,0.00061;0.00062;0.00061,23,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-01,18,bitmask,count,TIMEOUT,10.02967,10.02967,3900160,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-01,18,hybrid,classify,SOLVED,0.00134,0.00133;0.00134;0.00135,18,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-01,18,hybrid,count,TIMEOUT,10.00045,10.00045,846272,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-01,18,dlx,classify,SOLVED,0.00082,0.00083;0.00082;0.00082,23,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-01,18,dlx,count,TIMEOUT,10.00007,10.00007,2747392,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-01,18,sat_cadical153_seq,classify,SOLVED,0.00174,0.00186;0.00174;0.00170,5,2,0.0014696479993290268,0.0002291389973834157,0.00900882600035402,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-01,18,sat_cadical153_seq,count,TIMEOUT,6.95491,6.95491,107507,,0.0014800770004512742,6.953427482192637,0.008991775001049973,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-01,18,cpsat_w1,classify,SOLVED,0.01037,0.01029;0.01042;0.01037,3382,2,0.002052988998912042,0.008313274996908149,0.16414184200039017,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-01,18,cpsat_w1,count,TIMEOUT,10.00287,10.00287,3405771,,0.0020618849994207267,10.000812860998849,0.19501383700117003,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-02,18,cat_solver,classify,SOLVED,0.00992,0.01000;0.00992;0.00989,96,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-02,18,cat_solver,count,TIMEOUT,10.00007,10.00007,260567,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-02,18,bitmask,classify,SOLVED,0.00063,0.00063;0.00080;0.00063,31,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-02,18,bitmask,count,TIMEOUT,10.00014,10.00014,3881472,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-02,18,hybrid,classify,SOLVED,0.00132,0.00134;0.00132;0.00130,17,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-02,18,hybrid,count,TIMEOUT,10.00088,10.00088,798464,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-02,18,dlx,classify,SOLVED,0.00088,0.00088;0.00090;0.00088,31,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-02,18,dlx,count,TIMEOUT,10.00028,10.00028,2742272,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-02,18,sat_cadical153_seq,classify,SOLVED,0.0018,0.00181;0.00177;0.00180,4,2,0.001546732000861084,0.0002501169983588625,0.01006881199646159,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-02,18,sat_cadical153_seq,count,TIMEOUT,7.06422,7.06422,104347,,0.0014539980002155062,7.0627619914739626,0.009150033998594154,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-02,18,cpsat_w1,classify,SOLVED,0.01043,0.01044;0.01043;0.01039,3367,2,0.0020152670003881212,0.008376105997740524,0.1639536090006004,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-02,18,cpsat_w1,count,TIMEOUT,10.00198,10.00198,3580482,,0.002012611999816727,9.999963972000842,0.16261921499972232,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-03,18,cat_solver,classify,SOLVED,0.21926,0.21042;0.22246;0.21926,2824,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-03,18,cat_solver,count,TIMEOUT,10.00008,10.00008,226585,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-03,18,bitmask,classify,SOLVED,0.00242,0.00238;0.00244;0.00242,662,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-03,18,bitmask,count,TIMEOUT,10.0006,10.00060,3876096,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-03,18,hybrid,classify,SOLVED,0.00591,0.00591;0.00589;0.00597,252,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-03,18,hybrid,count,TIMEOUT,10.00051,10.00051,853504,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-03,18,dlx,classify,SOLVED,0.00584,0.00597;0.00579;0.00584,662,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-03,18,dlx,count,TIMEOUT,10.00009,10.00009,2874624,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-03,18,sat_cadical153_seq,classify,SOLVED,0.00184,0.00187;0.00184;0.00179,16,2,0.0014754870026081335,0.00031290400147554465,0.008999066998512717,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-03,18,sat_cadical153_seq,count,TIMEOUT,7.03481,7.03481,104084,,0.0014763389990548603,7.03333529475276,0.008942210999521194,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-03,18,cpsat_w1,classify,SOLVED,0.01046,0.01046;0.01055;0.01034,3314,2,0.0020574750014930032,0.008278558998426888,0.16390533900266746,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-03,18,cpsat_w1,count,TIMEOUT,10.00186,10.00186,3590361,,0.0020245539999450557,9.99983835400053,0.16385568600162514,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-04,18,cat_solver,classify,SOLVED,2.72819,2.72819;2.69008;2.79640,43284,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-04,18,cat_solver,count,TIMEOUT,10.00005,10.00005,247871,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-04,18,bitmask,classify,SOLVED,0.0006,0.00060;0.00060;0.00061,21,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-04,18,bitmask,count,TIMEOUT,10.00053,10.00053,3930880,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-04,18,hybrid,classify,SOLVED,0.00136,0.00136;0.00135;0.00156,18,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-04,18,hybrid,count,TIMEOUT,10.0284,10.02840,857920,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-04,18,dlx,classify,SOLVED,0.00081,0.00082;0.00081;0.00080,21,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-04,18,dlx,count,TIMEOUT,10.00082,10.00082,2840320,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-04,18,sat_cadical153_seq,classify,SOLVED,0.00229,0.00234;0.00229;0.00223,85,2,0.0014611590013373643,0.0007647290040040389,0.00897289299973636,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-04,18,sat_cadical153_seq,count,TIMEOUT,7.19167,7.19167,95530,,0.001463423999666702,7.190208620682824,0.009314430997619638,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n18-04,18,cpsat_w1,classify,SOLVED,0.01039,0.01045;0.01030;0.01039,3324,2,0.002038427999650594,0.008351911998033756,0.16650480899988906,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n18-04,18,cpsat_w1,count,TIMEOUT,10.00193,10.00193,3635406,,0.0020062170005985536,9.99991899700035,0.16331114200147567,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-00,20,cat_solver,classify,SOLVED,0.01337,0.01314;0.01340;0.01337,116,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-00,20,cat_solver,count,TIMEOUT,10.00011,10.00011,235547,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-00,20,bitmask,classify,SOLVED,0.0011,0.00111;0.00110;0.00109,131,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-00,20,bitmask,count,TIMEOUT,10.00055,10.00055,3517184,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-00,20,hybrid,classify,SOLVED,0.00261,0.00265;0.00261;0.00255,59,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-00,20,hybrid,count,TIMEOUT,10.00061,10.00061,790976,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-00,20,dlx,classify,SOLVED,0.00187,0.00187;0.00192;0.00187,131,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-00,20,dlx,count,TIMEOUT,10.00107,10.00107,2711296,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-00,20,sat_cadical153_seq,classify,SOLVED,0.00228,0.00230;0.00228;0.00221,24,2,0.0018292359964107163,0.0003818440018221736,0.009478571999352425,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-00,20,sat_cadical153_seq,count,TIMEOUT,6.60388,6.60388,93703,,0.0018428619987389538,6.6020357775523735,0.009446211999602383,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-00,20,cpsat_w1,classify,SOLVED,0.01252,0.01252;0.01252;0.01249,4112,2,0.0024770060008449946,0.010011476999352453,0.16556107900032657,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-00,20,cpsat_w1,count,TIMEOUT,10.00156,10.00156,3533445,,0.002442872999381507,9.999113877001946,0.181146497001464,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-01,20,cat_solver,classify,SOLVED,0.14049,0.14049;0.13668;0.14222,1531,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-01,20,cat_solver,count,TIMEOUT,10.00006,10.00006,130191,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-01,20,bitmask,classify,SOLVED,0.00075,0.00075;0.00078;0.00075,26,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-01,20,bitmask,count,TIMEOUT,10.00058,10.00058,3559680,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-01,20,hybrid,classify,SOLVED,0.00176,0.00176;0.00174;0.00181,20,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-01,20,hybrid,count,TIMEOUT,10.00059,10.00059,780160,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-01,20,dlx,classify,SOLVED,0.00107,0.00107;0.00137;0.00107,26,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-01,20,dlx,count,TIMEOUT,10.00065,10.00065,2722304,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-01,20,sat_cadical153_seq,classify,SOLVED,0.00349,0.00357;0.00344;0.00349,200,2,0.0018506060005165637,0.0016355929983546957,0.009220626998285297,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-01,20,sat_cadical153_seq,count,TIMEOUT,7.16282,7.16282,80039,,0.0019028530005016364,7.160918668821978,0.009199427000567084,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-01,20,cpsat_w1,classify,SOLVED,0.01279,0.01274;0.01279;0.01282,4363,2,0.0024459369997202884,0.010373539000283927,0.19682885400106898,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-01,20,cpsat_w1,count,TIMEOUT,10.00221,10.00221,3825590,,0.002442451001115842,9.999769452999317,0.16148310800053878,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-02,20,cat_solver,classify,SOLVED,0.00905,0.00918;0.00905;0.00841,36,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-02,20,cat_solver,count,TIMEOUT,10.00008,10.00008,237322,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-02,20,bitmask,classify,SOLVED,0.00094,0.00103;0.00094;0.00093,75,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-02,20,bitmask,count,TIMEOUT,10.00063,10.00063,3563264,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-02,20,hybrid,classify,SOLVED,0.00181,0.00178;0.00181;0.00182,35,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-02,20,hybrid,count,TIMEOUT,10.00029,10.00029,850240,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-02,20,dlx,classify,SOLVED,0.00155,0.00155;0.00153;0.00155,75,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-02,20,dlx,count,TIMEOUT,10.00017,10.00017,2876160,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-02,20,sat_cadical153_seq,classify,SOLVED,0.00214,0.00222;0.00214;0.00213,12,2,0.001844613998400746,0.0002895110010285862,0.009841472998232348,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-02,20,sat_cadical153_seq,count,TIMEOUT,6.46801,6.46801,96863,,0.0018092080026690383,6.466199022390356,0.009705199001473375,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-02,20,cpsat_w1,classify,SOLVED,0.0127,0.01270;0.01301;0.01257,4109,2,0.002446988000883721,0.01012131499737734,0.18941495399849373,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-02,20,cpsat_w1,count,TIMEOUT,10.00169,10.00169,3320692,,0.002453991000948008,9.999236869000015,0.18700916200032225,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-03,20,cat_solver,classify,SOLVED,0.00791,0.00760;0.00791;0.00809,42,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-03,20,cat_solver,count,TIMEOUT,10.00017,10.00017,138907,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-03,20,bitmask,classify,SOLVED,0.00077,0.00082;0.00077;0.00077,28,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-03,20,bitmask,count,TIMEOUT,10.00054,10.00054,3032320,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-03,20,hybrid,classify,SOLVED,0.00191,0.00183;0.00196;0.00191,20,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-03,20,hybrid,count,TIMEOUT,10.00009,10.00009,681088,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-03,20,dlx,classify,SOLVED,0.0012,0.00125;0.00120;0.00118,28,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-03,20,dlx,count,TIMEOUT,10.00053,10.00053,2510336,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-03,20,sat_cadical153_seq,classify,SOLVED,0.00262,0.00252;0.00270;0.00262,25,2,0.002049365997663699,0.0005700239962607156,0.011117691999970702,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-03,20,sat_cadical153_seq,count,TIMEOUT,6.616,6.61600,79576,,0.0019347319976077415,6.614068632818089,0.01057079100064584,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-03,20,cpsat_w1,classify,SOLVED,0.0143,0.01403;0.01457;0.01430,4225,2,0.0030338530013978016,0.011266990000876831,0.1854774340026779,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-03,20,cpsat_w1,count,TIMEOUT,10.00111,10.00111,2676350,,0.0029648029994859826,9.998145771001873,0.19574719199954416,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-04,20,cat_solver,classify,SOLVED,1.30896,1.28649;1.30896;1.42264,12510,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-04,20,cat_solver,count,TIMEOUT,10.00014,10.00014,137529,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-04,20,bitmask,classify,SOLVED,0.00083,0.00089;0.00083;0.00080,37,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-04,20,bitmask,count,TIMEOUT,10.00073,10.00073,2842880,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-04,20,hybrid,classify,SOLVED,0.00221,0.00241;0.00221;0.00202,26,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-04,20,hybrid,count,TIMEOUT,10.00037,10.00037,618944,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-04,20,dlx,classify,SOLVED,0.00143,0.00162;0.00134;0.00143,37,2,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-04,20,dlx,count,TIMEOUT,10.00104,10.00104,2503424,,,,,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-04,20,sat_cadical153_seq,classify,SOLVED,0.00222,0.00227;0.00219;0.00222,11,2,0.0018636480017448775,0.0003545619983924553,0.009744446000695461,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-04,20,sat_cadical153_seq,count,TIMEOUT,6.78146,6.78146,91146,,0.0018359659989073407,6.779624332411913,0.009356530998047674,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,
+S4,S4-n20-04,20,cpsat_w1,classify,SOLVED,0.01245,0.01245;0.01244;0.01248,4132,2,0.0024215289995481726,0.010063108999020187,0.1664969769990421,,unknown (bench.reference and cat_solver both exceeded the time limit),NOREF,reference unknown
+S4,S4-n20-04,20,cpsat_w1,count,TIMEOUT,10.00138,10.00138,3005610,,0.002421619999950053,9.998955725000997,0.1627217710010882,,unknown (bench.reference and cat_solver both exceeded the time limit),TIMEOUT,

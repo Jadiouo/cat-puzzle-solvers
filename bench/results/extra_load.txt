@@ -1,0 +1,17 @@
+begin S3n25 t60 11:33:54 7.68 7.62 7.28
+end S3n25 rc=0 11:58:19 5.24 6.55 7.49
+begin match S2 11:59:01 4.34 6.13 7.30
+end match S2 rc=0 11:59:04 4.34 6.13 7.30
+begin match S3 11:59:04 4.34 6.13 7.30
+end match S3 rc=0 12:01:33 4.76 5.53 6.89
+begin match S4 12:01:33 4.76 5.53 6.89
+end match S4 rc=0 12:06:10 5.86 5.72 6.61
+begin match S5 12:06:10 5.86 5.72 6.61
+end match S5 rc=0 12:06:20 5.81 5.71 6.60
+begin match S5b 12:06:20 5.81 5.71 6.60
+end match S5b rc=0 12:06:25 5.98 5.75 6.61
+begin match S6 12:06:25 5.98 5.75 6.61
+end match S6 rc=0 12:06:34 5.91 5.74 6.59
+begin match S1 12:06:34 5.91 5.74 6.59
+end match S1 rc=0 12:06:53 6.08 5.79 6.59
+done match 12:06:53 6.08 5.79 6.59

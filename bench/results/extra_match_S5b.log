@@ -1,0 +1,38 @@
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+skip native_match_rr/count: mode unsupported
+[50/72] 3s
+
+wrote bench/results/extra_match_S5b.csv / .json  (wall 4.6s)
+
+suite solver     mode       N    #  median_s    max_s timeout error MISMATCH stuck noref
+S5b   native_matchclassify  12    8    0.0001   0.0003       0     0        0     0     0
+S5b   native_matchclassify  14    8    0.0001   0.0002       0     0        0     0     0
+S5b   native_matchclassify  16    8    0.0002   0.0016       0     0        0     0     0
+S5b   native_matchcount     12    8    0.0001   0.0002       0     0        0     0     0
+S5b   native_matchcount     14    8    0.0001   0.0002       0     0        0     0     0
+S5b   native_matchcount     16    8    0.0002   0.0015       0     0        0     0     0
+S5b   native_match_rrclassify  12    8    0.0001   0.0008       0     0        0     0     0
+S5b   native_match_rrclassify  14    8    0.0001   0.0004       0     0        0     0     0
+S5b   native_match_rrclassify  16    8    0.0004   0.0147       0     0        0     0     0

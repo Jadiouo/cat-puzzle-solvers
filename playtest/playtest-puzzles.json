@@ -1,0 +1,692 @@
+[
+ {
+  "id": "p6l",
+  "max_region": 12,
+  "min_region": 3,
+  "needs_T5": false,
+  "regions": [
+   "BBAAAA",
+   "BBBAAA",
+   "BBAAAC",
+   "BBBDCC",
+   "BEBDDD",
+   "EEFFFD"
+  ],
+  "score": 9,
+  "size": 6,
+  "solution": [
+   [
+    0,
+    2
+   ],
+   [
+    1,
+    0
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    5,
+    4
+   ]
+  ],
+  "techniques": {
+   "T2": 6,
+   "T3": 1,
+   "T4": 0,
+   "T5": 0,
+   "T5depth": 0
+  },
+  "tier": "low"
+ },
+ {
+  "id": "p6m",
+  "max_region": 14,
+  "min_region": 3,
+  "needs_T5": false,
+  "regions": [
+   "AABBBB",
+   "AAABBB",
+   "ACBBBB",
+   "FCFDBB",
+   "FCFDBE",
+   "FFFDEE"
+  ],
+  "score": 24,
+  "size": 6,
+  "solution": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    2
+   ]
+  ],
+  "techniques": {
+   "T2": 6,
+   "T3": 2,
+   "T4": 2,
+   "T5": 0,
+   "T5depth": 0
+  },
+  "tier": "mid"
+ },
+ {
+  "id": "p6h",
+  "max_region": 9,
+  "min_region": 3,
+  "needs_T5": true,
+  "regions": [
+   "AABBBB",
+   "CACBBB",
+   "CCCCBB",
+   "CFEEDD",
+   "CFFEDF",
+   "CFFFFF"
+  ],
+  "score": 123,
+  "size": 6,
+  "solution": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    5,
+    1
+   ]
+  ],
+  "techniques": {
+   "T2": 6,
+   "T3": 3,
+   "T4": 2,
+   "T5": 12,
+   "T5depth": 12
+  },
+  "tier": "high"
+ },
+ {
+  "id": "p7l",
+  "max_region": 14,
+  "min_region": 3,
+  "needs_T5": false,
+  "regions": [
+   "AABFFCC",
+   "ABBBFCC",
+   "DBFFFEC",
+   "DBFGFEE",
+   "DGFGFEE",
+   "GGFGFFF",
+   "GGGGGGG"
+  ],
+  "score": 10,
+  "size": 7,
+  "solution": [
+   [
+    0,
+    1
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    0
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    6,
+    4
+   ]
+  ],
+  "techniques": {
+   "T2": 7,
+   "T3": 1,
+   "T4": 0,
+   "T5": 0,
+   "T5depth": 0
+  },
+  "tier": "low"
+ },
+ {
+  "id": "p7m",
+  "max_region": 14,
+  "min_region": 3,
+  "needs_T5": false,
+  "regions": [
+   "AAABBBB",
+   "ABBBDBB",
+   "ACBBDDB",
+   "ACCCDDB",
+   "FEEEGDB",
+   "FEGGGDD",
+   "FGGGGDD"
+  ],
+  "score": 31,
+  "size": 7,
+  "solution": [
+   [
+    0,
+    2
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    5,
+    0
+   ],
+   [
+    6,
+    4
+   ]
+  ],
+  "techniques": {
+   "T2": 7,
+   "T3": 4,
+   "T4": 2,
+   "T5": 0,
+   "T5depth": 0
+  },
+  "tier": "mid"
+ },
+ {
+  "id": "p7h",
+  "max_region": 10,
+  "min_region": 4,
+  "needs_T5": true,
+  "regions": [
+   "EEAAAAA",
+   "EAADBAC",
+   "EADDBBC",
+   "EEEDFBC",
+   "GEFFFFC",
+   "GEEGGFF",
+   "GGGGFFF"
+  ],
+  "score": 250,
+  "size": 7,
+  "solution": [
+   [
+    0,
+    2
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    0
+   ]
+  ],
+  "techniques": {
+   "T2": 7,
+   "T3": 3,
+   "T4": 2,
+   "T5": 24,
+   "T5depth": 39
+  },
+  "tier": "high"
+ },
+ {
+  "id": "p8l",
+  "max_region": 16,
+  "min_region": 3,
+  "needs_T5": false,
+  "regions": [
+   "ADDDDDBC",
+   "ADBDBBBC",
+   "ADBBBBCC",
+   "ADDDDBBH",
+   "GEDDDBHH",
+   "GEEEHHHF",
+   "GGGEHHFF",
+   "HHHHHHHH"
+  ],
+  "score": 14,
+  "size": 8,
+  "solution": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    7,
+    5
+   ]
+  ],
+  "techniques": {
+   "T2": 8,
+   "T3": 2,
+   "T4": 0,
+   "T5": 0,
+   "T5depth": 0
+  },
+  "tier": "low"
+ },
+ {
+  "id": "p8m",
+  "max_region": 15,
+  "min_region": 3,
+  "needs_T5": true,
+  "regions": [
+   "DBBBEAAA",
+   "DBEEEAAA",
+   "DEEEEACC",
+   "DDDDEEFC",
+   "DGDEEEFF",
+   "DGDDGEEF",
+   "DGGGGGGG",
+   "DGGGHHHG"
+  ],
+  "score": 64,
+  "size": 8,
+  "solution": [
+   [
+    0,
+    5
+   ],
+   [
+    1,
+    1
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    0
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    7,
+    4
+   ]
+  ],
+  "techniques": {
+   "T2": 8,
+   "T3": 6,
+   "T4": 1,
+   "T5": 4,
+   "T5depth": 4
+  },
+  "tier": "mid"
+ },
+ {
+  "id": "p8h",
+  "max_region": 16,
+  "min_region": 3,
+  "needs_T5": true,
+  "regions": [
+   "AAAAABBB",
+   "CAABBBEB",
+   "CAAAAEEE",
+   "CCCDAEEE",
+   "FCCDAAEE",
+   "FFFDAGEG",
+   "HDDDAGEG",
+   "HHDDGGGG"
+  ],
+  "score": 264,
+  "size": 8,
+  "solution": [
+   [
+    0,
+    4
+   ],
+   [
+    1,
+    7
+   ],
+   [
+    2,
+    0
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "techniques": {
+   "T2": 8,
+   "T3": 4,
+   "T4": 3,
+   "T5": 21,
+   "T5depth": 50
+  },
+  "tier": "high"
+ },
+ {
+  "id": "p9l",
+  "max_region": 17,
+  "min_region": 3,
+  "needs_T5": false,
+  "regions": [
+   "EEEEEBBAA",
+   "EEEBBBBBA",
+   "DEEEGBCCA",
+   "DDEEGGGCC",
+   "EEEGGFGGC",
+   "EGGGHFFGG",
+   "IHHHHHHGH",
+   "IIIHIHHHH",
+   "IIIIIIHHH"
+  ],
+  "score": 27,
+  "size": 9,
+  "solution": [
+   [
+    0,
+    8
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    0
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    7
+   ],
+   [
+    7,
+    3
+   ],
+   [
+    8,
+    1
+   ]
+  ],
+  "techniques": {
+   "T2": 9,
+   "T3": 4,
+   "T4": 1,
+   "T5": 0,
+   "T5depth": 0
+  },
+  "tier": "low"
+ },
+ {
+  "id": "p9m",
+  "max_region": 17,
+  "min_region": 3,
+  "needs_T5": true,
+  "regions": [
+   "DBAAAAAAA",
+   "DBBBEEACC",
+   "DDDDEAAAC",
+   "FDDEEEAAC",
+   "FDGEGEAAC",
+   "FDGGGEGGC",
+   "DDDGGGGCC",
+   "DHDGCCCCI",
+   "HHDDCCCII"
+  ],
+  "score": 50,
+  "size": 9,
+  "solution": [
+   [
+    0,
+    6
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    2,
+    8
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    0
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    7,
+    1
+   ],
+   [
+    8,
+    7
+   ]
+  ],
+  "techniques": {
+   "T2": 9,
+   "T3": 5,
+   "T4": 3,
+   "T5": 1,
+   "T5depth": 1
+  },
+  "tier": "mid"
+ },
+ {
+  "id": "p9h",
+  "max_region": 17,
+  "min_region": 3,
+  "needs_T5": true,
+  "regions": [
+   "AAAAAAAAA",
+   "AABABBCAA",
+   "BABABCCCA",
+   "BBBBBDCCC",
+   "BFEBBDCDC",
+   "FFEEEDDDC",
+   "FGGGEHHHH",
+   "FFFEEHHIH",
+   "FFFFFFHII"
+  ],
+  "score": 90,
+  "size": 9,
+  "solution": [
+   [
+    0,
+    1
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    7
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    5,
+    0
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    7,
+    6
+   ],
+   [
+    8,
+    8
+   ]
+  ],
+  "techniques": {
+   "T2": 9,
+   "T3": 3,
+   "T4": 4,
+   "T5": 6,
+   "T5depth": 6
+  },
+  "tier": "high"
+ }
+]

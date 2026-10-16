@@ -1,0 +1,35 @@
+[50/216] 7s
+[100/216] 14s
+[150/216] 21s
+[200/216] 29s
+
+wrote bench/results/unified_S5b.csv / .json  (wall 31.5s)
+
+suite solver     mode       N    #  median_s    max_s timeout error MISMATCH stuck noref
+S5b   cpsat_w1   classify  12    8    0.0037   0.0070       0     0        0     0     0
+S5b   cpsat_w1   classify  14    8    0.0067   0.0091       0     0        0     0     0
+S5b   cpsat_w1   classify  16    8    0.0098   0.0566       0     0        0     0     0
+S5b   native_bitmaskclassify  12    8    0.0000   0.0003       0     0        0     0     0
+S5b   native_bitmaskclassify  14    8    0.0002   0.0004       0     0        0     0     0
+S5b   native_bitmaskclassify  16    8    0.0005   0.0026       0     0        0     0     0
+S5b   native_dlx classify  12    8    0.0001   0.0005       0     0        0     0     0
+S5b   native_dlx classify  14    8    0.0002   0.0005       0     0        0     0     0
+S5b   native_dlx classify  16    8    0.0006   0.0031       0     0        0     0     0
+S5b   native_hybridclassify  12    8    0.0000   0.0006       0     0        0     0     0
+S5b   native_hybridclassify  14    8    0.0001   0.0002       0     0        0     0     0
+S5b   native_hybridclassify  16    8    0.0003   0.0021       0     0        0     0     0
+S5b   native_matchclassify  12    8    0.0001   0.0002       0     0        0     0     0
+S5b   native_matchclassify  14    8    0.0001   0.0002       0     0        0     0     0
+S5b   native_matchclassify  16    8    0.0002   0.0015       0     0        0     0     0
+S5b   native_match_rrclassify  12    8    0.0001   0.0008       0     0        0     0     0
+S5b   native_match_rrclassify  14    8    0.0001   0.0004       0     0        0     0     0
+S5b   native_match_rrclassify  16    8    0.0004   0.0154       0     0        0     0     0
+S5b   sat_cadical153_seqclassify  12    8    0.0010   0.0017       0     0        0     0     0
+S5b   sat_cadical153_seqclassify  14    8    0.0016   0.0026       0     0        0     0     0
+S5b   sat_cadical153_seqclassify  16    8    0.0032   0.0089       0     0        0     0     0
+S5b   sat_cadical195_seqclassify  12    8    0.0010   0.0018       0     0        0     0     0
+S5b   sat_cadical195_seqclassify  14    8    0.0017   0.0027       0     0        0     0     0
+S5b   sat_cadical195_seqclassify  16    8    0.0036   0.0081       0     0        0     0     0
+S5b   sat_glucose4_seqclassify  12    8    0.0011   0.0021       0     0        0     0     0
+S5b   sat_glucose4_seqclassify  14    8    0.0015   0.0028       0     0        0     0     0
+S5b   sat_glucose4_seqclassify  16    8    0.0027   0.0061       0     0        0     0     0

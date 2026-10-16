@@ -1,0 +1,83 @@
+[50/360] 51s
+[100/360] 307s
+[150/360] 584s
+[200/360] 841s
+[250/360] 1113s
+[300/360] 1380s
+[350/360] 1642s
+
+wrote ./bench/results/final_S4.csv / .json  (wall 1694.1s)
+
+suite solver     mode       N    #  median_s    max_s timeout error MISMATCH stuck noref
+S4    bitmask    classify  10    5    0.0002   0.0002       0     0        0     0     0
+S4    bitmask    classify  12    5    0.0003   0.0012       0     0        0     0     0
+S4    bitmask    classify  14    5    0.0004   0.0004       0     0        0     0     5
+S4    bitmask    classify  16    5    0.0005   0.0006       0     0        0     0     5
+S4    bitmask    classify  18    5    0.0006   0.0024       0     0        0     0     5
+S4    bitmask    classify  20    5    0.0008   0.0011       0     0        0     0     5
+S4    bitmask    count     10    5    0.0604   0.1045       0     0        0     0     0
+S4    bitmask    count     12    5    2.4074   3.6697       0     0        0     0     0
+S4    bitmask    count     14    5         -        -       5     0        0     0     0
+S4    bitmask    count     16    5         -        -       5     0        0     0     0
+S4    bitmask    count     18    5         -        -       5     0        0     0     0
+S4    bitmask    count     20    5         -        -       5     0        0     0     0
+S4    cat_solver classify  10    5    0.0010   0.0011       0     0        0     0     0
+S4    cat_solver classify  12    5    0.0034   0.3164       0     0        0     0     0
+S4    cat_solver classify  14    5    0.0024   0.0028       0     0        0     0     5
+S4    cat_solver classify  16    5    0.0055   0.0105       0     0        0     0     5
+S4    cat_solver classify  18    5    0.2193   4.9171       0     0        0     0     5
+S4    cat_solver classify  20    5    0.0134   1.3090       0     0        0     0     5
+S4    cat_solver count     10    5    1.3119   1.7526       0     0        0     0     0
+S4    cat_solver count     12    5         -        -       5     0        0     0     0
+S4    cat_solver count     14    5         -        -       5     0        0     0     0
+S4    cat_solver count     16    5         -        -       5     0        0     0     0
+S4    cat_solver count     18    5         -        -       5     0        0     0     0
+S4    cat_solver count     20    5         -        -       5     0        0     0     0
+S4    cpsat_w1   classify  10    5    0.0042   0.0042       0     0        0     0     0
+S4    cpsat_w1   classify  12    5    0.0053   0.0056       0     0        0     0     0
+S4    cpsat_w1   classify  14    5    0.0068   0.0068       0     0        0     0     5
+S4    cpsat_w1   classify  16    5    0.0084   0.0085       0     0        0     0     5
+S4    cpsat_w1   classify  18    5    0.0104   0.0105       0     0        0     0     5
+S4    cpsat_w1   classify  20    5    0.0127   0.0143       0     0        0     0     5
+S4    cpsat_w1   count     10    5    0.9567   1.6397       0     0        0     0     0
+S4    cpsat_w1   count     12    5         -        -       5     0        0     0     0
+S4    cpsat_w1   count     14    5         -        -       5     0        0     0     0
+S4    cpsat_w1   count     16    5         -        -       5     0        0     0     0
+S4    cpsat_w1   count     18    5         -        -       5     0        0     0     0
+S4    cpsat_w1   count     20    5         -        -       5     0        0     0     0
+S4    dlx        classify  10    5    0.0003   0.0003       0     0        0     0     0
+S4    dlx        classify  12    5    0.0004   0.0039       0     0        0     0     0
+S4    dlx        classify  14    5    0.0005   0.0006       0     0        0     0     5
+S4    dlx        classify  16    5    0.0007   0.0014       0     0        0     0     5
+S4    dlx        classify  18    5    0.0009   0.0058       0     0        0     0     5
+S4    dlx        classify  20    5    0.0014   0.0019       0     0        0     0     5
+S4    dlx        count     10    5    0.1448   0.2492       0     0        0     0     0
+S4    dlx        count     12    5    4.2718   6.9225       0     0        0     0     0
+S4    dlx        count     14    5         -        -       5     0        0     0     0
+S4    dlx        count     16    5         -        -       5     0        0     0     0
+S4    dlx        count     18    5         -        -       5     0        0     0     0
+S4    dlx        count     20    5         -        -       5     0        0     0     0
+S4    hybrid     classify  10    5    0.0004   0.0004       0     0        0     0     0
+S4    hybrid     classify  12    5    0.0006   0.0017       0     0        0     0     0
+S4    hybrid     classify  14    5    0.0008   0.0008       0     0        0     0     5
+S4    hybrid     classify  16    5    0.0011   0.0015       0     0        0     0     5
+S4    hybrid     classify  18    5    0.0014   0.0059       0     0        0     0     5
+S4    hybrid     classify  20    5    0.0019   0.0026       0     0        0     0     5
+S4    hybrid     count     10    5    0.1729   0.3364       0     0        0     0     0
+S4    hybrid     count     12    5    6.4676   8.4441       1     0        0     0     0
+S4    hybrid     count     14    5         -        -       5     0        0     0     0
+S4    hybrid     count     16    5         -        -       5     0        0     0     0
+S4    hybrid     count     18    5         -        -       5     0        0     0     0
+S4    hybrid     count     20    5         -        -       5     0        0     0     0
+S4    sat_cadical153_seqclassify  10    5    0.0006   0.0007       0     0        0     0     0
+S4    sat_cadical153_seqclassify  12    5    0.0009   0.0009       0     0        0     0     0
+S4    sat_cadical153_seqclassify  14    5    0.0011   0.0011       0     0        0     0     5
+S4    sat_cadical153_seqclassify  16    5    0.0014   0.0016       0     0        0     0     5
+S4    sat_cadical153_seqclassify  18    5    0.0018   0.0023       0     0        0     0     5
+S4    sat_cadical153_seqclassify  20    5    0.0023   0.0035       0     0        0     0     5
+S4    sat_cadical153_seqcount     10    5    0.5376   0.7283       0     0        0     0     0
+S4    sat_cadical153_seqcount     12    5         -        -       5     0        0     0     0
+S4    sat_cadical153_seqcount     14    5         -        -       5     0        0     0     0
+S4    sat_cadical153_seqcount     16    5         -        -       5     0        0     0     0
+S4    sat_cadical153_seqcount     18    5         -        -       5     0        0     0     0
+S4    sat_cadical153_seqcount     20    5         -        -       5     0        0     0     0

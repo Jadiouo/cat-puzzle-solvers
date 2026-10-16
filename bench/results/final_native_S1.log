@@ -1,0 +1,104 @@
+[50/3000] 5s
+[100/3000] 10s
+[150/3000] 16s
+[200/3000] 21s
+[250/3000] 25s
+[300/3000] 31s
+[350/3000] 35s
+[400/3000] 40s
+[450/3000] 45s
+[500/3000] 50s
+[550/3000] 55s
+[600/3000] 60s
+[650/3000] 65s
+[700/3000] 70s
+[750/3000] 76s
+[800/3000] 81s
+[850/3000] 86s
+[900/3000] 92s
+[950/3000] 97s
+[1000/3000] 102s
+[1050/3000] 107s
+[1100/3000] 113s
+[1150/3000] 118s
+[1200/3000] 124s
+[1250/3000] 130s
+[1300/3000] 136s
+[1350/3000] 141s
+[1400/3000] 147s
+[1450/3000] 152s
+[1500/3000] 158s
+[1550/3000] 164s
+[1600/3000] 170s
+[1650/3000] 177s
+[1700/3000] 183s
+[1750/3000] 189s
+[1800/3000] 195s
+[1850/3000] 201s
+[1900/3000] 207s
+[1950/3000] 213s
+[2000/3000] 219s
+[2050/3000] 225s
+[2100/3000] 232s
+[2150/3000] 238s
+[2200/3000] 244s
+[2250/3000] 250s
+[2300/3000] 256s
+[2350/3000] 262s
+[2400/3000] 268s
+[2450/3000] 274s
+[2500/3000] 280s
+[2550/3000] 285s
+[2600/3000] 291s
+[2650/3000] 297s
+[2700/3000] 302s
+[2750/3000] 308s
+[2800/3000] 313s
+[2850/3000] 319s
+[2900/3000] 325s
+[2950/3000] 330s
+[3000/3000] 336s
+
+wrote bench/results/final_native_S1.csv / .json  (wall 335.7s)
+
+suite solver     mode       N    #  median_s    max_s timeout error MISMATCH stuck noref
+S1    cpsat_w1   classify   6   75    0.0028   0.0044       0     0        0     0     0
+S1    cpsat_w1   classify   7   75    0.0031   0.0231       0     0        0     0     0
+S1    cpsat_w1   classify   8   75    0.0034   0.0063       0     0        0     0     0
+S1    cpsat_w1   classify   9   75    0.0038   0.0069       0     0        0     0     0
+S1    cpsat_w1   count      6   75    0.0028   0.0037       0     0        0     0     0
+S1    cpsat_w1   count      7   75    0.0031   0.0096       0     0        0     0     0
+S1    cpsat_w1   count      8   75    0.0034   0.0112       0     0        0     0     0
+S1    cpsat_w1   count      9   75    0.0037   0.0099       0     0        0     0     0
+S1    native_bitmaskclassify   6   75    0.0000   0.0000       0     0        0     0     0
+S1    native_bitmaskclassify   7   75    0.0000   0.0000       0     0        0     0     0
+S1    native_bitmaskclassify   8   75    0.0000   0.0000       0     0        0     0     0
+S1    native_bitmaskclassify   9   75    0.0000   0.0000       0     0        0     0     0
+S1    native_bitmaskcount      6   75    0.0000   0.0000       0     0        0     0     0
+S1    native_bitmaskcount      7   75    0.0000   0.0000       0     0        0     0     0
+S1    native_bitmaskcount      8   75    0.0000   0.0000       0     0        0     0     0
+S1    native_bitmaskcount      9   75    0.0000   0.0000       0     0        0     0     0
+S1    native_dlx classify   6   75    0.0000   0.0001       0     0        0     0     0
+S1    native_dlx classify   7   75    0.0000   0.0000       0     0        0     0     0
+S1    native_dlx classify   8   75    0.0000   0.0001       0     0        0     0     0
+S1    native_dlx classify   9   75    0.0000   0.0001       0     0        0     0     0
+S1    native_dlx count      6   75    0.0000   0.0000       0     0        0     0     0
+S1    native_dlx count      7   75    0.0000   0.0001       0     0        0     0     0
+S1    native_dlx count      8   75    0.0000   0.0001       0     0        0     0     0
+S1    native_dlx count      9   75    0.0000   0.0001       0     0        0     0     0
+S1    native_hybridclassify   6   75    0.0000   0.0000       0     0        0     0     0
+S1    native_hybridclassify   7   75    0.0000   0.0000       0     0        0     0     0
+S1    native_hybridclassify   8   75    0.0000   0.0034       0     0        0     0     0
+S1    native_hybridclassify   9   75    0.0000   0.0000       0     0        0     0     0
+S1    native_hybridcount      6   75    0.0000   0.0000       0     0        0     0     0
+S1    native_hybridcount      7   75    0.0000   0.0000       0     0        0     0     0
+S1    native_hybridcount      8   75    0.0000   0.0000       0     0        0     0     0
+S1    native_hybridcount      9   75    0.0000   0.0000       0     0        0     0     0
+S1    sat_cadical153_seqclassify   6   75    0.0005   0.0006       0     0        0     0     0
+S1    sat_cadical153_seqclassify   7   75    0.0006   0.0136       0     0        0     0     0
+S1    sat_cadical153_seqclassify   8   75    0.0007   0.0039       0     0        0     0     0
+S1    sat_cadical153_seqclassify   9   75    0.0010   0.0030       0     0        0     0     0
+S1    sat_cadical153_seqcount      6   75    0.0005   0.0007       0     0        0     0     0
+S1    sat_cadical153_seqcount      7   75    0.0006   0.0009       0     0        0     0     0
+S1    sat_cadical153_seqcount      8   75    0.0008   0.0015       0     0        0     0     0
+S1    sat_cadical153_seqcount      9   75    0.0009   0.0040       0     0        0     0     0

@@ -1,0 +1,70 @@
+[50/300] 111s
+[100/300] 253s
+[150/300] 549s
+[200/300] 821s
+[250/300] 1091s
+[300/300] 1364s
+
+wrote bench/results/final_native_S4.csv / .json  (wall 1363.5s)
+
+suite solver     mode       N    #  median_s    max_s timeout error MISMATCH stuck noref
+S4    cpsat_w1   classify  10    5    0.0121   0.0231       0     0        0     0     0
+S4    cpsat_w1   classify  12    5    0.0095   0.0181       0     0        0     0     0
+S4    cpsat_w1   classify  14    5    0.0118   0.0214       0     0        0     0     0
+S4    cpsat_w1   classify  16    5    0.0260   0.0294       0     0        0     0     0
+S4    cpsat_w1   classify  18    5    0.0189   0.0336       0     0        0     0     0
+S4    cpsat_w1   classify  20    5    0.0358   0.0829       0     0        0     0     0
+S4    cpsat_w1   count     10    5    2.1650   4.5610       1     0        0     0     0
+S4    cpsat_w1   count     12    5         -        -       5     0        0     0     0
+S4    cpsat_w1   count     14    5         -        -       5     0        0     0     0
+S4    cpsat_w1   count     16    5         -        -       5     0        0     0     0
+S4    cpsat_w1   count     18    5         -        -       5     0        0     0     0
+S4    cpsat_w1   count     20    5         -        -       5     0        0     0     0
+S4    native_bitmaskclassify  10    5    0.0000   0.0000       0     0        0     0     0
+S4    native_bitmaskclassify  12    5    0.0000   0.0001       0     0        0     0     0
+S4    native_bitmaskclassify  14    5    0.0000   0.0000       0     0        0     0     0
+S4    native_bitmaskclassify  16    5    0.0000   0.0001       0     0        0     0     0
+S4    native_bitmaskclassify  18    5    0.0001   0.0003       0     0        0     0     0
+S4    native_bitmaskclassify  20    5    0.0001   0.0001       0     0        0     0     0
+S4    native_bitmaskcount     10    5    0.0032   0.0102       0     0        0     0     0
+S4    native_bitmaskcount     12    5    0.1868   0.2891       0     0        0     0     0
+S4    native_bitmaskcount     14    5    7.3988   7.3988       4     0        0     0     0
+S4    native_bitmaskcount     16    5         -        -       5     0        0     0     0
+S4    native_bitmaskcount     18    5         -        -       5     0        0     0     0
+S4    native_bitmaskcount     20    5         -        -       5     0        0     0     0
+S4    native_dlx classify  10    5    0.0000   0.0000       0     0        0     0     0
+S4    native_dlx classify  12    5    0.0001   0.0002       0     0        0     0     0
+S4    native_dlx classify  14    5    0.0001   0.0001       0     0        0     0     0
+S4    native_dlx classify  16    5    0.0001   0.0001       0     0        0     0     0
+S4    native_dlx classify  18    5    0.0001   0.0003       0     0        0     0     0
+S4    native_dlx classify  20    5    0.0001   0.0002       0     0        0     0     0
+S4    native_dlx count     10    5    0.0057   0.0216       0     0        0     0     0
+S4    native_dlx count     12    5    0.2052   0.3504       0     0        0     0     0
+S4    native_dlx count     14    5    6.1306   6.1306       4     0        0     0     0
+S4    native_dlx count     16    5         -        -       5     0        0     0     0
+S4    native_dlx count     18    5         -        -       5     0        0     0     0
+S4    native_dlx count     20    5         -        -       5     0        0     0     0
+S4    native_hybridclassify  10    5    0.0000   0.0000       0     0        0     0     0
+S4    native_hybridclassify  12    5    0.0000   0.0001       0     0        0     0     0
+S4    native_hybridclassify  14    5    0.0001   0.0001       0     0        0     0     0
+S4    native_hybridclassify  16    5    0.0001   0.0001       0     0        0     0     0
+S4    native_hybridclassify  18    5    0.0001   0.0004       0     0        0     0     0
+S4    native_hybridclassify  20    5    0.0002   0.0002       0     0        0     0     0
+S4    native_hybridcount     10    5    0.0079   0.0217       0     0        0     0     0
+S4    native_hybridcount     12    5    0.5177   1.5005       0     0        0     0     0
+S4    native_hybridcount     14    5         -        -       5     0        0     0     0
+S4    native_hybridcount     16    5         -        -       5     0        0     0     0
+S4    native_hybridcount     18    5         -        -       5     0        0     0     0
+S4    native_hybridcount     20    5         -        -       5     0        0     0     0
+S4    sat_cadical153_seqclassify  10    5    0.0011   0.0011       0     0        0     0     0
+S4    sat_cadical153_seqclassify  12    5    0.0019   0.0045       0     0        0     0     0
+S4    sat_cadical153_seqclassify  14    5    0.0020   0.0051       0     0        0     0     0
+S4    sat_cadical153_seqclassify  16    5    0.0056   0.0083       0     0        0     0     0
+S4    sat_cadical153_seqclassify  18    5    0.0069   0.0090       0     0        0     0     0
+S4    sat_cadical153_seqclassify  20    5    0.0073   0.0102       0     0        0     0     0
+S4    sat_cadical153_seqcount     10    5    1.2447   3.4285       0     0        0     0     0
+S4    sat_cadical153_seqcount     12    5         -        -       5     0        0     0     0
+S4    sat_cadical153_seqcount     14    5         -        -       5     0        0     0     0
+S4    sat_cadical153_seqcount     16    5         -        -       5     0        0     0     0
+S4    sat_cadical153_seqcount     18    5         -        -       5     0        0     0     0
+S4    sat_cadical153_seqcount     20    5         -        -       5     0        0     0     0

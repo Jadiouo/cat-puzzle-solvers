@@ -1,0 +1,21 @@
+[50/120] 29s
+[100/120] 62s
+
+wrote bench/results/final_native_S5b.csv / .json  (wall 81.7s)
+
+suite solver     mode       N    #  median_s    max_s timeout error MISMATCH stuck noref
+S5b   cpsat_w1   classify  12    8    0.0079   0.0243       0     0        0     0     0
+S5b   cpsat_w1   classify  14    8    0.0133   0.0217       0     0        0     0     0
+S5b   cpsat_w1   classify  16    8    0.0509   0.0965       0     0        0     0     0
+S5b   native_bitmaskclassify  12    8    0.0000   0.0004       0     0        0     0     0
+S5b   native_bitmaskclassify  14    8    0.0002   0.0005       0     0        0     0     0
+S5b   native_bitmaskclassify  16    8    0.0007   0.0067       0     0        0     0     0
+S5b   native_dlx classify  12    8    0.0001   0.0005       0     0        0     0     0
+S5b   native_dlx classify  14    8    0.0002   0.0005       0     0        0     0     0
+S5b   native_dlx classify  16    8    0.0022   0.0089       0     0        0     0     0
+S5b   native_hybridclassify  12    8    0.0000   0.0007       0     0        0     0     0
+S5b   native_hybridclassify  14    8    0.0001   0.0010       0     0        0     0     0
+S5b   native_hybridclassify  16    8    0.0003   0.0060       0     0        0     0     0
+S5b   sat_cadical153_seqclassify  12    8    0.0021   0.0064       0     0        0     0     0
+S5b   sat_cadical153_seqclassify  14    8    0.0051   0.0072       0     0        0     0     0
+S5b   sat_cadical153_seqclassify  16    8    0.0121   0.0273       0     0        0     0     0

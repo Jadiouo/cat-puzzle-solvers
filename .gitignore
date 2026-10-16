@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.scratch/
+.venv/
+native/build/
+.claude/

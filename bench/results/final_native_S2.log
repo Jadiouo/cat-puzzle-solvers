@@ -1,0 +1,16 @@
+[50/140] 11s
+[100/140] 22s
+
+wrote bench/results/final_native_S2.csv / .json  (wall 31.2s)
+
+suite solver     mode       N    #  median_s    max_s timeout error MISMATCH stuck noref
+S2    cpsat_w1   classify  10   14    0.0031   0.0046       0     0        0     0     0
+S2    cpsat_w1   count     10   14    0.0031   0.0046       0     0        0     0     0
+S2    native_bitmaskclassify  10   14    0.0000   0.0000       0     0        0     0     0
+S2    native_bitmaskcount     10   14    0.0000   0.0000       0     0        0     0     0
+S2    native_dlx classify  10   14    0.0000   0.0001       0     0        0     0     0
+S2    native_dlx count     10   14    0.0000   0.0001       0     0        0     0     0
+S2    native_hybridclassify  10   14    0.0000   0.0000       0     0        0     0     0
+S2    native_hybridcount     10   14    0.0000   0.0000       0     0        0     0     0
+S2    sat_cadical153_seqclassify  10   14    0.0008   0.0011       0     0        0     0     0
+S2    sat_cadical153_seqcount     10   14    0.0008   0.0011       0     0        0     0     0

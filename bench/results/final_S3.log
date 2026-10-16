@@ -1,0 +1,104 @@
+[50/1440] 9s
+[100/1440] 18s
+[150/1440] 26s
+[200/1440] 37s
+[250/1440] 47s
+[300/1440] 64s
+[350/1440] 77s
+[400/1440] 92s
+[450/1440] 102s
+[500/1440] 112s
+[550/1440] 127s
+[600/1440] 217s
+[650/1440] 249s
+[700/1440] 260s
+[750/1440] 402s
+[800/1440] 536s
+[850/1440] 649s
+[900/1440] 794s
+[950/1440] 967s
+[1000/1440] 1194s
+[1050/1440] 1444s
+[1100/1440] 1620s
+[1150/1440] 1777s
+[1200/1440] 1929s
+[1250/1440] 2078s
+[1300/1440] 2288s
+[1350/1440] 2525s
+[1400/1440] 2803s
+
+wrote ./bench/results/final_S3.csv / .json  (wall 3070.7s)
+
+suite solver     mode       N    #  median_s    max_s timeout error MISMATCH stuck noref
+S3    bitmask    classify   8   20    0.0001   0.0002       0     0        0     0     0
+S3    bitmask    classify  10   20    0.0003   0.0006       0     0        0     0     0
+S3    bitmask    classify  12   20    0.0003   0.0030       0     0        0     0     0
+S3    bitmask    classify  15   20    0.0027   1.6473       0     0        0     0     1
+S3    bitmask    classify  20   20    0.0043   8.3879       3     0        0     0     7
+S3    bitmask    classify  25   20    0.0012   2.6961       9     0        0     0     6
+S3    bitmask    count      8   20    0.0002   0.0007       0     0        0     0     0
+S3    bitmask    count     10   20    0.0004   0.0229       0     0        0     0     0
+S3    bitmask    count     12   20    0.0014   0.2180       0     0        0     0     0
+S3    bitmask    count     15   20    0.1956   5.4229       2     0        0     0     0
+S3    bitmask    count     20   20    0.0057   3.7942       9     0        0     0     2
+S3    bitmask    count     25   20    0.0011   0.6169      13     0        0     0     2
+S3    cat_solver classify   8   20    0.0014   0.0157       0     0        0     0     0
+S3    cat_solver classify  10   20    0.0033   0.1470       0     0        0     0     0
+S3    cat_solver classify  12   20    0.0021   1.7532       0     0        0     0     0
+S3    cat_solver classify  15   20    0.0274   5.7936       4     0        0     0     1
+S3    cat_solver classify  20   20    0.0005   4.1421       6     0        0     0     3
+S3    cat_solver classify  25   20    0.0004   0.3496      11     0        0     0     2
+S3    cat_solver count      8   20    0.0049   0.0205       0     0        0     0     0
+S3    cat_solver count     10   20    0.0294   0.6258       0     0        0     0     0
+S3    cat_solver count     12   20    0.3096   5.7194       0     0        0     0     0
+S3    cat_solver count     15   20    0.0109   5.7782      12     0        0     0     0
+S3    cat_solver count     20   20    0.0005   0.0139       9     0        0     0     0
+S3    cat_solver count     25   20    0.0004   0.0007      13     0        0     0     0
+S3    cpsat_w1   classify   8   20    0.0024   0.0035       0     0        0     0     0
+S3    cpsat_w1   classify  10   20    0.0038   0.0063       0     0        0     0     0
+S3    cpsat_w1   classify  12   20    0.0035   0.0058       0     0        0     0     0
+S3    cpsat_w1   classify  15   20    0.0119   0.0704       0     0        0     0     1
+S3    cpsat_w1   classify  20   20    0.0146   0.1063       0     0        0     0     7
+S3    cpsat_w1   classify  25   20    0.0211   0.1276       0     0        0     0    13
+S3    cpsat_w1   count      8   20    0.0021   0.0077       0     0        0     0     0
+S3    cpsat_w1   count     10   20    0.0039   0.2954       0     0        0     0     0
+S3    cpsat_w1   count     12   20    0.0040   3.1366       0     0        0     0     0
+S3    cpsat_w1   count     15   20    0.0127   7.4086       5     0        0     0     0
+S3    cpsat_w1   count     20   20    0.0130   0.1060       5     0        0     0     2
+S3    cpsat_w1   count     25   20    0.0207   0.1293       7     0        0     0     6
+S3    dlx        classify   8   20    0.0002   0.0004       0     0        0     0     0
+S3    dlx        classify  10   20    0.0003   0.0019       0     0        0     0     0
+S3    dlx        classify  12   20    0.0004   0.0110       0     0        0     0     0
+S3    dlx        classify  15   20    0.0048   2.2372       0     0        0     0     1
+S3    dlx        classify  20   20    0.0048   6.1095       5     0        0     0     6
+S3    dlx        classify  25   20    0.0056   6.9772       9     0        0     0     6
+S3    dlx        count      8   20    0.0002   0.0020       0     0        0     0     0
+S3    dlx        count     10   20    0.0007   0.0543       0     0        0     0     0
+S3    dlx        count     12   20    0.0034   0.4150       0     0        0     0     0
+S3    dlx        count     15   20    0.3030   7.8446       2     0        0     0     0
+S3    dlx        count     20   20    0.0077   6.0004      10     0        0     0     1
+S3    dlx        count     25   20    0.0016   2.2192      13     0        0     0     2
+S3    hybrid     classify   8   20    0.0002   0.0004       0     0        0     0     0
+S3    hybrid     classify  10   20    0.0004   0.0009       0     0        0     0     0
+S3    hybrid     classify  12   20    0.0006   0.0012       0     0        0     0     0
+S3    hybrid     classify  15   20    0.0026   3.0707       0     0        0     0     1
+S3    hybrid     classify  20   20    0.0057   6.0527       3     0        0     0     7
+S3    hybrid     classify  25   20    0.0028   2.9275       9     0        0     0     6
+S3    hybrid     count      8   20    0.0002   0.0020       0     0        0     0     0
+S3    hybrid     count     10   20    0.0007   0.0650       0     0        0     0     0
+S3    hybrid     count     12   20    0.0009   0.6037       0     0        0     0     0
+S3    hybrid     count     15   20    0.0096   6.1601       3     0        0     0     0
+S3    hybrid     count     20   20    0.0051     10.0       8     0        0     0     2
+S3    hybrid     count     25   20    0.0011   0.4121      13     0        0     0     2
+S3    sat_cadical153_seqclassify   8   20    0.0004   0.0007       0     0        0     0     0
+S3    sat_cadical153_seqclassify  10   20    0.0007   0.0012       0     0        0     0     0
+S3    sat_cadical153_seqclassify  12   20    0.0008   0.0013       0     0        0     0     0
+S3    sat_cadical153_seqclassify  15   20    0.0025   0.0077       0     0        0     0     1
+S3    sat_cadical153_seqclassify  20   20    0.0046   0.0461       0     0        0     0     7
+S3    sat_cadical153_seqclassify  25   20    0.0053   0.1490       0     0        0     0    13
+S3    sat_cadical153_seqcount      8   20    0.0005   0.0034       0     0        0     0     0
+S3    sat_cadical153_seqcount     10   20    0.0010   0.1829       0     0        0     0     0
+S3    sat_cadical153_seqcount     12   20    0.0012   1.9522       0     0        0     0     0
+S3    sat_cadical153_seqcount     15   20    0.0035   3.4154       5     0        0     0     0
+S3    sat_cadical153_seqcount     20   20    0.0049   0.0249       5     0        0     0     2
+S3    sat_cadical153_seqcount     25   20    0.0043   0.0194       7     0        0     0     6
