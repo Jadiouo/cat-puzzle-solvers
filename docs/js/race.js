@@ -45,7 +45,7 @@
     stopAnim();
     var q = selected();
     ['A', 'B'].forEach(function (k) { boards[k] = C.board.create($('board' + k), q.regions, q.n); resetCard(k); });
-    $('raceSummary').textContent = ''; $('animBar').hidden = true;
+    shown = {}; $('raceSummary').textContent = ''; $('animBar').hidden = true;
     var canAnim = q.n <= 10;
     var mode = $('selMode');
     mode.querySelector('option[value="anim"]').disabled = !canAnim;
@@ -65,7 +65,9 @@
     el.textContent = t('refTitle') + line(t('algoBitmask'), q.ref.bitmask) + ' | ' + line(t('algoMatch'), q.ref.match);
   }
 
+  var shown = {};   // last finished result per card (+ summary), re-rendered on language change
   function statusChip(k, r, cap) {
+    shown[k] = [r, cap];
     if (r.status === 'CAPPED') setChip(k, t('stCap', { cap: capLabel(cap) }), 'bad');
     else if (r.status === 'UNSAT') setChip(k, t('stNone'), 'ok');
     else setChip(k, r.count >= 2 ? t('stMulti') : t('stUnique'), 'ok');
@@ -82,6 +84,7 @@
   }
 
   function summarize(a, b, cap) {
+    shown.sum = [a, b, cap];
     var el = $('raceSummary'), cls = 'summary';
     if (a.status === 'CAPPED' && b.status === 'CAPPED') el.textContent = t('sumBothCapped', { cap: capLabel(cap) });
     else if (a.status === 'CAPPED') { el.textContent = t('sumCapped', { cap: capLabel(cap), b: fmtN(b.nodes), tb: fmtMs(b.ms), ratio: fmtRatio(cap / Math.max(1, b.nodes)) }); cls += ' win'; }
@@ -211,7 +214,10 @@
       $('aPlay').onclick = togglePlay;
       $('aStep').onclick = function () { if (!anim) return; if (anim.playing) togglePlay(); if (anim.pos >= anim.max) resetAnimState(); stepTo(Math.min(anim.max, anim.pos + 1)); };
       $('aRestart').onclick = function () { if (!anim) return; if (anim.playing) togglePlay(); resetAnimState(); updateInfo(); };
-      document.addEventListener('langchange', function () { buildSelect(); showRef(selected()); if (!running) $('raceNote').textContent = t('noteCap'); });
+      document.addEventListener('langchange', function () { buildSelect(); showRef(selected()); if (!running) $('raceNote').textContent = t('noteCap');
+        ['A', 'B'].forEach(function (k) { if (shown[k]) statusChip(k, shown[k][0], shown[k][1]); });
+        if (shown.sum) summarize(shown.sum[0], shown.sum[1], shown.sum[2]);
+      });
       document.addEventListener('racethis', function () {
         buildSelect(); $('selRace').value = 'play'; showPuzzle(); C.showTab('race');
       });

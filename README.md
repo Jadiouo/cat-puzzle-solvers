@@ -1,17 +1,30 @@
 # Which algorithm should solve a cat-placement puzzle?
 
-A controlled benchmark of five solver families on "one per row, column and region, no two touching" puzzles (the Queens / Star Battle family), with adversarial puzzles, same-language native cores, and independently reviewed conclusions.
+A personal project: I benchmarked five solver families on "one per row, column and region, no two touching" puzzles (the Queens / Star Battle family), generated puzzles designed to break each solver, and built a browser demo where you can play the puzzle and race two solvers.
 
 **Live demo:** https://jadiouo.github.io/cat-puzzle-solvers/
 
-![Demo screenshot](docs/screenshot.png)
+| Play: gold = correct and locked, red = wrong guess, drag to mark X | Race: same 25×25 board, plain DFS vs DFS + Hall check. This board has no solution: the Hall check proves it at the root (1 node), while plain DFS searches 20 million nodes and is still not done |
+|---|---|
+| ![Play mode](docs/screenshot-play.jpg) | ![Race mode](docs/screenshot-race.jpg) |
 
 **In one minute**
 
 - **Question:** for this puzzle family, is it better to use human-style reasoning plus search, exact cover (DLX), or an off-the-shelf SAT / CP solver?
 - **Answer (for this batch of puzzles and these implementations):** no single winner. A backtracking search with one extra counting rule (Hall matching) is fastest on ordinary puzzles. CDCL SAT (CaDiCaL) is the steadiest on the hardest puzzles I could generate.
-- **Why the plain DFS lost earlier:** it was missing Hall-style counting reasoning, not "DFS" as an idea. Adding it removed every timeout on the main suites.
+- **Why the plain DFS lost earlier:** it was missing Hall-style counting reasoning, not "DFS" as an idea. In plain words: if three regions that still need a cat can only use two free rows between them, the branch is dead, so stop now. Adding that one check removed every timeout on suites S1-S4 (classify mode).
 - **Not a proof:** this is a measured comparison between implementations, with stated limits (see [Limitations](#limitations)).
+
+## What I built
+
+This is an engineering study, not a research paper: no new algorithm and no theorem. It is one question, answered with careful experiments.
+
+- **Six native solvers in C++** (`native/cat_native.cpp`): bitmask DFS, hybrid propagation, Dancing Links, Hall-matching DFS, and two randomized-restart variants, all behind one batch interface.
+- **SAT and CP-SAT models** (`bench/solver_sat.py`): exactly-one and no-touch encodings for CaDiCaL, Glucose and MiniSat (via PySAT), five at-most-one encodings, and an OR-Tools CP-SAT model.
+- **A benchmark harness** (`bench/`): puzzle suites, per-solver timeouts, PAR2, repeated runs, CSV output, and charts.
+- **Adversarial puzzle generators** (`bench/build_s6x.py`, `bench/build_s6m.py`): hill climbing that recolors one cell at a time to maximize a chosen solver's own work.
+- **Correctness checks**: 652 distinct puzzles cross-checked against reference answers, and C++ ports verified node-for-node against the Python originals.
+- **The interactive demo** (`docs/`): plain JavaScript, no build step. Play mode checks every placed cat at once; Race mode runs both DFS solvers in a Web Worker with the same node counts as the C++ code.
 
 ## Why
 
@@ -45,13 +58,13 @@ So which algorithm should you actually use? Human-style propagation plus backtra
 - Random puzzles with 0, 1 or many solutions (S1-S4, up to N=25) and random unique-solution puzzles (S5, S5b, N=11-16).
 - **Adversarial suites** built by hill climbing, changing one cell's color at a time (about 55-60 s per puzzle), to maximize a chosen solver's own cost: S6 and S6x target bitmask nodes, hybrid nodes, or CaDiCaL conflicts; S6m targets the Hall-matching solver. All adversarial puzzles have a unique solution.
 
-**Correctness.** 652 independent puzzles. Every result that finished matches the reference answer: 0 MISMATCH, 0 ERROR. The reference is an independent exhaustive solver where one exists; otherwise the SAT and CP-SAT solvers must agree. Part of the reference therefore comes from solvers under test, so it is not fully independent. Timeouts are counted separately (0 in the unified comparison).
+**Correctness.** 652 distinct puzzles. Every result that finished matches the reference answer: 0 MISMATCH, 0 ERROR. The reference is an independent exhaustive solver where one exists; otherwise the SAT and CP-SAT solvers must agree. Part of the reference therefore comes from solvers under test, so it is not fully independent. Timeouts are counted separately (0 in the unified comparison).
 
-**Adversarial review.** Each round of conclusions was handed to an independent reviewer instructed to attack it, and the claims were corrected. One example: I had written that the gap between `match` and CaDiCaL was "a constant 7x" because both grew about 7-8x from N=14 to N=18. That compares each method's growth with itself, not the gap between them. The actual per-N ratios are 0.7, 5.9, 2.5, 6.6, so the report now says the advantage is not monotonic in N.
+**Adversarial review.** Each round of conclusions was handed to a separate reviewer (a fresh AI agent session) instructed to attack it, and the claims were corrected. One example: I had written that the gap between `match` and CaDiCaL was "a constant 7x" because both grew about 7-8x from N=14 to N=18. That compares each method's growth with itself, not the gap between them. The actual per-N ratios are 0.7, 5.9, 2.5, 6.6, so the report now says the advantage is not monotonic in N.
 
 ## Results
 
-Two conclusions (from [`research/solver-conclusion.md`](research/solver-conclusion.md)):
+Two conclusions (from [`research/solver-conclusion.md`](research/solver-conclusion.md), written in Traditional Chinese; this section is its summary):
 
 1. **Ordinary puzzles: backtracking with Hall-matching pruning is fastest.** On random unique-solution puzzles (S5, S5b, N=11-16) it takes about 0.3 ms PAR2 against 1.2-1.6 ms for SAT. On random-region puzzles at N=25 (20 puzzles, 13 unsolvable, 60 s limit) it solves all 20, the slowest in 0.01 s, while the three plain DFS variants time out on 4-5.
 2. **Worst puzzles found: CDCL SAT is steadiest.** On the hill-climbed puzzles (N=10-18) the slowest single puzzle takes 76-91 ms for SAT, 454 ms for `match`, and 0.8-1.1 s for plain DFS. Hill climbing raises DFS node counts by tens to thousands of times, but raises the median SAT conflict count only 3-5 times (single puzzles up to 14-58 times). This is not a worst-case guarantee.
@@ -124,7 +137,8 @@ python3 -m venv .venv
 .venv/bin/pip install -r bench/requirements-sat.txt
 
 # 3. Tests (standard library only for most; SAT tests need the venv packages)
-python -m unittest discover -s tests -q
+# (without the venv, the SAT tests are skipped)
+.venv/bin/python -m unittest discover -s tests -q
 
 # 4. Unified comparison (long: five suites, nine solvers, 3 repeats each)
 bench/run_unified.sh
@@ -133,7 +147,7 @@ bench/run_unified.sh
 python3 bench/make_charts.py
 ```
 
-`make -C native` and the test suite (120 tests, 7 skipped) were run on the repository as published. `run_unified.sh` takes a long time and was not re-run for this README; its output lives in `bench/results/unified_*.csv`. Hill-climb generators: `bench/build_s6x.py`, `bench/build_s6m.py`.
+`make -C native` and the test suite (123 tests, 7 skipped) were run on the repository as published. `run_unified.sh` takes a long time and was not re-run for this README; its output lives in `bench/results/unified_*.csv`. Hill-climb generators: `bench/build_s6x.py`, `bench/build_s6m.py`.
 
 ## Repository layout
 
@@ -145,7 +159,9 @@ cat_solver/    the original CLI solver and generator (see cat_solver/README.md)
 levelgen/      graded puzzle generator
 tests/         unit tests
 docs/          demo page and chart assets
-prototype/, playtest/   early game prototypes, not part of the research
+archive/       early game prototypes, not part of the research
 ```
+
+License: [MIT](LICENSE).
 
 Research notes are written in Traditional Chinese; this README summarizes them. [繁體中文版](README.zh-TW.md)

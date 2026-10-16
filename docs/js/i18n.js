@@ -15,7 +15,7 @@
       playTitle: '{n}×{n} · {level} · {id}',
       msgStart: 'Find all {n} cats.', msgGood: 'Correct, locked in gold. {left} cat(s) to go.', msgBad: 'Wrong: no cat here. The cell is marked red.',
       mistakes: 'Mistakes {n}', hintsUsed: 'Hints {n}',
-      msgHint: 'Hint: a gold cat was placed at row {r}, column {c}.',
+      msgHint: 'Hint: a gold cat was placed at row {r}, column {c}.', msgNoPuzzle: 'No puzzle for this filter.',
       msgSolved: 'Time {time}, mistakes {mistakes}, hints {hints}.', solvedTitle: 'Solved!',
       raceIntro: 'Same board, same branching order, two solvers. Both are bitmask backtracking; the second one also asks, at every node, whether the unplaced colour regions can still be matched to distinct free rows and to distinct free columns (Hall\'s condition). If not, it prunes.',
       puzzle: 'Puzzle', nodeCap: 'Node cap', mode: 'Mode', modeLive: 'Live race', modeAnim: 'Step-by-step (N ≤ 10)',
@@ -63,7 +63,7 @@
       playTitle: '{n}×{n} · {level} · {id}',
       msgStart: '找出全部 {n} 隻貓。', msgGood: '答對了，金框鎖定。還差 {left} 隻。', msgBad: '錯了，這格沒有貓，已標成紅框。',
       mistakes: '錯誤 {n}', hintsUsed: '提示 {n}',
-      msgHint: '提示：已在第 {r} 列、第 {c} 欄放上金色的貓。',
+      msgHint: '提示：已在第 {r} 列、第 {c} 欄放上金色的貓。', msgNoPuzzle: '這個條件下沒有題目。',
       msgSolved: '用時 {time}，錯誤 {mistakes} 次，提示 {hints} 次。', solvedTitle: '完成！',
       raceIntro: '同一個盤面、同樣的分支順序、兩種求解器。兩者都是位元遮罩回溯法；第二種在每個節點多問一件事：還沒放貓的色區，能不能分到互不相同的空列，也能分到互不相同的空欄（Hall 條件）。做不到就剪枝。',
       puzzle: '題目', nodeCap: '節點上限', mode: '模式', modeLive: '即時對決', modeAnim: '逐步動畫（N ≤ 10）',
@@ -104,6 +104,7 @@
   function t(key, vars) {
     var s = (S[lang] && S[lang][key]); if (s === undefined) s = S.en[key]; if (s === undefined) return key;
     if (vars) s = s.replace(/\{(\w+)\}/g, function (_, k) { return vars[k] === undefined ? '' : vars[k]; });
+    if (lang === 'en') s = s.replace(/(^|[^\d,.])1 nodes\b/g, '$11 node');   // singular after filling in a count of 1
     return s;
   }
   function apply() {

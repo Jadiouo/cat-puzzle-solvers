@@ -8,7 +8,14 @@
 
   function levelName(p) { return t('lv' + p.level); }
   function fmtTime(ms) { var s = Math.floor(ms / 1000); return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); }
-  function say(text, cls) { var m = $('playMsg'); m.textContent = text; m.className = 'msg' + (cls ? ' ' + cls : ''); }
+  // The message is kept as i18n keys (not text) so a language switch can re-render it.
+  var lastMsg = null;
+  function say(parts, cls) {
+    lastMsg = { parts: parts, cls: cls };
+    var m = $('playMsg');
+    m.textContent = parts.map(function (p) { return t(p[0], p[1]); }).join(' ');
+    m.className = 'msg' + (cls ? ' ' + cls : '');
+  }
 
   function fillSelects() {
     var ss = $('selSize'), sl = $('selLevel'), vs = ss.value, vl = sl.value;
@@ -33,12 +40,12 @@
     $('playTitle').textContent = t('playTitle', { n: p.n, level: levelName(p), id: p.id });
     clearInterval(timerId); t0 = Date.now(); $('playTimer').textContent = '0:00';
     timerId = setInterval(function () { if (!solved) $('playTimer').textContent = fmtTime(Date.now() - t0); }, 500);
-    say(t('msgStart', { n: p.n })); render(null);
+    say([['msgStart', { n: p.n }]]); render(null);
   }
 
   function newPuzzle() {
     var list = candidates();
-    if (!list.length) { say('No puzzle for this filter.'); return; }
+    if (!list.length) { say([['msgNoPuzzle']]); return; }
     var p; do { p = list[Math.floor(Math.random() * list.length)]; } while (list.length > 1 && cur && p.id === cur.id);
     load(p);
   }
@@ -66,7 +73,7 @@
     solved = true;
     var el = Date.now() - t0;
     $('playTimer').textContent = fmtTime(el);
-    say(t('solvedTitle') + ' ' + t('msgSolved', { time: fmtTime(el), mistakes: st.mistakes, hints: st.hints }), 'good');
+    say([['solvedTitle'], ['msgSolved', { time: fmtTime(el), mistakes: st.mistakes, hints: st.hints }]], 'good');
   }
 
   // Apply one game transition result: update state, push undo entry, redraw, narrate.
@@ -75,8 +82,8 @@
     var prev = st; st = r.s; hist.push(r.hist);
     render(prev); finishIfDone();
     if (!solved) {
-      if (st.mistakes > prev.mistakes) say(t('msgBad'), 'warn');
-      else if (st.locked.join() !== prev.locked.join()) say(t('msgGood', { left: cur.n - G.lockedCount(st) }), 'good');
+      if (st.mistakes > prev.mistakes) say([['msgBad']], 'warn');
+      else if (st.locked.join() !== prev.locked.join()) say([['msgGood', { left: cur.n - G.lockedCount(st) }]], 'good');
     }
     return true;
   }
@@ -91,7 +98,7 @@
     if (solved || !cur || !cur._sol) return;
     var h = G.hint(st, cur._sol); if (h.i < 0) return;
     var prev = st; st = h.s; render(prev); finishIfDone();
-    if (!solved) say(t('msgHint', { r: ((h.i / cur.n) | 0) + 1, c: h.i % cur.n + 1 }), 'good');
+    if (!solved) say([['msgHint', { r: ((h.i / cur.n) | 0) + 1, c: h.i % cur.n + 1 }]], 'good');
   }
 
   function bind() {
@@ -166,6 +173,7 @@
     document.addEventListener('langchange', function () {
       fillSelects();
       if (cur) { $('playTitle').textContent = t('playTitle', { n: cur.n, level: levelName(cur), id: cur.id }); render(st); }
+      if (lastMsg) say(lastMsg.parts, lastMsg.cls);
     });
   }
 

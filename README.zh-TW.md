@@ -1,17 +1,30 @@
 # 貓咪棋盤題：哪個求解演算法最好？
 
-用受控的評比，比較五類演算法如何解「每列、每欄、每區各放一隻、彼此不可相鄰」的謎題（Queens / Star Battle 同一族）。含針對各方法生成的刁難題、同語言的原生碼核心，以及經獨立審查的結論。
+一個個人專案：我比較了五類演算法解「每列、每欄、每區各放一隻、彼此不可相鄰」謎題（Queens / Star Battle 同一族）的表現，生成了專門刁難各方法的題目，也做了一個網頁 demo，可以自己玩，也可以看兩個求解器在同一盤上對決。
 
 **線上展示：** https://jadiouo.github.io/cat-puzzle-solvers/
 
-![展示畫面](docs/screenshot.png)
+| 試玩：金框＝放對並鎖定，紅框＝猜錯，拖曳可標 X | 對決：同一個 25×25 盤面，一般 DFS 對上 DFS＋Hall 檢查。這盤無解：Hall 檢查在根節點就證明了（1 個節點），一般 DFS 搜了 2000 萬個節點還沒做完 |
+|---|---|
+| ![試玩模式](docs/screenshot-play.jpg) | ![對決模式](docs/screenshot-race.jpg) |
 
 **一分鐘版**
 
 - **問題：** 這類題目該用人類式推理＋搜尋、精確覆蓋（DLX），還是現成的 SAT / CP 求解器？
 - **答案（限於本批題目與這些實作）：** 沒有單一贏家。回溯搜尋只要多加一條計數規則（Hall 匹配），在一般題上最快；CDCL SAT（CaDiCaL）在我能生成的最難題上最穩。
-- **先前為什麼 DFS 輸：** 缺的是 Hall 式計數推理，不是 DFS 這個框架。加上之後，主要題組的超時全部消失。
+- **先前為什麼 DFS 輸：** 缺的是 Hall 式計數推理，不是 DFS 這個框架。白話說：如果還沒放貓的三個色區，加起來只能用到兩個空列，這條分支一定無解，馬上放棄。加上這一個檢查，S1–S4 題組（classify 模式）的超時全部消失。
 - **這不是證明：** 這是實作之間的實測比較，限制見[限制](#限制)。
+
+## 我做了什麼
+
+這是一份工程研究，不是學術論文：沒有提出新演算法，也沒有定理，而是用仔細的實驗回答一個問題。
+
+- **六個 C++ 原生求解器**（`native/cat_native.cpp`）：bitmask DFS、混合傳播、Dancing Links、Hall 匹配 DFS，以及兩個隨機重啟版本，共用同一個批次介面。
+- **SAT 與 CP-SAT 建模**（`bench/solver_sat.py`）：給 CaDiCaL、Glucose、MiniSat（經由 PySAT）用的 exactly-one 與不相鄰編碼、五種 at-most-one 編碼，以及 OR-Tools CP-SAT 模型。
+- **評比框架**（`bench/`）：題組、各求解器的時間上限、PAR2、重複執行、CSV 輸出與圖表。
+- **刁難題生成器**（`bench/build_s6x.py`、`bench/build_s6m.py`）：用爬山法一次改一格顏色，把指定求解器自己的工作量推到最高。
+- **正確性檢查**：652 題不重複的題目都和參考答案交叉比對；C++ 移植版逐題比對節點數，與 Python 原版一致。
+- **互動 demo**（`docs/`）：純 JavaScript，不需要建置。試玩模式在每次放貓時立刻判定對錯；對決模式在 Web Worker 裡跑兩個 DFS，節點數與 C++ 版完全相同。
 
 ## 為什麼做這個研究
 
@@ -45,13 +58,13 @@
 - 隨機題（0／1／多解，S1–S4，最大到 N=25）與隨機唯一解題（S5、S5b，N=11–16）。
 - **刁難題**以爬山法生成：一次改一格的顏色，每題約 55–60 秒，目標是把指定求解器自己的成本推到最高。S6、S6x 針對 bitmask 節點數、hybrid 節點數或 CaDiCaL conflicts；S6m 針對 Hall 匹配求解器。刁難題全部是唯一解題。
 
-**正確性。** 獨立題目共 652 題。所有有完成的結果都與參考答案相符：0 MISMATCH、0 ERROR。參考答案優先用獨立的窮舉求解器，沒有時要 SAT 與 CP-SAT 兩者一致。所以參考答案有一部分來自受測的求解器，不是完全獨立。超時另外計（統一比較中為 0）。
+**正確性。** 不重複的題目共 652 題。所有有完成的結果都與參考答案相符：0 MISMATCH、0 ERROR。參考答案優先用獨立的窮舉求解器，沒有時要 SAT 與 CP-SAT 兩者一致。所以參考答案有一部分來自受測的求解器，不是完全獨立。超時另外計（統一比較中為 0）。
 
-**對抗式審查。** 每一輪結論都交給獨立的審查者，要求它攻擊，並依結果修正。舉一個例子：我原本寫「`match` 與 CaDiCaL 的差距固定約 7 倍」，依據是兩者從 N=14 到 N=18 各自成長約 7–8 倍。這是拿各自的成長倍數，當成兩者之間的差距。實際逐 N 的時間比是 0.7、5.9、2.5、6.6，所以報告改為「優勢不隨 N 單調」。
+**對抗式審查。** 每一輪結論都交給另一個審查者（全新的 AI agent session），要求它攻擊，並依結果修正。舉一個例子：我原本寫「`match` 與 CaDiCaL 的差距固定約 7 倍」，依據是兩者從 N=14 到 N=18 各自成長約 7–8 倍。這是拿各自的成長倍數，當成兩者之間的差距。實際逐 N 的時間比是 0.7、5.9、2.5、6.6，所以報告改為「優勢不隨 N 單調」。
 
 ## 結果
 
-兩條結論（出自 [`research/solver-conclusion.md`](research/solver-conclusion.md)）：
+兩條結論（出自 [`research/solver-conclusion.md`](research/solver-conclusion.md)，本段是它的摘要）：
 
 1. **一般題：回溯＋Hall 匹配剪枝最快。** 隨機唯一解題（S5、S5b，N=11–16）PAR2 約 0.3 ms，SAT 為 1.2–1.6 ms。隨機色區 N=25（20 題，其中 13 題無解，時限 60 s），它 20 題全解完，最慢 0.01 s；沒有剪枝的三種 DFS 各有 4–5 題超時。
 2. **本批找到的最壞題：CDCL SAT 最穩。** 在爬山生成的題（N=10–18）上，單題最慢：SAT 76–91 ms，`match` 454 ms，沒有剪枝的 DFS 0.8–1.1 s。爬山能把 DFS 節點數推高幾十到上千倍，但 SAT conflicts 的中位只推高 3–5 倍（個別題最高 14–58 倍）。這不是最壞情況保證。
@@ -123,8 +136,9 @@ make -C native
 python3 -m venv .venv
 .venv/bin/pip install -r bench/requirements-sat.txt
 
-# 3. 測試
-python -m unittest discover -s tests -q
+# 3. 測試（大多只需標準函式庫；SAT 測試需要 venv 裡的套件）
+# （沒有 venv 時，SAT 測試會被跳過）
+.venv/bin/python -m unittest discover -s tests -q
 
 # 4. 統一比較（耗時長：5 個題組、9 個求解器、每題重複 3 次）
 bench/run_unified.sh
@@ -133,7 +147,7 @@ bench/run_unified.sh
 python3 bench/make_charts.py
 ```
 
-`make -C native` 與測試（120 個，跳過 7 個）已在此 repo 實際跑過。`run_unified.sh` 耗時很長，撰寫本 README 時沒有重跑；結果在 `bench/results/unified_*.csv`。爬山生成器：`bench/build_s6x.py`、`bench/build_s6m.py`。
+`make -C native` 與測試（123 個，跳過 7 個）已在此 repo 實際跑過。`run_unified.sh` 耗時很長，撰寫本 README 時沒有重跑；結果在 `bench/results/unified_*.csv`。爬山生成器：`bench/build_s6x.py`、`bench/build_s6m.py`。
 
 ## 目錄結構
 
@@ -145,7 +159,9 @@ cat_solver/    最初的 CLI 求解器與生成器（見 cat_solver/README.md）
 levelgen/      分級題目生成器
 tests/         單元測試
 docs/          展示頁與圖表素材
-prototype/, playtest/   早期的遊戲原型，不屬於研究本體
+archive/       早期的遊戲原型，不屬於研究本體
 ```
+
+授權：[MIT](LICENSE)。
 
 [English version](README.md)
